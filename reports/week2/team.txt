@@ -5,8 +5,12 @@ Team Weekly Report:
 1. N/A
 
 2. Progress we've made:
-- Discussed and created an overview of how the system would run
-- Discussed what data would be stored, how users would interact with the system, and what all functionality the user can control
+- Discussed and created an overview of how the system would run. We have decided that we want to create a log file for all test runs 
+  on previous commits. From this log we will be able to extract useful information like a total probability of failing for each test,
+  a moving average over the last 20 (might change later) runs and conditional probability.
+- Discussed what data would be stored, how users would interact with the system, and what all functionality the user can control. 
+  This includes possibly creating a UI for users to clear test logs due to changes to test code and scripts to change test logs 
+  according to the users wishes.
 
 3. Goals for next week:
 - Find out how to extend JUnit - Steven, Ethan, Aditya
