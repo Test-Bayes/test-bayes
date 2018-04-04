@@ -1,0 +1,14 @@
+Team Name: TestBayes
+
+Team Weekly Report:
+
+1. N/A
+
+2. Progress we've made:
+- Discussed and created an overview of how the system would run
+- Discussed what data would be stored, how users would interact with the system, and what all functionality the user can control
+
+3. Goals for next week:
+- Find out how to extend JUnit - Steven, Ethan, Aditya
+- Finalize how data will be stored - Avidant
+- Create a draft of the method used to order the tests - Adavya and Satvik
