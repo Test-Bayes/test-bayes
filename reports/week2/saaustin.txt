@@ -1,0 +1,11 @@
+Week 2 report
+
+(empty section for last week's report)
+
+Weekly progress:
+
+This week has been mostly about planning how to execute our project and division of responsibility.
+
+We broke down our project into 3 major parts: extending J-unit, storing/reading result data in a file, and the math behind bayes theorem with a moving average. We had the most difficulty theorizing how to store the test result data in a file and still have not settled on a design. There are a number of ideas, including numerical passes/fails, binary data, and test execution times. We want to ensure the file is quick to read and write from and contains enough data to represent our mathematical model. Overall, we have decided how to split up the group and accomplish the tasks listed above.
+
+This week, we will first work on finalizing our file format, so it can be efficient and powerful to use. Once the file format is settled, we will start work on extending j-unit and the math behind bayes theorem with a moving average. We will technically be split into three groups, but will collaborate heavily to ensure that our model is consistent. 
