@@ -1,0 +1,49 @@
+Team Name: TestBayes
+
+
+Team Weekly Report:
+
+
+1.  Goals-
+
+- Find out how to extend JUnit - Steven, Ethan, Aditya
+
+- Finalize how data will be stored - Avidant
+
+- Create a draft of the method used to order the tests - Adavya and Satvik
+
+
+
+2. Progress we've made:
+
+- We are very close to finalizing how the data will be stored. We plan on using a multi file system. With new files for each execution, so
+
+  as to facilitate easier conditional probability calculation. 
+
+- We have decided to make 2 implementations for the actual test ordering. It is not actually 2 completely different implementations, it is
+ 
+  just the same code but ordered in a different way. The first implementation involves a greedy hueristic where we first run the test with
+
+  the most probability of failing and then based on the outcome of the first test greedily decide which test to run next based on
+ 
+  conditional probability. We would break ties on the greedy decisions by factoring in time taken to run test, conditional probability, 
+
+  total probability and a running average. The second implementation would be to just use everything from the start instead of waiting
+ 
+  for ties.
+
+- Method prototypes for test ordering completed, psuedo-code and algorithm structure decided.
+
+- Implementing our own class to save probability as fractions in order to prevent lossy approximations.
+
+- Read articles on extending JUnit and how to run JUnit using our own code.
+
+
+
+3. Goals for next week:
+- More info on extending JUnit - Steven, Ethan, Avidant
+- Work on an implementation plan - All team members
+
+- Create code for draft of the method used to order the tests - Adavya and Aditya
+
+- Class to store fractions - Adavya and Aditya.
