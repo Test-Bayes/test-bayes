@@ -5,6 +5,7 @@ import org.junit.Test;
 public class Test1 {
     @Test
     public void a1() {
+        assert(false);
         return;
     }
 
