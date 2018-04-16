@@ -1,0 +1,13 @@
+Last Weeks Goals:
+- Finalize the data storage method
+- Start working on extending JUnit
+- Work with Adavya and Aditya to see how exactly they need the data for their model
+
+Current Progress:
+- The data storage methods have been completed and are waiting review.
+- JUnit Extension has been figured out and we are working on implementing it
+- Adavya and Aditya have understood the data storage method
+
+Goals for the week:
+- Be able to pick the order of tests based on our decision
+- Ensure that the data read is convenient for data processing

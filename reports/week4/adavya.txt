@@ -1,0 +1,26 @@
+Section 1 - Goals from Past Week
+
+For next week, my goals are as follows:
+
+   -   Finalise the Mathematical Model with Aditya
+   -   Make a prototype of methods that produce probability
+   -   Collaborate with others to ensure consistency
+
+Section 2 - This week's progress
+
+This week, I worked with Aditya to finalise the Math Model for our class. Additionally, it also occurred to us that since we were dealing with probabilities,
+we would need some sort of a 'fraction' class that would keep track of a fraction and give us a clean interface to add numbers to the numerator, the denominator etc.
+Since there were no existing classes in the Java Library that accomplished this in the way that we wanted (two int fields: one for numerator, one for denominator),
+we decided to create our own Fraction class that we would use in our project.
+It was Aditya's job to write this class. 
+I on the other hand was focusing on producing the code that would calculate and store probabilities from track files that have all the results of test code. I have
+finalised the code that produces total probability and small classes with code will start to be commited once we have the structure of the project more nailed down.
+Now I am working on code for coditional probability and how I want to factor in the moving average and the time it takes to run the tests.
+Also, I had to read articles on JUnit extension even though I am not working on it to be able to present that topic in the presentations.
+Section 3 - Next Week's Goals
+
+For next week, my goals are as follows:
+
+    -   Complete the coditional probability method
+    -   Work with Aditya to have a basic Math Model ready
+    -   Coordinate with other team members to ensure consistency overall

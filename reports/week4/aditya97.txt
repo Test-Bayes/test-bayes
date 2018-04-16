@@ -1,0 +1,23 @@
+Section 1 - Goals from Past Week
+
+For next week, my goals are as follows:
+
+    -   Finalise the Mathematical Model with Adavya
+    -   Collaborate with others to ensure consistency
+
+Section 2 - This week's progress
+
+This week, I worked with Adavya to finalise the Math Model for our class. Additionally, it also occurred to us that since we were dealing with probabilities,
+we would need some sort of a 'fraction' class that would keep track of a fraction and give us a clean interface to add numbers to the numerator, the denominator etc.
+Since there were no existing classes in the Java Library that accomplished this in the way that we wanted (two int fields: one for numerator, one for denominator),
+we decided to create our own Fraction class that we would use in our project.
+It was my job to write this class. I have written some part of it and it is my aim that we would not need to make a lot of changes to it later. As a result, I am
+giving more thought to the design process and taking things somewhat slowly.
+
+Section 3 - Next Week's Goals
+
+For next week, my goals are as follows:
+
+    -   Complete the Fraction class so that we can use it on the backend
+    -   Work with Adavya to have a basic Math Model ready
+    -   Coordinate with other team members to ensure consistency overall

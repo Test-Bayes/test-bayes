@@ -1,0 +1,18 @@
+Week 3 Report
+      This week, we will first work on finalizing our file format, so it can be efficient and 
+powerful to use. Once the file format is settled, we will start work on extending j-unit and the 
+math behind bayes theorem with a moving average. We will technically be split into three 
+groups but will collaborate heavily to ensure that our model is consistent. 
+      We started work on extending junit so all tests from all test classes can be in a custom 
+order. We found a somewhat minimal strategy which involved adding a single class that 
+annotates all test classes as suite classes. We have also been able to call each test method and 
+get the results of the test by catching (or not receiving) each assertion error. We still need to 
+time the execution of each test and see if there is a less invasive way to gain access to all test 
+classes at once. The file format has also been formalized: we have decided on one file per suite 
+execution stored in json format on a single line with the following data stored for each test: 
+method name, pass/fail/ and execution time. This data will be stored a simple tuple (name, 
+time), with time being negative for failed tests. 
+      Next week we would like to be finished or at least wrapping up our extensions of junit 
+and finalize the data structure returned by the bayes group that contains the test ordering. 
+Hopefully we will also be able to begin some basic analysis cases. 
+
