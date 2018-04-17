@@ -66,9 +66,16 @@ public class Probability implements Comparable<Probability> {
         return n1;
     }
 
-    // TODO: Consider overflow
     public int compareTo(Probability o) {
-        return (numerator * o.denominator - denominator * o.numerator);
+        double thisValue = doubleValue();
+        double otherValue = o.doubleValue();
+        if (thisValue < otherValue) {
+            return -1;
+        } else if (thisValue > otherValue) {
+            return 1;
+        } else {
+            return 0;
+        }
     }
 
     @Override
