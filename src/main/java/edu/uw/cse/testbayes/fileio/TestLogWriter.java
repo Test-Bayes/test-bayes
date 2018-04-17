@@ -21,6 +21,11 @@ public class TestLogWriter {
         if(testData.size() == 0) {
             return null;
         }
+        String directoryName = FileNameUtils.getDirectoryName();
+        File directory = new File(directoryName);
+        if(!directory.exists()) {
+            directory.mkdir();
+        }
         String filename = FileNameUtils.createFileName();
         File file = new File(filename);
         file.createNewFile();
