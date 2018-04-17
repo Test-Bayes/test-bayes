@@ -4,6 +4,8 @@ import org.junit.runners.Suite;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Main {
     public static void main(String[] args) throws InvocationTargetException, IllegalAccessException,
@@ -11,28 +13,44 @@ public class Main {
                                                   InstantiationException {
         // TODO: Make TestRunner not be hardcoded in,
         // and instead be generic for any test suite set
+
+        // save our test methods
+        Map<String, MethodInvocation> testMethods= new HashMap<String, MethodInvocation>();
+
+        // get the suite class containing all test classes
         Suite.SuiteClasses suiteClassesAnnotation =
                 TestRunner.class.getAnnotation(Suite.SuiteClasses.class);
-        if (suiteClassesAnnotation == null)
+
+        // ensure the class is annotated
+        if (suiteClassesAnnotation == null) {
             throw new NullPointerException("This class isn't annotated with @SuiteClasses");
+        }
         Class<?>[] classesInSuite = suiteClassesAnnotation.value();
+
+        // save each method
         for (int i = 0; i < classesInSuite.length; i++) {
-            System.out.println(classesInSuite[i].toString());
             Method[] methods = classesInSuite[i].getDeclaredMethods();
+            // get the name of the ith class
+            String[] temp = classesInSuite[i].toString().split(" ");
+            String className = temp[temp.length - 1];
             for (int j = 0; j < methods.length; j++) {
-                String[] temp = classesInSuite[i].toString().split(" ");
-                String className = temp[temp.length - 1];
                 Class c = Class.forName(className);
                 Object o = c.getDeclaredConstructor().newInstance();
-                // TODO: Make JUnit do this, instead of doing it manually
-                try {
-                    methods[j].invoke(o);
-                } catch (InvocationTargetException e) {
-                    System.out.println("\tTest " + methods[j].toString() + " failed");
-                } finally {
-                    System.out.println("\tTest " + methods[j].toString() + " succeeded");
-                }
+
+                testMethods.put(methods[j].getName(), new MethodInvocation(methods[j], o));
             }
         }
+
+        // run our test methods
+        for (String s: testMethods.keySet()) {
+            try {
+                testMethods.get(s).invoke();
+            } catch (InvocationTargetException e) {
+                System.out.println("\tTest " + testMethods.get(s).method.toString() + " failed");
+            } finally {
+                System.out.println("\tTest " + testMethods.get(s).method.toString() + " succeeded");
+            }
+        }
+
     }
 }
