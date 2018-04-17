@@ -46,6 +46,10 @@ public class Probability implements Comparable<Probability> {
         return Objects.hashCode(numerator / gcd, denominator / gcd);
     }
 
+    public double doubleValue() {
+        return numerator * 1.0 / denominator;
+    }
+
     private int gcd() {
         return gcd(numerator, denominator);
     }
