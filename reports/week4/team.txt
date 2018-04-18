@@ -1,0 +1,31 @@
+Team Name: TestBayes
+
+
+Team Weekly Report:
+
+
+1.  Goals-
+- More info on extending JUnit - Steven, Ethan, Avidant
+- Work on an implementation plan - All team members
+- Create code for draft of the method used to order the tests - Adavya and Aditya
+- Class to store fractions - Adavya and Aditya.
+
+
+
+2. Progress we've made:
+- We built the file IO system and the general project structure using maven.
+- For the File IO system we are creating multiple files instead of a single file to facilitate easier calculations.
+- Conditional probability and total probability calculator methods implemented.
+- Method prototypes for test ordering completed, psuedo-code and algorithm structure decided.
+- Implementing our own class to save probability and fractions in order to prevent lossy approximations.
+- We are implementing 2 classes one for fractions and one for probability.
+- Read articles on extending JUnit and how to run JUnit using our own code.
+- Made more concrete evaluation plans and came up with bugs we can introduce into programs.
+
+
+
+3. Goals for next week:
+- Finalize and test the File IO system - Ethan, Avidant, Steven.
+- Finalize Mathematical methods - Adavya and Aditya.
+- Start collecting data and creating dummy data to test - Everyone
+- Work on User Manual, discuss commands etc. - Everyone.
