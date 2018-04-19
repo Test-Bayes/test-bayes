@@ -3,10 +3,12 @@ package edu.uw.cse.testbayes.Runner.tests331;
 import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.*;
 
+import edu.uw.cse.testbayes.Runner.IndividualClassRunner;
 import org.junit.Assert;
 import org.junit.Before;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 /**
  * This class contains a set of test cases that can be used to test the
@@ -18,6 +20,7 @@ import org.junit.Test;
  * test suite.
  * <p>
  */
+@RunWith(IndividualClassRunner.class)
 public final class RatNumTest {
 
   // Naming convention used throughout class: spell out number in

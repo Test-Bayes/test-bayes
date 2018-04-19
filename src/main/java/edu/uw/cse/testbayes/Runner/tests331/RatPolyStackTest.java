@@ -1,8 +1,10 @@
 package edu.uw.cse.testbayes.Runner.tests331;
 
+import edu.uw.cse.testbayes.Runner.IndividualClassRunner;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import static org.junit.Assert.assertTrue;
 
@@ -12,6 +14,7 @@ import static org.junit.Assert.assertTrue;
  * 
  * Some Test Methods are relatively longer in order to simulate proper stack functionality
  */
+@RunWith(IndividualClassRunner.class)
 public final class RatPolyStackTest {
 
   /**
