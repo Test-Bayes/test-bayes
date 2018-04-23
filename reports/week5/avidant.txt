@@ -1,0 +1,10 @@
+Last Weeks Goals:
+- Be able to pick the order of tests based on our decision
+- Ensure that the data read is convenient for data processing
+
+Current Progress:
+- We are working on how to collect the data needed to log the results of the test
+- Going to test the reordering using other code-bases
+
+Goals for the week:
+- Be able to analyze how much our code helps speed up the testing process on a small code-base
