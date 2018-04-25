@@ -4,22 +4,26 @@ Team Name: TestBayes
 Team Weekly Report:
 
 
-1.  Goals-
-- Finish each module of the code - All members
-- Manage to get tests to be manually/randomly ordered and executed
-  for all test classes, and for a singular test class - Steven, Ethan
-- Write unit tests for our code - All members
-- Integrate modules together - All members
-- Get unit tests and build to run with maven - Avidant
+3. Goals:
+- Finalize and test the File IO system - Ethan, Avidant, Steven.
+- Finalize Mathematical methods - Adavya and Aditya.
+- Start collecting data and creating dummy data to test - Everyone
+- Work on User Manual, discuss commands etc. - Everyone.
+- Finish Conditional probability implementation - Adavya.
+- Finalize probability class - Aditya.
+- Write tests for each unit in project - Everyone.
 
 
 2. Progress we've made:
-- Finished all modules, still need to possibly tweak fraction class
-- Finished unit tests for several modules, but not all
-- Finished each modules code, and finished JUnit test reordering main code
-- Got main module modified to support json for logging
+- Finished all modules, still need to possibly tweak fraction class and reorder module.
+- Finished unit tests for several modules, including- FileIO, conditional probability generator, individual probability generator.
+- Finished each modules code, and finished JUnit test reordering main code.
+- Got main module modified to support json for logging.
+- Initial Mathematical model finalized (subject to change based on initial results).
 
 
 3. Goals for next week:
-- Find data sets to test - Adavya
+- Find data sets to test - Everyone.
 - Begin actual generation of data set results - Everyone
+- Start optimization of mathematical models based on initial results - Adavya.
+- Work on reports more closely, physically together - Everyone.
