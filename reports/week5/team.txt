@@ -1,0 +1,25 @@
+Team Name: TestBayes
+
+
+Team Weekly Report:
+
+
+1.  Goals-
+- Finish each module of the code - All members
+- Manage to get tests to be manually/randomly ordered and executed
+  for all test classes, and for a singular test class - Steven, Ethan
+- Write unit tests for our code - All members
+- Integrate modules together - All members
+- Get unit tests and build to run with maven - Avidant
+
+
+2. Progress we've made:
+- Finished all modules, still need to possibly tweak fraction class
+- Finished unit tests for several modules, but not all
+- Finished each modules code, and finished JUnit test reordering main code
+- Got main module modified to support json for logging
+
+
+3. Goals for next week:
+- Find data sets to test - Adavya
+- Begin actual generation of data set results - Everyone
