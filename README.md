@@ -26,7 +26,7 @@ Use: Test Bayes utilizes the maven build system to get its information about tes
 						  not similar in fail rate to other
 						  test runs of other methods  
 
-	After running Test Bayes, test results will be output to the console (terminal) in the order they were run, or if the command was a parameter modification, no output will be produced. Test Bayes test runs are versioned, in that the output from test runs will be stored in files in the directory the tool is in, making the reordering exist across different machines running the code.
+	After running Test Bayes, test results will be output to the console (terminal) in the order they were run, or if the command   was a parameter modification, no output will be produced. Test Bayes test runs are versioned, in that the output from test runs will be   stored in files in the directory the tool is in, making the reordering exist across different machines running the code.  
 
 Customizable inputs-
 	You will be able to customize the following things according to need:
