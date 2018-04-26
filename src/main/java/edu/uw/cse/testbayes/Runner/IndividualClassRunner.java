@@ -13,6 +13,7 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 import org.json.JSONArray;
 
@@ -41,6 +42,12 @@ public class IndividualClassRunner extends BlockJUnit4ClassRunner {
 //        return result;
 //    }
 
+    public static ArrayList<Method> shuffle(Method[] ms) {
+        ArrayList<Method> methods = new ArrayList<Method>(Arrays.asList(ms));
+        Collections.shuffle(methods);
+        return methods;
+    }
+
     @Override
     public void run(RunNotifier notifier) {
         System.out.println("running the tests from MyRunner: " + testClass);
@@ -54,8 +61,7 @@ public class IndividualClassRunner extends BlockJUnit4ClassRunner {
             e.printStackTrace();
             exit(1);
         }
-        ArrayList<Method> methods = new ArrayList<Method>(Arrays.asList(testClass.getMethods()));
-        Collections.shuffle(methods);
+        ArrayList<Method> methods = shuffle(testClass.getMethods());
         System.out.println(methods.toString());
         for (Method method : methods) {
             if (method.isAnnotationPresent(Test.class)) {

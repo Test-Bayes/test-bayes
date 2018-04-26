@@ -1,4 +1,4 @@
-package java.runner;
+package runner;
 
 import edu.uw.cse.testbayes.Runner.IndividualClassRunner;
 import edu.uw.cse.testbayes.Runner.Test1;
@@ -27,9 +27,15 @@ public class IndividualRunnerTests {
     }
 
     @Test(timeout = 5000)
-    public void testShuffle() throws InitializationError {
+    public void testShuffle() {
         Method[] ms = this.getClass().getDeclaredMethods();
-        ArrayList<Method> shuffleMs = IndividualClassRunner.shuffle(ms);
-        ArrayList<>
+        while (true) {
+            ArrayList<Method> shuffleMs = IndividualClassRunner.shuffle(ms);
+            for (int i = 0; i < ms.length; i++) {
+                if (ms[i].equals(shuffleMs.get(i))) {
+                    return;  // Found good shuffle
+                }
+            }
+        }
     }
 }
