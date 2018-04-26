@@ -1,0 +1,16 @@
+Ethan Mayer
+
+Goals from last week: Get the test runner code written,
+successfully reorder tests.
+
+Goal for this week: Get the runner code integrated
+with the logger code and math model, and test
+how tests reoder with our cse 331 code. Ideally, we want to
+have our code essentially finalized, and begin testing 
+near the end of this week.
+
+Goals for next week: Start generating actual
+results and data of 331 code, and possibly
+being tearing up a github codebase online,
+and cause it to fail tests, then run
+our tool on this system.

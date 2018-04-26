@@ -1,0 +1,11 @@
+  Next week we would like to be finished or at least wrapping up our extensions of junit 
+and finalize the data structure returned by the bayes group that contains the test ordering. 
+Hopefully we will also be able to begin some basic analysis cases. 
+  We continued on work with junit to be able to call all test methods from all test classes
+and run them at the same time (in our chosen ordering, as decided by the bayes people). This 
+still appears to be a slight hack as we are not sure if the methods are beign run with standard 
+junit after being extracted from their classes. To address this concern, we also added an 
+individual test class runner to to the test case reordering within classes, as opposed to 
+reordering the entire suite at once. 
+  Next week we will report on test outcomes for the single class test runner, and have a final
+working product of our runner that picks up all tests from every test class. 
