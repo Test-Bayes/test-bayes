@@ -7,6 +7,11 @@ public class Probability implements Comparable<Probability> {
 
     private int numerator, denominator;
 
+    public Probability(Probability probability) {
+        this.numerator = probability.numerator;
+        this.denominator = probability.denominator;
+    }
+
     public Probability(int numerator, int denominator) {
         this.numerator = numerator;
         this.denominator = denominator;
@@ -22,7 +27,11 @@ public class Probability implements Comparable<Probability> {
 
     public void multiply(int num, int den) {
         numerator *= num;
-        denominator *= denominator;
+        denominator *= den;
+    }
+
+    public void multiply(Probability other) {
+        multiply(other.numerator, other.denominator);
     }
 
     @Override
