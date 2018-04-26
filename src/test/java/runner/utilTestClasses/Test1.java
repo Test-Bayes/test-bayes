@@ -1,11 +1,13 @@
 package runner.utilTestClasses;
 
 import edu.uw.cse.testbayes.Runner.IndividualClassRunner;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(IndividualClassRunner.class)
 public class Test1 {
+    @Ignore
     @Test
     public void a1() throws InterruptedException {
         wasteTime();
