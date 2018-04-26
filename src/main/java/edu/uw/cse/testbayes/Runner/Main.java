@@ -1,5 +1,6 @@
 package edu.uw.cse.testbayes.Runner;
 
+import org.junit.runner.Runner;
 import org.junit.runners.Suite;
 
 import java.lang.reflect.InvocationTargetException;
@@ -13,13 +14,18 @@ public class Main {
                                                   InstantiationException {
         // TODO: Make TestRunner not be hardcoded in,
         // and instead be generic for any test suite set
+        if (args.length < 2) {
+            return;
+        }
+
+        Class<?> testRunner = Class.forName(args[1]);
 
         // save our test methods
         Map<String, MethodInvocation> testMethods= new HashMap<String, MethodInvocation>();
 
         // get the suite class containing all test classes
         Suite.SuiteClasses suiteClassesAnnotation =
-                TestRunner.class.getAnnotation(Suite.SuiteClasses.class);
+                testRunner.getAnnotation(Suite.SuiteClasses.class);
 
         // ensure the class is annotated
         if (suiteClassesAnnotation == null) {
