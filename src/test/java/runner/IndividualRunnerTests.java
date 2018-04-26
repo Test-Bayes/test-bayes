@@ -1,10 +1,9 @@
 package runner;
 
 import edu.uw.cse.testbayes.Runner.IndividualClassRunner;
-import edu.uw.cse.testbayes.Runner.Test1;
+import runner.utilTestClasses.Test1;
 import org.junit.Test;
 import org.junit.runners.model.InitializationError;
-import sun.plugin.dom.exception.InvalidStateException;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;

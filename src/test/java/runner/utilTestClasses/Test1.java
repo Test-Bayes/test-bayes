@@ -1,5 +1,6 @@
-package edu.uw.cse.testbayes.Runner;
+package runner.utilTestClasses;
 
+import edu.uw.cse.testbayes.Runner.IndividualClassRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 

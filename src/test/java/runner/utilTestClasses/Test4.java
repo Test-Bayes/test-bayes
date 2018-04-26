@@ -1,4 +1,4 @@
-package edu.uw.cse.testbayes.Runner;
+package runner.utilTestClasses;
 
 import org.junit.Test;
 
