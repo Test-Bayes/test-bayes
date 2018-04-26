@@ -1,0 +1,21 @@
+Section 1 - Goals from Past Week
+
+-   Complete the coditional probability method
+-   Work with Aditya to have a basic Math Model ready
+-   Coordinate with other team members to ensure consistency overall
+
+Section 2 - This week's progress
+
+- Completed the conditional probability method and added to repository as draft
+- Worked on the mathematical model
+- Started thinking and noting test possibilities for conditional and total probability methods.
+- Started building the actual reorder method that calls all methods built to discern which test to dispatch next.
+- Worked on the user manual.
+
+Section 3 - Next Week's Goals
+
+For next week, my goals are as follows:
+
+- Complete tests for the conditional probability methods.
+- Complete the reorder method.
+- Work with teammates on build and testing method.
