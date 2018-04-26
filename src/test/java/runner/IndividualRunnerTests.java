@@ -54,7 +54,7 @@ public class IndividualRunnerTests {
         long timestamp = new Timestamp(System.currentTimeMillis()).getTime();
         String name = mostRecent.getName();
         long fileTimestamp = Long.parseLong(name.split("-")[0]);
-
+        System.out.println(timestamp - fileTimestamp);
         assert(timestamp - fileTimestamp < 1000 ? true : false);
     }
 
