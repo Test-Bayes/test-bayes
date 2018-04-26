@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class IndividualRunnerTests {
 
-    @Test(expected = InitializationError.class)
+    @Test(expected = NullPointerException.class)
     public void testConstructorThrowsNull() throws InitializationError {
         IndividualClassRunner r = new IndividualClassRunner(null);
     }
@@ -32,7 +32,7 @@ public class IndividualRunnerTests {
         while (true) {
             ArrayList<Method> shuffleMs = IndividualClassRunner.shuffle(ms);
             for (int i = 0; i < ms.length; i++) {
-                if (ms[i].equals(shuffleMs.get(i))) {
+                if (!ms[i].equals(shuffleMs.get(i))) {
                     return;  // Found good shuffle
                 }
             }
