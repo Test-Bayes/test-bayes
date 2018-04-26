@@ -5,17 +5,15 @@ import org.junit.runner.Description;
 import org.junit.runner.notification.RunNotifier;
 import org.junit.runners.BlockJUnit4ClassRunner;
 import org.junit.runners.model.InitializationError;
+import edu.uw.cse.testbayes.fileio.TestLogWriter;
 
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.time.Duration;
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
-import org.json.JSONArray;
 
 import static java.lang.System.exit;
 import static java.util.concurrent.TimeUnit.NANOSECONDS;
@@ -50,6 +48,7 @@ public class IndividualClassRunner extends BlockJUnit4ClassRunner {
 
     @Override
     public void run(RunNotifier notifier) {
+        Map<String, Double> fileOutput = new HashMap<String, Double>();
         System.out.println("running the tests from MyRunner: " + testClass);
         Object testObject = null;
         try {
@@ -87,13 +86,18 @@ public class IndividualClassRunner extends BlockJUnit4ClassRunner {
                     System.out.println("Illegal test");
                     e.printStackTrace();
                 } finally {
-                    JSONArray result = new JSONArray();
                     long time = Duration.between(start, end).toMillis();
-                    result.put(method.getName());
-                    result.put(passed ? time : (0 - time));
-                    System.out.println(result.toString());
+                    fileOutput.put(method.getName(), (double)(passed ? time : (0 - time)));
                 }
             }
         }
+
+        TestLogWriter outputWriter = new TestLogWriter();
+        try {
+            outputWriter.write(fileOutput);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
     }
 }
