@@ -10,21 +10,21 @@ Test Bayes User Manual
 
 Reason For Use: Test Bayes is a tool designed to speed up the testing process of development significantly. Testing is a static process, that can cause developers to waste a lot of time waiting for certain tests to fail. However, with Test Bayes, tests that are likely to fail on the next run are run with higher priority, meaning they will fail first, instead of later, saving the developer a lot of time testing. This speeds up the development process significantly. Test Bayes is built off of JUnit4, a very common Java test framework, making it compatible with many projects. Test Bayes uses a Bayes oriented mathematical model to determine probabilities of test failures, and orders them accordingly.
 
-Use: Test Bayes utilizes the maven build system to get its information about tests. By specifying the test directories in the pom.xml file, Test Bayes can find all of the tests that are to be run. By including our project in the same directory as the pom.xml, Test Bayes can function properly. Since this project is a build-off of JUnit4, JUnit4 must also be installed in the project. Test Bayes is interfaced through a terminal. There are several commands that can be used to run tests, as follows:
-     tb						: Runs all tests in pom file.
-     -h					: Display command help info.
+Use: Test Bayes utilizes the maven build system to get its information about tests. By specifying the test directories in the pom.xml file, Test Bayes can find all of the tests that are to be run. By including our project in the same directory as the pom.xml, Test Bayes can function properly. Since this project is a build-off of JUnit4, JUnit4 must also be installed in the project. Test Bayes is interfaced through a terminal. There are several commands that can be used to run tests, as follows:  
+     tb						: Runs all tests in pom file.  
+     -h					: Display command help info.  
      -d testDir1 testDir2 …		: Runs all tests in given 
 						  directories instead of all 
-						  tests.
-     -u 					: Will not reorder tests to be run.
+						  tests.  
+     -u 					: Will not reorder tests to be run.  
      --avg=numTestRuns           : Set the number of test runs
-						  to consider in the calculations.
+						  to consider in the calculations.  
      --eps=doubleValue	          : Set the failure probability 
-						  difference between tests.
-     -c					: Clear all test data.
+						  difference between tests. 
+     -c					: Clear all test data.  
      -n					: Treat new tests as if they are 
 						  not similar in fail rate to other
-						  test runs of other methods
+						  test runs of other methods  
 
 	After running Test Bayes, test results will be output to the console (terminal) in the order they were run, or if the command was a parameter modification, no output will be produced. Test Bayes test runs are versioned, in that the output from test runs will be stored in files in the directory the tool is in, making the reordering exist across different machines running the code.
 
