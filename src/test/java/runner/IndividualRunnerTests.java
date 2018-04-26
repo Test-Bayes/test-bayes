@@ -11,6 +11,7 @@ import java.io.File;
 import java.lang.reflect.Method;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class IndividualRunnerTests {
 
@@ -47,16 +48,51 @@ public class IndividualRunnerTests {
     public void testLogsExist() {
         JUnitCore junit = new JUnitCore();
         Result result = junit.run(Test1.class);
-        long timestamp = new Timestamp(System.currentTimeMillis()).getTime() ;
-        File logs = new File("log-data");
 
         // get the minimum time difference between current time and file timestamp
+        File mostRecent = getMostRecentLog();
+        long timestamp = new Timestamp(System.currentTimeMillis()).getTime();
+        String name = mostRecent.getName();
+        long fileTimestamp = Long.parseLong(name.split("-")[0]);
+
+        assert(timestamp - fileTimestamp < 1000 ? true : false);
+    }
+
+    @Test
+    public void testFailedTestHasNegativeRuntime() {
+        JUnitCore junit = new JUnitCore();
+        Result result = junit.run(Test1.class);;
+        Scanner s = null;
+        try {
+            s = new Scanner(getMostRecentLog());
+        } catch (Exception e) {
+            System.out.println(e);
+            assert(false);
+        }
+
+        String[] contents = s.nextLine().split(" ");
+        for (String test: contents) {
+            String[] results = test.split(",");
+            if (results[0].equals("a1")) {
+                assert (Double.parseDouble(results[1]) < 0.0) ? true : false;
+            }
+        }
+    }
+
+    public File getMostRecentLog() {
+        File logs = new File("log-data");
+        long timestamp = new Timestamp(System.currentTimeMillis()).getTime() ;
+        // get the minimum time difference between current time and file timestamp
         long min = Long.MAX_VALUE;
+        File result = null;
         for (File log: logs.listFiles()) {
             String name = log.getName();
             long fileTimestamp = Long.parseLong(name.split("-")[0]);
+            long oldMin = min;
             min = (timestamp - fileTimestamp) < min ? (timestamp - fileTimestamp): min;
+            if (min != oldMin)
+                result = log;
         }
-        assert(min < 1000 ? true : false);
+        return result;
     }
 }
