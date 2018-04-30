@@ -1,0 +1,11 @@
+Last Weeks Goals:
+- Get report completed and updated (for real this time)
+- Get runner code integrated with other code
+- Write tests for runners
+
+Current Progress:
+- Still finding repos that have failed commits to test on
+
+Goals for the week:
+- Run some analysis on how our code fairs with injected bugs in cse 331 code (for debugging)
+- Run our code on an actual codebase, and generate at least one set of data
