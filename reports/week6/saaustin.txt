@@ -1,0 +1,8 @@
+  Next week we will report on test outcomes for the single class test runner, and have a final
+working product of our runner that picks up all tests from every test class.
+  This week we focused mostly on having a buildable working version of our project that is extensively
+tested. We accomplished this on our wednedsay and thursday meetings. I wrote several test cases for the 
+junit test runner as well as finishing the file output aspect of the runner. The tests cover random ordering
+and also verify that the correct output is being produced for tests.
+  Next week we will continue writing test cases and improving the build of our project. We will also need 
+to find repositories with failing test cases to test our project on.
