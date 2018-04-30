@@ -1,0 +1,19 @@
+Section 1 - Goals from Past Week
+
+- Complete tests for the conditional probability methods.
+- Complete the reorder method.
+- Work with teammates on build and testing method.
+
+Section 2 - This week's progress
+
+- Made tests for the Bayes class.
+- Started and Finished coding for Bayes class alone, that generates probabilities and gives next test to run.
+- Made a list of possible optimizations based on initial results.
+- Made many variables parameters to optimize using initial results.
+
+Section 3 - Next Week's Goals
+
+For next week, my goals are as follows:
+- Find repositories to build the results to fit mathematical model
+- Make changes to the mathematical model
+- Finalize the mathematical model based on results
