@@ -1,0 +1,21 @@
+Team Name: TestBayes
+
+
+Team Weekly Report:
+
+1. Goals
+- Find data sets to test - Everyone.
+- Begin actual generation of data set results - Everyone
+- Start optimization of mathematical models based on initial results - Adavya.
+- Work on reports more closely, physically together - Everyone.
+
+2. Progress we've made:
+- Add test cases for junit code
+- Add test cases for mathmatical model
+- Add test cases for file io
+- Successfully building the project with maven 
+
+3. Goals for next week:
+- Run our project on repositories with many test cases and start to gather 
+  data for the performance of random ordering vs. bayes ordering. 
+- Continue collaborating more closely for major deliverables 
