@@ -1,13 +1,14 @@
 package runner;
 
 import edu.uw.cse.testbayes.runner.IndividualClassRunner;
+import org.junit.Test;
 import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;
-import runner.utilTestClasses.Test1;
-import org.junit.Test;
 import org.junit.runners.model.InitializationError;
+import runner.utilTestClasses.Test1;
 
 import java.io.File;
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -47,6 +48,7 @@ public class IndividualRunnerTests {
     // check if a log file was created within 5000ms of a run
     public void testLogsExist() {
         JUnitCore junit = new JUnitCore();
+        Annotation[] a = Test1.class.getAnnotations();
         Result result = junit.run(Test1.class);
 
         // get the minimum time difference between current time and file timestamp
@@ -93,6 +95,7 @@ public class IndividualRunnerTests {
             if (min != oldMin)
                 result = log;
         }
+        System.out.println("Result: " + result);
         return result;
     }
 }

@@ -114,8 +114,8 @@ public class IndividualClassRunner extends BlockJUnit4ClassRunner {
             Instant end = null;
             Instant start = null;
             boolean passed = true;
+            System.out.println("Running test " + method.toString());
             try {
-                System.out.println("Running test " + method.toString());
                 notifier.fireTestStarted(Description
                         .createTestDescription(testClass, method.getName()));
                 start = Instant.now();
