@@ -15,6 +15,9 @@ public class Bayes {
   // Map to store Conditional probabilty of passing based on the fact that previous test failed
   private Map<String, Map<String, Probability>> failconds;
 
+  // Set to store already ran tests
+  private Set<String> alreadyRan;
+
   //Numerator Parameter
   public static final int NUMERATOR = 1;
 
@@ -31,6 +34,7 @@ public class Bayes {
     this.tots = buildTot(testExecs, ms);
     this.passconds = buildPasscond(testExecs);
     this.failconds = buildFailcond(testExecs);
+    this.alreadyRan = new HashSet<String>();
   }
 
   /*
@@ -166,16 +170,19 @@ public class Bayes {
    * @param pass : tells us whether the last test passed or failed.
    * @return : Name of the next test to be executed.
    */
-  public String nextTest(String s, boolean pass, Set<String> alreadyRan) {
+  public String nextTest(String s, boolean pass) {
+    alreadyRan.add(s);
     if (pass) {
       Map<String, Probability> cond = passconds.get(s);
       Set<String> tests = cond.keySet();
       Probability min = new Probability(1, 1);
       String minTest = "";
       for (String test : tests) {
-        if (cond.get(test).compareTo(min) < 0 && !alreadyRan.contains(test)) {
-          min = cond.get(test);
-          minTest = test;
+	      if(!alreadyRan.contains(s)){
+          if (cond.get(test).compareTo(min) < 0) {
+            min = cond.get(test);
+            minTest = test;
+          }
         }
       }
       return minTest;
@@ -185,9 +192,11 @@ public class Bayes {
       Probability min = new Probability(1, 1);
       String minTest = "";
       for (String test : tests) {
-        if (cond.get(test).compareTo(min) < 0 && !alreadyRan.contains(test)) {
-          min = cond.get(test);
-          minTest = test;
+        if(!alreadyRan.contains(s)){
+          if (cond.get(test).compareTo(min) < 0) {
+            min = cond.get(test);
+            minTest = test;
+          }
         }
       }
       return minTest;
