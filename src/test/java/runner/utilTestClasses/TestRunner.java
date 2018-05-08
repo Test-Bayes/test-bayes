@@ -1,12 +1,10 @@
 package runner.utilTestClasses;
 
-import org.junit.Ignore;
-import org.junit.runner.RunWith;
-import org.junit.runners.*;
+import edu.uw.cse.testbayes.utils.Reorder;
 
-@Ignore
-@RunWith(JUnit4.class)
-@Suite.SuiteClasses({
+//@Ignore
+//@RunWith(JUnit4.class)
+@Reorder.SmartOrder({
     Test1.class,
     Test2.class,
     Test3.class,

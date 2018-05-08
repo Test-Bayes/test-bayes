@@ -1,6 +1,6 @@
 package runner;
 
-import edu.uw.cse.testbayes.Runner.IndividualClassRunner;
+import edu.uw.cse.testbayes.runner.IndividualClassRunner;
 import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;
 import runner.utilTestClasses.Test1;

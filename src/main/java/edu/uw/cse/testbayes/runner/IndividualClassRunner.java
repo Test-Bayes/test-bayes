@@ -1,4 +1,4 @@
-package edu.uw.cse.testbayes.Runner;
+package edu.uw.cse.testbayes.runner;
 
 import org.junit.Test;
 import org.junit.runner.Description;
@@ -7,16 +7,13 @@ import org.junit.runners.BlockJUnit4ClassRunner;
 import org.junit.runners.model.InitializationError;
 import edu.uw.cse.testbayes.fileio.TestLogWriter;
 
-import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.*;
-import java.util.concurrent.TimeUnit;
 
 import static java.lang.System.exit;
-import static java.util.concurrent.TimeUnit.NANOSECONDS;
 
 public class IndividualClassRunner extends BlockJUnit4ClassRunner {
     private Class<?> testClass;
