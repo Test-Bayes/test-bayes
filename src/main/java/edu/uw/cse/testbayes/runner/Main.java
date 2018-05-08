@@ -1,6 +1,5 @@
-package edu.uw.cse.testbayes.Runner;
+package edu.uw.cse.testbayes.runner;
 
-import org.junit.runner.Runner;
 import org.junit.runners.Suite;
 
 import java.lang.reflect.InvocationTargetException;

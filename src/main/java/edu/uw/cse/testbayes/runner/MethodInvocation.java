@@ -1,4 +1,4 @@
-package edu.uw.cse.testbayes.Runner;
+package edu.uw.cse.testbayes.runner;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
