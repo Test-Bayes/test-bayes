@@ -61,12 +61,12 @@ public class IndividualRunnerTests {
     @Test
     public void testFailedTestHasNegativeRuntime() {
         JUnitCore junit = new JUnitCore();
-        Result result = junit.run(Test1.class);;
+        Result result = junit.run(Test1.class);
         Scanner s = null;
         try {
             s = new Scanner(getMostRecentLog());
         } catch (Exception e) {
-            System.out.println(e);
+            e.printStackTrace();
             assert(false);
         }
 

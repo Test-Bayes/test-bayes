@@ -1,19 +1,23 @@
-import java.util.HashSet;
-import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
-import java.util.Map;
-import java.util.Set;
+package model;
+
+import java.util.*;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+
+import edu.uw.cse.testbayes.model.Bayes;
+import edu.uw.cse.testbayes.model.Probability;
 import org.junit.Before;
 import org.junit.Test;
 
 public class BayesTests {
+    public final int TIMEOUT = 300;
+
     private Bayes n;
     @Before
     public void setup() throws Exception {
-      Map<String, Map<String, Double>> allExecs = new HashMap<String, HashMap<String, Double>>();
+      Map<String, Map<String, Double>> allExecs = new HashMap<String, Map<String, Double>>();
       Map<String, Double> exec1 = new HashMap<String, Double>();
       exec1.put("test1", 2.5);
       exec1.put("test2", -3.1);
@@ -61,14 +65,14 @@ public class BayesTests {
       assertEquals(new Probability(4, 6), n.getTestProb("test4"));
     }
 
-    @Test(timeout = TIMEOUT)
+    @Test
     public void Testprobget(){
-      Map<String, Probablity> total = new HashMap<String, Probablity>();
+      Map<String, Probability> total = new HashMap<String, Probability>();
       total.put("test1", new Probability(1,2));
       total.put("test2", new Probability(4,6));
       total.put("test3", new Probability(1,2));
       total.put("test4", new Probability(4,6));
-      assertEquals(total, n.getProb("test1"));
+      assertEquals(total, n.getProb());
     }
 
     @Test(timeout = TIMEOUT)

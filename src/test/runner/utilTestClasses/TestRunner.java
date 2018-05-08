@@ -1,11 +1,12 @@
 package runner.utilTestClasses;
 
+import edu.uw.cse.testbayes.Runner.IndividualClassRunner;
 import org.junit.Ignore;
 import org.junit.runner.RunWith;
 import org.junit.runners.*;
 
 @Ignore
-@RunWith(JUnit4.class)
+@RunWith(IndividualClassRunner.class)
 @Suite.SuiteClasses({
     Test1.class,
     Test2.class,

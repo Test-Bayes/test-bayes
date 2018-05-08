@@ -1,14 +1,7 @@
 package model;
 
-import edu.uw.cse.testbayes.fileio.TestLogWriter;
 import edu.uw.cse.testbayes.model.Probability;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
 import org.junit.Test;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.*;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
