@@ -109,7 +109,6 @@ public class IndividualClassRunner extends BlockJUnit4ClassRunner {
         // Create the bayes module
         Bayes bay = new Bayes(oldRuns, methods);
         Method method = getFirstMethod(methods, bay);
-        Set<String> alreadyRan = new HashSet<String>();
 
         for (int i = 0; i < methods.size(); i++) {
             Instant end = null;
@@ -147,8 +146,7 @@ public class IndividualClassRunner extends BlockJUnit4ClassRunner {
                 }
 //                fileOutput.put(method.getName(), (double)(passed ? time : (0.0 - time)));
             }
-            alreadyRan.add(method.getName());
-            method = nameToMethod.get(bay.nextTest(method.getName(), passed, alreadyRan));
+            method = nameToMethod.get(bay.nextTest(method.getName(), passed));
         }
 
         // TODO: Call this in the loop, write one by one

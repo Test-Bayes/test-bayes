@@ -178,7 +178,7 @@ public class Bayes {
       Probability min = new Probability(1, 1);
       String minTest = "";
       for (String test : tests) {
-	      if(!alreadyRan.contains(s)){
+	      if(!alreadyRan.contains(test)){
           if (cond.get(test).compareTo(min) < 0) {
             min = cond.get(test);
             minTest = test;
@@ -192,7 +192,7 @@ public class Bayes {
       Probability min = new Probability(1, 1);
       String minTest = "";
       for (String test : tests) {
-        if(!alreadyRan.contains(s)){
+        if(!alreadyRan.contains(test)){
           if (cond.get(test).compareTo(min) < 0) {
             min = cond.get(test);
             minTest = test;
