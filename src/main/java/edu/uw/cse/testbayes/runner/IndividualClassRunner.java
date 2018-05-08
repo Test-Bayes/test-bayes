@@ -140,18 +140,23 @@ public class IndividualClassRunner extends BlockJUnit4ClassRunner {
                 e.printStackTrace();
             } finally {
                 long time = Duration.between(start, end).toMillis();
-                fileOutput.put(method.getName(), (double)(passed ? time : (0.0 - time)));
+                try {
+                    TestLogWriter.write(method.getName(), (double)(passed ? time : (0.0 - time)));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+//                fileOutput.put(method.getName(), (double)(passed ? time : (0.0 - time)));
             }
             alreadyRan.add(method.getName());
             method = nameToMethod.get(bay.nextTest(method.getName(), passed, alreadyRan));
         }
 
         // TODO: Call this in the loop, write one by one
-        TestLogWriter outputWriter = new TestLogWriter();
-        try {
-            outputWriter.write(fileOutput);
-        } catch (Exception e) {
-            System.out.println(e);
-        }
+//        TestLogWriter outputWriter = new TestLogWriter();
+//        try {
+//            outputWriter.write(fileOutput);
+//        } catch (Exception e) {
+//            System.out.println(e);
+//        }
     }
 }
