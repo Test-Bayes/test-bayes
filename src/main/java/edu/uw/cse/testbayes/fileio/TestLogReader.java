@@ -75,7 +75,7 @@ public class TestLogReader {
         String[] tuples = fileData.split(" ");
         for(String tuple : tuples) {
             String[] bits = tuple.split(",");
-            data.put(bits[0], Double.parseDouble(bits[1]));
+            data.put(bits[0].replaceAll("%", " "), Double.parseDouble(bits[1]));
         }
         return data;
     }
