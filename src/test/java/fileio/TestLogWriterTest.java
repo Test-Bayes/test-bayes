@@ -18,6 +18,7 @@ public class TestLogWriterTest {
     private static Map<String, Double> individualTestData;
     private static Map<String, Double> emptyTestData;
     private static Map<String, Double> multipleTestData;
+    private static Map<String, Double> multipleTestDataSpaced;
     private static Set<File> files;
     private static String testname;
     private static double duration;
@@ -27,6 +28,7 @@ public class TestLogWriterTest {
         emptyTestData = new HashMap<String, Double>();
         individualTestData = new HashMap<String, Double>();
         multipleTestData = new HashMap<String, Double>();
+        multipleTestDataSpaced = new HashMap<String, Double>();
 
         testname = "method";
         duration = 100.23;
@@ -36,7 +38,22 @@ public class TestLogWriterTest {
         multipleTestData.put("method2", 10.0);
         multipleTestData.put("method3", 0.23);
 
+        multipleTestDataSpaced.put("public void package.Class.method1(String s) throws IOException", -100.23);
+        multipleTestDataSpaced.put("public void package.Class.method2(String s) throws IOException", 10.0);
+
         files = new HashSet<File>();
+    }
+
+    @Test
+    public void testSpaces() throws IOException {
+        String filename = TestLogWriter.write(multipleTestDataSpaced);
+        File file = new File(filename);
+        files.add(file);
+        Scanner scanner = new Scanner(file);
+        String nextLine = scanner.nextLine();
+        scanner.close();
+        assertEquals("public%void%package.Class.method2(String%s)%throws%IOException,10.0 " +
+                "public%void%package.Class.method1(String%s)%throws%IOException,-100.23 ", nextLine);
     }
 
     @Test

@@ -28,7 +28,7 @@ public class TestLogWriter {
         File file = getFile();
         PrintStream printStream = new PrintStream(file);
         for(String methodName : testData.keySet()) {
-            printStream.print(methodName + "," + testData.get(methodName) + " ");
+            printStream.print(methodName.replaceAll(" ", "%") + "," + testData.get(methodName) + " ");
         }
         printStream.println();
         printStream.close();
@@ -49,11 +49,9 @@ public class TestLogWriter {
         String s = "";
         if(scanner.hasNextLine()) {
             s = scanner.nextLine();
-            System.out.println(s);
-            System.out.println();
         }
         PrintStream printStream = new PrintStream(file);
-        printStream.print(s + methodName + "," + num + " ");
+        printStream.print(s + methodName.replaceAll(" ", "%") + "," + num + " ");
         printStream.close();
         return file.getAbsolutePath();
     }
