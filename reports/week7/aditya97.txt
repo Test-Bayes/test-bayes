@@ -1,0 +1,16 @@
+Section 1 - Goals from Past Week
+
+For this week, my goals were as follows:
+
+    -   Find repositories to use for evaluation
+    -   Start the process of Evaluation
+    
+   
+Section 2 - This week's progress
+
+    -   This week, I searched GitHub for repositories that could be used for testing.
+
+
+Section 3 - Next Week's Goals
+
+    -   Start the process of testing and evaluation.
