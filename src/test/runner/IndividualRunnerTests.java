@@ -44,7 +44,7 @@ public class IndividualRunnerTests {
     }
 
     @Test
-    // check if a log file was created within 1000ms of a run
+    // check if a log file was created within 5000ms of a run
     public void testLogsExist() {
         JUnitCore junit = new JUnitCore();
         Result result = junit.run(Test1.class);
@@ -55,7 +55,7 @@ public class IndividualRunnerTests {
         String name = mostRecent.getName();
         long fileTimestamp = Long.parseLong(name.split("-")[0]);
         System.out.println(timestamp - fileTimestamp);
-        assert(timestamp - fileTimestamp < 1000 ? true : false);
+        assert(timestamp - fileTimestamp < 5000 ? true : false);
     }
 
     @Test
