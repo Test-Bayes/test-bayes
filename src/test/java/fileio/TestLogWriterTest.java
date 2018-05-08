@@ -1,6 +1,7 @@
 package fileio;
 
 import edu.uw.cse.testbayes.fileio.TestLogWriter;
+import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -18,12 +19,17 @@ public class TestLogWriterTest {
     private static Map<String, Double> emptyTestData;
     private static Map<String, Double> multipleTestData;
     private static Set<File> files;
+    private static String testname;
+    private static double duration;
 
     @BeforeClass
     public static void initialize() {
         emptyTestData = new HashMap<String, Double>();
         individualTestData = new HashMap<String, Double>();
         multipleTestData = new HashMap<String, Double>();
+
+        testname = "method";
+        duration = 100.23;
 
         individualTestData.put("method1", -100.23);
         multipleTestData.put("method1", -100.23);
@@ -34,6 +40,29 @@ public class TestLogWriterTest {
     }
 
     @Test
+    public void testIndividualTestWriter() throws IOException {
+        String filename = TestLogWriter.write(testname, duration);
+        File file = new File(filename);
+        files.add(file);
+        Scanner scanner = new Scanner(file);
+        String nextLine = scanner.nextLine();
+        scanner.close();
+        assertEquals("method,100.23 ", nextLine);
+    }
+
+    @Test
+    public void testIndividualTestWriterMultiple() throws IOException {
+        String filename = TestLogWriter.write(testname, duration);
+        filename = TestLogWriter.write(testname, duration);
+        File file = new File(filename);
+        files.add(file);
+        Scanner scanner = new Scanner(file);
+        String nextLine = scanner.nextLine();
+        scanner.close();
+        assertEquals("method,100.23 method,100.23 ", nextLine);
+    }
+
+    @Test
     public void testIndividualTestWrite() throws IOException {
         String filename = TestLogWriter.write(individualTestData);
         File file = new File(filename);
@@ -41,7 +70,7 @@ public class TestLogWriterTest {
         Scanner scanner = new Scanner(file);
         String nextLine = scanner.nextLine();
         scanner.close();
-        assertEquals(nextLine, "method1,-100.23");
+        assertEquals("method1,-100.23 ", nextLine);
     }
 
     @Test
@@ -58,11 +87,11 @@ public class TestLogWriterTest {
         Scanner scanner = new Scanner(file);
         String nextLine = scanner.nextLine();
         scanner.close();
-        assertEquals(nextLine, "method1,-100.23 method2,10.0 method3,0.23");
+        assertEquals("method1,-100.23 method2,10.0 method3,0.23 ", nextLine);
     }
 
-    @AfterClass
-    public static void cleanUp() {
+    @After
+    public void cleanUp() {
         for(File file: files) {
             if (!file.delete()) {
                 System.err.println("File " + file.getAbsolutePath() + " not deleted");
