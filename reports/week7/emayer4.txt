@@ -1,0 +1,8 @@
+Goal from last week:
+Finish integrating code to run with bayes model
+
+Goal for this week:
+Run integrated code with a real github repo
+
+Goal for next week:
+Run our tool on severel repos, and compare speedups
