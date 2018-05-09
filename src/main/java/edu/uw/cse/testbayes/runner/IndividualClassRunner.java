@@ -119,6 +119,11 @@ public class IndividualClassRunner extends BlockJUnit4ClassRunner {
         temp = new HashSet<>(nameToMethod.keySet());
         temp.removeAll(newMs);
         List<String> oldMs = new ArrayList<>(temp);
+        oldMs.removeAll(ignores);
+        newMs.removeAll(ignores);
+
+        System.out.println("Olds: " + oldMs.toString());
+        System.out.println("News: " + newMs.toString());
 
 
         // Notify ignored tests
@@ -143,7 +148,6 @@ public class IndividualClassRunner extends BlockJUnit4ClassRunner {
                 method = nameToMethod.get(newS);
             }
             passed = runMethod(notifier, method);
-
         }
 
         // TODO: Call this in the loop, write one by one
