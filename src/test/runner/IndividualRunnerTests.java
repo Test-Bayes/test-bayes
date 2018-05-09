@@ -89,12 +89,14 @@ public class IndividualRunnerTests {
         long min = Long.MAX_VALUE;
         File result = null;
         for (File log: logs.listFiles()) {
-            String name = log.getName();
-            long fileTimestamp = Long.parseLong(name.split("-")[0]);
-            long oldMin = min;
-            min = (timestamp - fileTimestamp) < min ? (timestamp - fileTimestamp): min;
-            if (min != oldMin)
-                result = log;
+            if (log.isFile()) {
+                String name = log.getName();
+                long fileTimestamp = Long.parseLong(name.split("-")[0]);
+                long oldMin = min;
+                min = (timestamp - fileTimestamp) < min ? (timestamp - fileTimestamp) : min;
+                if (min != oldMin)
+                    result = log;
+            }
         }
         System.out.println("Result: " + result);
         return result;

@@ -27,11 +27,22 @@ import static java.util.concurrent.TimeUnit.NANOSECONDS;
 public class IndividualClassRunner extends BlockJUnit4ClassRunner {
     private Class<?> testClass;
     private boolean ignore;
+    private Object testObject;
 
     public IndividualClassRunner(Class<?> klass) throws InitializationError {
         super(klass);
         this.testClass = klass;
         this.ignore = true;
+        this.testObject = null;
+        try {
+            this.testObject = testClass.newInstance();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+            exit(1);
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+            exit(1);
+        }
     }
 //
 //    @Override
@@ -54,13 +65,14 @@ public class IndividualClassRunner extends BlockJUnit4ClassRunner {
         return methods;
     }
 
-    private Method getFirstMethod(List<Method> ms, Bayes b) {
+    private Method getFirstMethod(List<String> ms, Bayes b, Map<String, Method> nameMap) {
         double best = 0;
         Method bestM = null;
-        for (Method m : ms) {
-            if (bestM == null || b.getTestProb(m.toString()).doubleValue() > best) {
-                bestM = m;
-                best = b.getTestProb(m.toString()).doubleValue();
+        for (String m : ms) {
+            Method currM = nameMap.get(m);
+            if (bestM == null || b.getTestProb(currM.toString()).doubleValue() > best) {
+                bestM = currM;
+                best = b.getTestProb(currM.toString()).doubleValue();
             }
         }
         return bestM;
@@ -68,18 +80,7 @@ public class IndividualClassRunner extends BlockJUnit4ClassRunner {
 
     @Override
     public void run(RunNotifier notifier) {
-        Map<String, Double> fileOutput = new HashMap<String, Double>();
         System.out.println("running the tests from MyRunner: " + testClass);
-        Object testObject = null;
-        try {
-            testObject = testClass.newInstance();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-            exit(1);
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-            exit(1);
-        }
 
         // Get the past map
         Map<String, Map<String, Double>> oldRuns = null;
@@ -90,14 +91,17 @@ public class IndividualClassRunner extends BlockJUnit4ClassRunner {
             exit(1);
         }
 
+
         ArrayList<Method> methods = shuffle(testClass.getMethods());
+        Set<String> ignores = new HashSet<>();
         Map<String, Method> nameToMethod = new HashMap<String, Method>();
         for (int i = 0; i < methods.size(); i++) {
             if (!methods.get(i).isAnnotationPresent(Test.class)) {
                 methods.remove(i);
                 i--;
             } else if (ignore && methods.get(i).isAnnotationPresent(Ignore.class)) {
-                oldRuns.remove(methods.get(i).toString());
+                nameToMethod.put(methods.get(i).toString(), methods.get(i));
+                ignores.add(methods.get(i).toString());
                 methods.remove(i);
                 i--;
             } else {
@@ -105,81 +109,41 @@ public class IndividualClassRunner extends BlockJUnit4ClassRunner {
             }
         }
 
-        System.out.println(nameToMethod.toString());
-
         // Create the bayes module
         Bayes bay = new Bayes(oldRuns, methods);
 
-        // Get new methods never seen
-        Set<String> s = nameToMethod.keySet();
-        s.removeAll(bay.getProb().keySet());
-        List<String> newMs = new ArrayList<>(s);
-        System.out.println(newMs.toString());
-        System.out.println(bay.getProb().toString());
+        // Separate new methods from old ones
+        Set<String> temp = new HashSet<>(nameToMethod.keySet());
+        temp.removeAll(bay.getProb().keySet());
+        List<String> newMs = new ArrayList<>(temp);
+        temp = new HashSet<>(nameToMethod.keySet());
+        temp.removeAll(newMs);
+        List<String> oldMs = new ArrayList<>(temp);
 
-        Method method;
-        if (newMs.size() == 0) {
-            method = getFirstMethod(methods, bay);
-        } else {
-            method = nameToMethod.get(newMs.get(0));
+
+        // Notify ignored tests
+        for (String i : ignores) {
+            notifier.fireTestIgnored(Description.createTestDescription(testClass,
+                    nameToMethod.get(i).getName()));
         }
 
-        for (int i = 0; i < methods.size(); i++) {
-            Instant end = null;
-            Instant start = null;
-            boolean passed = true;
-            System.out.println("Running test " + method.toString());
-            try {
-                notifier.fireTestStarted(Description
-                        .createTestDescription(testClass, method.getName()));
-                start = Instant.now();
-                method.invoke(testObject);
-                end = Instant.now();
-                notifier.fireTestFinished(Description
-                        .createTestDescription(testClass, method.getName()));
-            } catch (InvocationTargetException e) {
-                notifier.fireTestFailure(
-                        new Failure(
-                                Description.createTestDescription(testClass, method.getName()),
-                                e));
-                notifier.fireTestFinished(Description
-                        .createTestDescription(testClass, method.getName()));
-                end = Instant.now();
-                passed = false;
-            } catch (IllegalAccessException e) {
-                end = Instant.now();
-                passed = false;
-                System.out.println("Illegal test");
-                e.printStackTrace();
-            } finally {
-                long time = Duration.between(start, end).toMillis();
-                try {
-                    TestLogWriter.write(method.toString(), (double)(passed ? time : (0.0 - time)));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-//                fileOutput.put(method.toString(), (double)(passed ? time : (0.0 - time)));
-            }
-            if (i == newMs.size() - 1) {
-                System.out.println("Getting first method: " + bay.getProb().keySet().toString());
-                System.out.println(nameToMethod.toString());
-                List<Method> ms = new ArrayList<>();
-                for (String str : bay.getProb().keySet()) {
-                    ms.add(nameToMethod.get(str));
-                }
-                if (ms.contains(null)) {
-                    break;
-                }
-                System.out.println(ms.toString());
-                method = getFirstMethod(ms, bay);
-            } else if (i > newMs.size() - 1) {
-                System.out.println("Getting next method");
-                String newS = bay.nextTest(method.toString(), passed, nameToMethod.keySet());
-                method = nameToMethod.get(newS);
-                System.out.println("New method: " + method);
+        // Run new methods
+        for (int i = 0; i < newMs.size(); i++) {
+            runMethod(notifier, nameToMethod.get(newMs.get(i)));
+        }
+
+        // Run already seen methods
+        boolean passed = false;
+        Method method = null;
+        for (int i = newMs.size(); i < methods.size(); i++) {
+            if (i == newMs.size()) {
+                method = getFirstMethod(oldMs, bay, nameToMethod);
             } else {
-                method = nameToMethod.get(newMs.get(i + 1));
+                String newS = bay.nextTest(method.toString(), passed, new HashSet<>(ignores));
+                method = nameToMethod.get(newS);
             }
+            passed = runMethod(notifier, method);
+
         }
 
         // TODO: Call this in the loop, write one by one
@@ -189,5 +153,43 @@ public class IndividualClassRunner extends BlockJUnit4ClassRunner {
 //        } catch (Exception e) {
 //            System.out.println(e);
 //        }
+    }
+
+    public boolean runMethod(RunNotifier notifier, Method method) {
+        Instant end = null;
+        Instant start = null;
+        boolean passed = true;
+        System.out.println("Running test " + method.toString());
+        try {
+            notifier.fireTestStarted(Description
+                    .createTestDescription(testClass, method.getName()));
+            start = Instant.now();
+            method.invoke(testObject);
+            end = Instant.now();
+            notifier.fireTestFinished(Description
+                    .createTestDescription(testClass, method.getName()));
+        } catch (InvocationTargetException e) {
+            notifier.fireTestFailure(
+                    new Failure(
+                            Description.createTestDescription(testClass, method.getName()),
+                            e));
+            notifier.fireTestFinished(Description
+                    .createTestDescription(testClass, method.getName()));
+            end = Instant.now();
+            passed = false;
+        } catch (IllegalAccessException e) {
+            end = Instant.now();
+            passed = false;
+            System.out.println("Illegal test");
+            e.printStackTrace();
+        } finally {
+            long time = Duration.between(start, end).toMillis();
+            try {
+                TestLogWriter.write(method.toString(), (double)(passed ? time : (0.0 - time)));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return passed;
     }
 }
