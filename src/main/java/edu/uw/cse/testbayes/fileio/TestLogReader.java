@@ -43,7 +43,7 @@ public class TestLogReader {
         File[] fileArray = directory.listFiles();
         Map<String, File> fileMap = new TreeMap<String, File>(Collections.reverseOrder());
         for(File file : fileArray) {
-            fileMap.put(file.getName(), file);
+            fileMap.put(file.toString(), file);
         }
         return fileMap;
     }

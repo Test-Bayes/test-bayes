@@ -36,7 +36,7 @@ public class IndividualClassRunner extends BlockJUnit4ClassRunner {
 //
 //    @Override
 //    protected Statement methodInvoker(FrameworkMethod method, Object test) {
-//        System.out.println("invoking: " + method.getName());
+//        System.out.println("invoking: " + method.toString());
 //        Statement result = super.methodInvoker(method, test);
 //        System.out.println(result.toString());
 //        try {
@@ -58,9 +58,9 @@ public class IndividualClassRunner extends BlockJUnit4ClassRunner {
         double best = 0;
         Method bestM = null;
         for (Method m : ms) {
-            if (bestM == null || b.getTestProb(m.getName()).doubleValue() > best) {
+            if (bestM == null || b.getTestProb(m.toString()).doubleValue() > best) {
                 bestM = m;
-                best = b.getTestProb(m.getName()).doubleValue();
+                best = b.getTestProb(m.toString()).doubleValue();
             }
         }
         return bestM;
@@ -96,19 +96,33 @@ public class IndividualClassRunner extends BlockJUnit4ClassRunner {
             if (!methods.get(i).isAnnotationPresent(Test.class)) {
                 methods.remove(i);
                 i--;
-//            } else if (ignore && methods.get(i).isAnnotationPresent(Ignore.class)) {
-//                oldRuns.remove(methods.get(i).getName());
-//                methods.remove(i);
-//                i--;
+            } else if (ignore && methods.get(i).isAnnotationPresent(Ignore.class)) {
+                oldRuns.remove(methods.get(i).toString());
+                methods.remove(i);
+                i--;
             } else {
-                nameToMethod.put(methods.get(i).getName(), methods.get(i));
+                nameToMethod.put(methods.get(i).toString(), methods.get(i));
             }
         }
-        System.out.println(methods.toString());
+
+        System.out.println(nameToMethod.toString());
 
         // Create the bayes module
         Bayes bay = new Bayes(oldRuns, methods);
-        Method method = getFirstMethod(methods, bay);
+
+        // Get new methods never seen
+        Set<String> s = nameToMethod.keySet();
+        s.removeAll(bay.getProb().keySet());
+        List<String> newMs = new ArrayList<>(s);
+        System.out.println(newMs.toString());
+        System.out.println(bay.getProb().toString());
+
+        Method method;
+        if (newMs.size() == 0) {
+            method = getFirstMethod(methods, bay);
+        } else {
+            method = nameToMethod.get(newMs.get(0));
+        }
 
         for (int i = 0; i < methods.size(); i++) {
             Instant end = null;
@@ -140,13 +154,32 @@ public class IndividualClassRunner extends BlockJUnit4ClassRunner {
             } finally {
                 long time = Duration.between(start, end).toMillis();
                 try {
-                    TestLogWriter.write(method.getName(), (double)(passed ? time : (0.0 - time)));
+                    TestLogWriter.write(method.toString(), (double)(passed ? time : (0.0 - time)));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-//                fileOutput.put(method.getName(), (double)(passed ? time : (0.0 - time)));
+//                fileOutput.put(method.toString(), (double)(passed ? time : (0.0 - time)));
             }
-            method = nameToMethod.get(bay.nextTest(method.getName(), passed));
+            if (i == newMs.size() - 1) {
+                System.out.println("Getting first method: " + bay.getProb().keySet().toString());
+                System.out.println(nameToMethod.toString());
+                List<Method> ms = new ArrayList<>();
+                for (String str : bay.getProb().keySet()) {
+                    ms.add(nameToMethod.get(str));
+                }
+                if (ms.contains(null)) {
+                    break;
+                }
+                System.out.println(ms.toString());
+                method = getFirstMethod(ms, bay);
+            } else if (i > newMs.size() - 1) {
+                System.out.println("Getting next method");
+                String newS = bay.nextTest(method.toString(), passed, nameToMethod.keySet());
+                method = nameToMethod.get(newS);
+                System.out.println("New method: " + method);
+            } else {
+                method = nameToMethod.get(newMs.get(i + 1));
+            }
         }
 
         // TODO: Call this in the loop, write one by one

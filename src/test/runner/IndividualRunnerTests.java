@@ -48,7 +48,7 @@ public class IndividualRunnerTests {
     // check if a log file was created within 5000ms of a run
     public void testLogsExist() {
         JUnitCore junit = new JUnitCore();
-        Annotation[] a = Test1.class.getAnnotations();
+        System.setProperty("A1_FAIL_FOR_TEST", "true");
         Result result = junit.run(Test1.class);
 
         // get the minimum time difference between current time and file timestamp
@@ -63,6 +63,7 @@ public class IndividualRunnerTests {
     @Test
     public void testFailedTestHasNegativeRuntime() {
         JUnitCore junit = new JUnitCore();
+        System.setProperty("A1_FAIL_FOR_TEST", "true");
         Result result = junit.run(Test1.class);
         Scanner s = null;
         try {
@@ -75,7 +76,7 @@ public class IndividualRunnerTests {
         String[] contents = s.nextLine().split(" ");
         for (String test: contents) {
             String[] results = test.split(",");
-            if (results[0].equals("a1")) {
+            if (results[0].equals("public void runner.utilTestClasses.Test1.a1() throws java.lang.InterruptedException")) {
                 assert (Double.parseDouble(results[1]) < 0.0) ? true : false;
             }
         }
