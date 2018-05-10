@@ -1,0 +1,600 @@
+	@Test
+	public static void test1 () {
+		System.out.println("test# 1");
+		assert(true);
+	}
+
+	@Test
+	public static void test2 () {
+		System.out.println("test# 2");
+		assert(true);
+	}
+
+	@Test
+	public static void test3 () {
+		System.out.println("test# 3");
+		assert(true);
+	}
+
+	@Test
+	public static void test4 () {
+		System.out.println("test# 4");
+		assert(true);
+	}
+
+	@Test
+	public static void test5 () {
+		System.out.println("test# 5");
+		assert(true);
+	}
+
+	@Test
+	public static void test6 () {
+		System.out.println("test# 6");
+		assert(true);
+	}
+
+	@Test
+	public static void test7 () {
+		System.out.println("test# 7");
+		assert(true);
+	}
+
+	@Test
+	public static void test8 () {
+		System.out.println("test# 8");
+		assert(true);
+	}
+
+	@Test
+	public static void test9 () {
+		System.out.println("test# 9");
+		assert(true);
+	}
+
+	@Test
+	public static void test10 () {
+		System.out.println("test# 10");
+		assert(true);
+	}
+
+	@Test
+	public static void test11 () {
+		System.out.println("test# 11");
+		assert(true);
+	}
+
+	@Test
+	public static void test12 () {
+		System.out.println("test# 12");
+		assert(true);
+	}
+
+	@Test
+	public static void test13 () {
+		System.out.println("test# 13");
+		assert(true);
+	}
+
+	@Test
+	public static void test14 () {
+		System.out.println("test# 14");
+		assert(true);
+	}
+
+	@Test
+	public static void test15 () {
+		System.out.println("test# 15");
+		assert(true);
+	}
+
+	@Test
+	public static void test16 () {
+		System.out.println("test# 16");
+		assert(true);
+	}
+
+	@Test
+	public static void test17 () {
+		System.out.println("test# 17");
+		assert(true);
+	}
+
+	@Test
+	public static void test18 () {
+		System.out.println("test# 18");
+		assert(true);
+	}
+
+	@Test
+	public static void test19 () {
+		System.out.println("test# 19");
+		assert(true);
+	}
+
+	@Test
+	public static void test20 () {
+		System.out.println("test# 20");
+		assert(true);
+	}
+
+	@Test
+	public static void test21 () {
+		System.out.println("test# 21");
+		assert(true);
+	}
+
+	@Test
+	public static void test22 () {
+		System.out.println("test# 22");
+		assert(true);
+	}
+
+	@Test
+	public static void test23 () {
+		System.out.println("test# 23");
+		assert(true);
+	}
+
+	@Test
+	public static void test24 () {
+		System.out.println("test# 24");
+		assert(true);
+	}
+
+	@Test
+	public static void test25 () {
+		System.out.println("test# 25");
+		assert(true);
+	}
+
+	@Test
+	public static void test26 () {
+		System.out.println("test# 26");
+		assert(true);
+	}
+
+	@Test
+	public static void test27 () {
+		System.out.println("test# 27");
+		assert(true);
+	}
+
+	@Test
+	public static void test28 () {
+		System.out.println("test# 28");
+		assert(true);
+	}
+
+	@Test
+	public static void test29 () {
+		System.out.println("test# 29");
+		assert(true);
+	}
+
+	@Test
+	public static void test30 () {
+		System.out.println("test# 30");
+		assert(true);
+	}
+
+	@Test
+	public static void test31 () {
+		System.out.println("test# 31");
+		assert(true);
+	}
+
+	@Test
+	public static void test32 () {
+		System.out.println("test# 32");
+		assert(true);
+	}
+
+	@Test
+	public static void test33 () {
+		System.out.println("test# 33");
+		assert(true);
+	}
+
+	@Test
+	public static void test34 () {
+		System.out.println("test# 34");
+		assert(true);
+	}
+
+	@Test
+	public static void test35 () {
+		System.out.println("test# 35");
+		assert(true);
+	}
+
+	@Test
+	public static void test36 () {
+		System.out.println("test# 36");
+		assert(true);
+	}
+
+	@Test
+	public static void test37 () {
+		System.out.println("test# 37");
+		assert(true);
+	}
+
+	@Test
+	public static void test38 () {
+		System.out.println("test# 38");
+		assert(true);
+	}
+
+	@Test
+	public static void test39 () {
+		System.out.println("test# 39");
+		assert(true);
+	}
+
+	@Test
+	public static void test40 () {
+		System.out.println("test# 40");
+		assert(true);
+	}
+
+	@Test
+	public static void test41 () {
+		System.out.println("test# 41");
+		assert(true);
+	}
+
+	@Test
+	public static void test42 () {
+		System.out.println("test# 42");
+		assert(true);
+	}
+
+	@Test
+	public static void test43 () {
+		System.out.println("test# 43");
+		assert(true);
+	}
+
+	@Test
+	public static void test44 () {
+		System.out.println("test# 44");
+		assert(true);
+	}
+
+	@Test
+	public static void test45 () {
+		System.out.println("test# 45");
+		assert(true);
+	}
+
+	@Test
+	public static void test46 () {
+		System.out.println("test# 46");
+		assert(true);
+	}
+
+	@Test
+	public static void test47 () {
+		System.out.println("test# 47");
+		assert(true);
+	}
+
+	@Test
+	public static void test48 () {
+		System.out.println("test# 48");
+		assert(true);
+	}
+
+	@Test
+	public static void test49 () {
+		System.out.println("test# 49");
+		assert(true);
+	}
+
+	@Test
+	public static void test50 () {
+		System.out.println("test# 50");
+		assert(true);
+	}
+
+	@Test
+	public static void test51 () {
+		System.out.println("test# 51");
+		assert(true);
+	}
+
+	@Test
+	public static void test52 () {
+		System.out.println("test# 52");
+		assert(true);
+	}
+
+	@Test
+	public static void test53 () {
+		System.out.println("test# 53");
+		assert(true);
+	}
+
+	@Test
+	public static void test54 () {
+		System.out.println("test# 54");
+		assert(true);
+	}
+
+	@Test
+	public static void test55 () {
+		System.out.println("test# 55");
+		assert(true);
+	}
+
+	@Test
+	public static void test56 () {
+		System.out.println("test# 56");
+		assert(true);
+	}
+
+	@Test
+	public static void test57 () {
+		System.out.println("test# 57");
+		assert(true);
+	}
+
+	@Test
+	public static void test58 () {
+		System.out.println("test# 58");
+		assert(true);
+	}
+
+	@Test
+	public static void test59 () {
+		System.out.println("test# 59");
+		assert(true);
+	}
+
+	@Test
+	public static void test60 () {
+		System.out.println("test# 60");
+		assert(true);
+	}
+
+	@Test
+	public static void test61 () {
+		System.out.println("test# 61");
+		assert(true);
+	}
+
+	@Test
+	public static void test62 () {
+		System.out.println("test# 62");
+		assert(true);
+	}
+
+	@Test
+	public static void test63 () {
+		System.out.println("test# 63");
+		assert(true);
+	}
+
+	@Test
+	public static void test64 () {
+		System.out.println("test# 64");
+		assert(true);
+	}
+
+	@Test
+	public static void test65 () {
+		System.out.println("test# 65");
+		assert(true);
+	}
+
+	@Test
+	public static void test66 () {
+		System.out.println("test# 66");
+		assert(true);
+	}
+
+	@Test
+	public static void test67 () {
+		System.out.println("test# 67");
+		assert(true);
+	}
+
+	@Test
+	public static void test68 () {
+		System.out.println("test# 68");
+		assert(true);
+	}
+
+	@Test
+	public static void test69 () {
+		System.out.println("test# 69");
+		assert(true);
+	}
+
+	@Test
+	public static void test70 () {
+		System.out.println("test# 70");
+		assert(true);
+	}
+
+	@Test
+	public static void test71 () {
+		System.out.println("test# 71");
+		assert(true);
+	}
+
+	@Test
+	public static void test72 () {
+		System.out.println("test# 72");
+		assert(true);
+	}
+
+	@Test
+	public static void test73 () {
+		System.out.println("test# 73");
+		assert(true);
+	}
+
+	@Test
+	public static void test74 () {
+		System.out.println("test# 74");
+		assert(true);
+	}
+
+	@Test
+	public static void test75 () {
+		System.out.println("test# 75");
+		assert(true);
+	}
+
+	@Test
+	public static void test76 () {
+		System.out.println("test# 76");
+		assert(true);
+	}
+
+	@Test
+	public static void test77 () {
+		System.out.println("test# 77");
+		assert(true);
+	}
+
+	@Test
+	public static void test78 () {
+		System.out.println("test# 78");
+		assert(true);
+	}
+
+	@Test
+	public static void test79 () {
+		System.out.println("test# 79");
+		assert(true);
+	}
+
+	@Test
+	public static void test80 () {
+		System.out.println("test# 80");
+		assert(true);
+	}
+
+	@Test
+	public static void test81 () {
+		System.out.println("test# 81");
+		assert(true);
+	}
+
+	@Test
+	public static void test82 () {
+		System.out.println("test# 82");
+		assert(true);
+	}
+
+	@Test
+	public static void test83 () {
+		System.out.println("test# 83");
+		assert(true);
+	}
+
+	@Test
+	public static void test84 () {
+		System.out.println("test# 84");
+		assert(true);
+	}
+
+	@Test
+	public static void test85 () {
+		System.out.println("test# 85");
+		assert(true);
+	}
+
+	@Test
+	public static void test86 () {
+		System.out.println("test# 86");
+		assert(true);
+	}
+
+	@Test
+	public static void test87 () {
+		System.out.println("test# 87");
+		assert(true);
+	}
+
+	@Test
+	public static void test88 () {
+		System.out.println("test# 88");
+		assert(true);
+	}
+
+	@Test
+	public static void test89 () {
+		System.out.println("test# 89");
+		assert(true);
+	}
+
+	@Test
+	public static void test90 () {
+		System.out.println("test# 90");
+		assert(true);
+	}
+
+	@Test
+	public static void test91 () {
+		System.out.println("test# 91");
+		assert(true);
+	}
+
+	@Test
+	public static void test92 () {
+		System.out.println("test# 92");
+		assert(true);
+	}
+
+	@Test
+	public static void test93 () {
+		System.out.println("test# 93");
+		assert(true);
+	}
+
+	@Test
+	public static void test94 () {
+		System.out.println("test# 94");
+		assert(true);
+	}
+
+	@Test
+	public static void test95 () {
+		System.out.println("test# 95");
+		assert(true);
+	}
+
+	@Test
+	public static void test96 () {
+		System.out.println("test# 96");
+		assert(true);
+	}
+
+	@Test
+	public static void test97 () {
+		System.out.println("test# 97");
+		assert(true);
+	}
+
+	@Test
+	public static void test98 () {
+		System.out.println("test# 98");
+		assert(true);
+	}
+
+	@Test
+	public static void test99 () {
+		System.out.println("test# 99");
+		assert(true);
+	}
+
+	@Test
+	public static void test100 () {
+		System.out.println("test# 100");
+		assert(true);
+	}
+

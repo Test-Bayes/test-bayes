@@ -9,7 +9,7 @@ import java.util.*;
 public class TestLogReader {
 
     // TODO: Make this a parameter of some sort
-    private static final int RUNNING_AVERAGE = 5;
+    private static final int RUNNING_AVERAGE = 15;
 
     /**
      * Returns a map of the last @RUNNING_AVERAGE test runs and the stats of the same

@@ -8,6 +8,9 @@ import java.io.PrintStream;
 import java.util.Map;
 import java.util.Scanner;
 
+/**
+ *
+ */
 public class TestLogWriter {
 
 
@@ -57,6 +60,12 @@ public class TestLogWriter {
         return file.getAbsolutePath();
     }
 
+    /**
+     * Returns the file to which the given data point(s) should be added
+     *
+     * @return File object representing the file to be edited
+     * @throws IOException
+     */
     private static File getFile() throws IOException {
         String directoryName = FileNameUtils.getDirectoryName();
         File directory = new File(directoryName);
@@ -71,6 +80,11 @@ public class TestLogWriter {
         return file;
     }
 
-
+    /**
+     * Forces a new file to be created for the next set of data points to be written to the file system
+     */
+    public static void forceNewFile() {
+        filename = null;
+    }
 
 }
