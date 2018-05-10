@@ -81,7 +81,7 @@ public class IndividualClassRunner extends BlockJUnit4ClassRunner {
                 bestM = currM;
                 best = b.getTestProb(currM.toString()).doubleValue();
             }
-            System.out.println(currM.getName() + ": " + b.getTestProb(currM.toString()).doubleValue());
+//            System.out.println(currM.getName() + ": " + b.getTestProb(currM.toString()).doubleValue());
         }
         return bestM;
     }
@@ -145,13 +145,13 @@ public class IndividualClassRunner extends BlockJUnit4ClassRunner {
         oldMs.removeAll(ignores);
         newMs.removeAll(ignores);
 
-        System.out.println("Olds: " + oldMs.toString());
-        System.out.println("News: " + newMs.toString());
-
-        System.out.println(beforeClasses.toString());
-        System.out.println(befores.toString());
-        System.out.println(afters.toString());
-        System.out.println(afterClasses.toString());
+//        System.out.println("Olds: " + oldMs.toString());
+//        System.out.println("News: " + newMs.toString());
+//
+//        System.out.println(beforeClasses.toString());
+//        System.out.println(befores.toString());
+//        System.out.println(afters.toString());
+//        System.out.println(afterClasses.toString());
 
         // Start of method runs
         startTime = Instant.now();
@@ -210,7 +210,7 @@ public class IndividualClassRunner extends BlockJUnit4ClassRunner {
         Instant end = null;
         Instant start = null;
         boolean passed = true;
-        System.out.println("Running test " + method.toString());
+//        System.out.println("Running test " + method.toString());
         try {
             notifier.fireTestStarted(Description
                     .createTestDescription(testClass, method.getName()));
