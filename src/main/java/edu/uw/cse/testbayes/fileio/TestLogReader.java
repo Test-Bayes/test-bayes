@@ -41,10 +41,17 @@ public class TestLogReader {
     private static Map<String, File> getFileMap() {
         File directory = new File(FileNameUtils.getDirectoryName());
         File[] fileArray = directory.listFiles();
+
         Map<String, File> fileMap = new TreeMap<String, File>(Collections.reverseOrder());
-        for(File file : fileArray) {
-            if (file.isFile()) {
-                fileMap.put(file.toString(), file);
+        if (fileArray != null) {
+            for (File file : fileArray) {
+                if (file.isFile()) {
+                    fileMap.put(file.toString(), file);
+                }
+            }
+        } else {
+            if (!directory.mkdir()) {
+                System.err.println("Could not create log-data directory");
             }
         }
         return fileMap;
