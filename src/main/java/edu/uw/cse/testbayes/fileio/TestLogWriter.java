@@ -53,6 +53,7 @@ public class TestLogWriter {
         PrintStream printStream = new PrintStream(file);
         printStream.print(s + methodName.replaceAll(" ", "%") + "," + num + " ");
         printStream.close();
+        scanner.close();
         return file.getAbsolutePath();
     }
 

@@ -111,7 +111,7 @@ public class TestLogWriterTest {
     public void cleanUp() {
         for(File file: files) {
             if (!file.delete()) {
-                System.err.println("File " + file.getAbsolutePath() + " not deleted");
+//                System.err.println("File " + file.getAbsolutePath() + " not deleted");
             }
         }
     }

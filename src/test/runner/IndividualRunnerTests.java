@@ -1,13 +1,14 @@
 package runner;
 
 import edu.uw.cse.testbayes.runner.IndividualClassRunner;
+import org.junit.Test;
 import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;
-import runner.utilTestClasses.Test1;
-import org.junit.Test;
 import org.junit.runners.model.InitializationError;
+import runner.utilTestClasses.Test1;
 
 import java.io.File;
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -47,6 +48,7 @@ public class IndividualRunnerTests {
     // check if a log file was created within 5000ms of a run
     public void testLogsExist() {
         JUnitCore junit = new JUnitCore();
+        System.setProperty("A1_FAIL_FOR_TEST", "true");
         Result result = junit.run(Test1.class);
 
         // get the minimum time difference between current time and file timestamp
@@ -61,19 +63,20 @@ public class IndividualRunnerTests {
     @Test
     public void testFailedTestHasNegativeRuntime() {
         JUnitCore junit = new JUnitCore();
-        Result result = junit.run(Test1.class);;
+        System.setProperty("A1_FAIL_FOR_TEST", "true");
+        Result result = junit.run(Test1.class);
         Scanner s = null;
         try {
             s = new Scanner(getMostRecentLog());
         } catch (Exception e) {
-            System.out.println(e);
+            e.printStackTrace();
             assert(false);
         }
 
         String[] contents = s.nextLine().split(" ");
         for (String test: contents) {
             String[] results = test.split(",");
-            if (results[0].equals("a1")) {
+            if (results[0].equals("public void runner.utilTestClasses.Test1.a1() throws java.lang.InterruptedException")) {
                 assert (Double.parseDouble(results[1]) < 0.0) ? true : false;
             }
         }
@@ -86,13 +89,16 @@ public class IndividualRunnerTests {
         long min = Long.MAX_VALUE;
         File result = null;
         for (File log: logs.listFiles()) {
-            String name = log.getName();
-            long fileTimestamp = Long.parseLong(name.split("-")[0]);
-            long oldMin = min;
-            min = (timestamp - fileTimestamp) < min ? (timestamp - fileTimestamp): min;
-            if (min != oldMin)
-                result = log;
+            if (log.isFile()) {
+                String name = log.getName();
+                long fileTimestamp = Long.parseLong(name.split("-")[0]);
+                long oldMin = min;
+                min = (timestamp - fileTimestamp) < min ? (timestamp - fileTimestamp) : min;
+                if (min != oldMin)
+                    result = log;
+            }
         }
+        System.out.println("Result: " + result);
         return result;
     }
 }

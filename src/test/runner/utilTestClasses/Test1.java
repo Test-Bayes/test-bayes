@@ -1,17 +1,27 @@
 package runner.utilTestClasses;
 
 import edu.uw.cse.testbayes.runner.IndividualClassRunner;
+import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(IndividualClassRunner.class)
 public class Test1 {
+    private boolean a1Fail =
+            System.getProperty("A1_FAIL_FOR_TEST") != null ?
+                    Boolean.valueOf(System.getProperty("A1_FAIL_FOR_TEST")) :
+                    false;
+
     @Ignore
     @Test
     public void a1() throws InterruptedException {
         wasteTime();
-        assert(false);
+        System.out.println(a1Fail);
+        if (a1Fail) {
+            System.getProperties().remove("A1_FAIL_FOR_TEST");
+            assert (false);
+        }
         return;
     }
 
