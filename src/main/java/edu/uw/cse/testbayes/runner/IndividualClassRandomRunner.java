@@ -1,15 +1,14 @@
 package edu.uw.cse.testbayes.runner;
 
 import edu.uw.cse.testbayes.fileio.TestLogReader;
+import edu.uw.cse.testbayes.fileio.TestLogWriter;
 import edu.uw.cse.testbayes.model.Bayes;
-import edu.uw.cse.testbayes.model.Probability;
 import org.junit.*;
 import org.junit.runner.Description;
 import org.junit.runner.notification.Failure;
 import org.junit.runner.notification.RunNotifier;
 import org.junit.runners.BlockJUnit4ClassRunner;
 import org.junit.runners.model.InitializationError;
-import edu.uw.cse.testbayes.fileio.TestLogWriter;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -18,12 +17,10 @@ import java.lang.reflect.Method;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.*;
-import java.util.concurrent.TimeUnit;
 
 import static java.lang.System.exit;
-import static java.util.concurrent.TimeUnit.NANOSECONDS;
 
-public class IndividualClassRunner extends BlockJUnit4ClassRunner {
+public class IndividualClassRandomRunner extends BlockJUnit4ClassRunner {
     private Class<?> testClass;
     private boolean ignore;
     private Object testObject;
@@ -33,7 +30,7 @@ public class IndividualClassRunner extends BlockJUnit4ClassRunner {
     private boolean firstFailFound;
 
 
-    public IndividualClassRunner(Class<?> klass) throws InitializationError {
+    public IndividualClassRandomRunner(Class<?> klass) throws InitializationError {
         super(klass);
         this.testClass = klass;
         this.ignore = true;
@@ -70,20 +67,6 @@ public class IndividualClassRunner extends BlockJUnit4ClassRunner {
         ArrayList<Method> methods = new ArrayList<Method>(Arrays.asList(ms));
         Collections.shuffle(methods);
         return methods;
-    }
-
-    private Method getFirstMethod(List<String> ms, Bayes b, Map<String, Method> nameMap) {
-        double best = 0;
-        Method bestM = null;
-        for (String m : ms) {
-            Method currM = nameMap.get(m);
-            if (bestM == null || b.getTestProb(currM.toString()).doubleValue() < best) {
-                bestM = currM;
-                best = b.getTestProb(currM.toString()).doubleValue();
-            }
-            System.out.println(currM.getName() + ": " + b.getTestProb(currM.toString()).doubleValue());
-        }
-        return bestM;
     }
 
     @Override
@@ -132,27 +115,6 @@ public class IndividualClassRunner extends BlockJUnit4ClassRunner {
             }
         }
 
-        // Create the bayes module
-        Bayes bay = new Bayes(oldRuns, methods);
-
-        // Separate new methods from old ones
-        Set<String> temp = new HashSet<String>(nameToMethod.keySet());
-        temp.removeAll(bay.getProb().keySet());
-        List<String> newMs = new ArrayList<String>(temp);
-        temp = new HashSet<String>(nameToMethod.keySet());
-        temp.removeAll(newMs);
-        List<String> oldMs = new ArrayList<String>(temp);
-        oldMs.removeAll(ignores);
-        newMs.removeAll(ignores);
-
-        System.out.println("Olds: " + oldMs.toString());
-        System.out.println("News: " + newMs.toString());
-
-        System.out.println(beforeClasses.toString());
-        System.out.println(befores.toString());
-        System.out.println(afters.toString());
-        System.out.println(afterClasses.toString());
-
         // Start of method runs
         startTime = Instant.now();
 
@@ -165,24 +127,9 @@ public class IndividualClassRunner extends BlockJUnit4ClassRunner {
                     nameToMethod.get(i).getName()));
         }
 
-        // Run new methods
-        for (int i = 0; i < newMs.size(); i++) {
-            runMethod(notifier, nameToMethod.get(newMs.get(i)),
-                      befores, afters);
-        }
-
         // Run already seen methods
-        boolean passed = false;
-        Method method = null;
-        for (int i = newMs.size(); i < methods.size(); i++) {
-            if (i == newMs.size()) {
-                method = getFirstMethod(oldMs, bay, nameToMethod);
-            } else {
-                String newS = bay.nextTest(method.toString(), passed, new HashSet<String>(ignores));
-                method = nameToMethod.get(newS);
-            }
-            passed = runMethod(notifier, method,
-                               befores, afters);
+        for (int i = 0; i < methods.size(); i++) {
+            runMethod(notifier, methods.get(i), befores, afters);
         }
 
         // Run the afters
