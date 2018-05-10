@@ -69,10 +69,11 @@ public class IndividualClassRunner extends BlockJUnit4ClassRunner {
         Method bestM = null;
         for (String m : ms) {
             Method currM = nameMap.get(m);
-            if (bestM == null || b.getTestProb(currM.toString()).doubleValue() > best) {
+            if (bestM == null || b.getTestProb(currM.toString()).doubleValue() < best) {
                 bestM = currM;
                 best = b.getTestProb(currM.toString()).doubleValue();
             }
+            System.out.println(currM.getName() + ": " + b.getTestProb(currM.toString()).doubleValue());
         }
         return bestM;
     }
