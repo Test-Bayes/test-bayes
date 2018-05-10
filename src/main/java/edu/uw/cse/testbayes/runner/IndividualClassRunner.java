@@ -93,7 +93,7 @@ public class IndividualClassRunner extends BlockJUnit4ClassRunner {
 
 
         ArrayList<Method> methods = shuffle(testClass.getMethods());
-        Set<String> ignores = new HashSet<String>();
+        Set<String> ignores = new HashSet<>();
         Map<String, Method> nameToMethod = new HashMap<String, Method>();
         for (int i = 0; i < methods.size(); i++) {
             if (!methods.get(i).isAnnotationPresent(Test.class)) {
@@ -113,12 +113,17 @@ public class IndividualClassRunner extends BlockJUnit4ClassRunner {
         Bayes bay = new Bayes(oldRuns, methods);
 
         // Separate new methods from old ones
-        Set<String> temp = new HashSet<String>(nameToMethod.keySet());
+        Set<String> temp = new HashSet<>(nameToMethod.keySet());
         temp.removeAll(bay.getProb().keySet());
-        List<String> newMs = new ArrayList<String>(temp);
-        temp = new HashSet<String>(nameToMethod.keySet());
+        List<String> newMs = new ArrayList<>(temp);
+        temp = new HashSet<>(nameToMethod.keySet());
         temp.removeAll(newMs);
-        List<String> oldMs = new ArrayList<String>(temp);
+        List<String> oldMs = new ArrayList<>(temp);
+        oldMs.removeAll(ignores);
+        newMs.removeAll(ignores);
+
+        System.out.println("Olds: " + oldMs.toString());
+        System.out.println("News: " + newMs.toString());
 
 
         // Notify ignored tests
@@ -139,11 +144,10 @@ public class IndividualClassRunner extends BlockJUnit4ClassRunner {
             if (i == newMs.size()) {
                 method = getFirstMethod(oldMs, bay, nameToMethod);
             } else {
-                String newS = bay.nextTest(method.toString(), passed, new HashSet<String>(ignores));
+                String newS = bay.nextTest(method.toString(), passed, new HashSet<>(ignores));
                 method = nameToMethod.get(newS);
             }
             passed = runMethod(notifier, method);
-
         }
 
         // TODO: Call this in the loop, write one by one
