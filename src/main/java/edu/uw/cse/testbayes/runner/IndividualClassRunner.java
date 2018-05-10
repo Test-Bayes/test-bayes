@@ -40,7 +40,7 @@ public class IndividualClassRunner extends BlockJUnit4ClassRunner {
         this.testObject = null;
         this.testsRun = 0;
         this.startTime = null;
-        this.firstFailFound = true;
+        this.firstFailFound = false;
         try {
             this.testObject = testClass.newInstance();
         } catch (IllegalAccessException e) {
@@ -247,7 +247,7 @@ public class IndividualClassRunner extends BlockJUnit4ClassRunner {
                 System.out.println("Time taken until first failure: " + Duration.between(Instant.now(), startTime));
             }
             try {
-                TestLogWriter.write(method.toString(), (double)(passed ? time : (0.0 - time)));
+                TestLogWriter.write(method.toString(), (double)(passed ? Math.max(time, 0.1) : Math.min(-time, -0.1)));
             } catch (IOException e) {
                 e.printStackTrace();
             }
