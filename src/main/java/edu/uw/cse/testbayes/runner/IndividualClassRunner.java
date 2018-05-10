@@ -3,8 +3,7 @@ package edu.uw.cse.testbayes.runner;
 import edu.uw.cse.testbayes.fileio.TestLogReader;
 import edu.uw.cse.testbayes.model.Bayes;
 import edu.uw.cse.testbayes.model.Probability;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.*;
 import org.junit.runner.Description;
 import org.junit.runner.notification.Failure;
 import org.junit.runner.notification.RunNotifier;
@@ -93,10 +92,26 @@ public class IndividualClassRunner extends BlockJUnit4ClassRunner {
 
 
         ArrayList<Method> methods = shuffle(testClass.getMethods());
+        ArrayList<Method> befores = new ArrayList<Method>();
+        ArrayList<Method> afters = new ArrayList<Method>();
+        ArrayList<Method> beforeClasses = new ArrayList<Method>();
+        ArrayList<Method> afterClasses = new ArrayList<Method>();
         Set<String> ignores = new HashSet<String>();
         Map<String, Method> nameToMethod = new HashMap<String, Method>();
         for (int i = 0; i < methods.size(); i++) {
             if (!methods.get(i).isAnnotationPresent(Test.class)) {
+                if (methods.get(i).isAnnotationPresent(Before.class)) {
+                    befores.add(methods.get(i));
+                }
+                if (methods.get(i).isAnnotationPresent(After.class)) {
+                    afters.add(methods.get(i));
+                }
+                if (methods.get(i).isAnnotationPresent(BeforeClass.class)) {
+                    beforeClasses.add(methods.get(i));
+                }
+                if (methods.get(i).isAnnotationPresent(AfterClass.class)) {
+                    afterClasses.add(methods.get(i));
+                }
                 methods.remove(i);
                 i--;
             } else if (ignore && methods.get(i).isAnnotationPresent(Ignore.class)) {
@@ -125,6 +140,13 @@ public class IndividualClassRunner extends BlockJUnit4ClassRunner {
         System.out.println("Olds: " + oldMs.toString());
         System.out.println("News: " + newMs.toString());
 
+        System.out.println(beforeClasses.toString());
+        System.out.println(befores.toString());
+        System.out.println(afters.toString());
+        System.out.println(afterClasses.toString());
+
+        // Run the beforeClasses
+        runSetups(beforeClasses);
 
         // Notify ignored tests
         for (String i : ignores) {
@@ -134,7 +156,8 @@ public class IndividualClassRunner extends BlockJUnit4ClassRunner {
 
         // Run new methods
         for (int i = 0; i < newMs.size(); i++) {
-            runMethod(notifier, nameToMethod.get(newMs.get(i)));
+            runMethod(notifier, nameToMethod.get(newMs.get(i)),
+                      befores, afters);
         }
 
         // Run already seen methods
@@ -147,8 +170,12 @@ public class IndividualClassRunner extends BlockJUnit4ClassRunner {
                 String newS = bay.nextTest(method.toString(), passed, new HashSet<String>(ignores));
                 method = nameToMethod.get(newS);
             }
-            passed = runMethod(notifier, method);
+            passed = runMethod(notifier, method,
+                               befores, afters);
         }
+
+        // Run the afters
+        runSetups(afterClasses);
 
         // TODO: Call this in the loop, write one by one
 //        TestLogWriter outputWriter = new TestLogWriter();
@@ -159,7 +186,23 @@ public class IndividualClassRunner extends BlockJUnit4ClassRunner {
 //        }
     }
 
-    public boolean runMethod(RunNotifier notifier, Method method) {
+    public void runSetups(List<Method> ms) {
+        for (Method m : ms) {
+            try {
+                m.invoke(testObject);
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+                exit(1);
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+                exit(1);
+            }
+        }
+    }
+
+    public boolean runMethod(RunNotifier notifier, Method method,
+                             List<Method> befores, List<Method> afters) {
+        runSetups(befores);
         Instant end = null;
         Instant start = null;
         boolean passed = true;
@@ -173,10 +216,14 @@ public class IndividualClassRunner extends BlockJUnit4ClassRunner {
             notifier.fireTestFinished(Description
                     .createTestDescription(testClass, method.getName()));
         } catch (InvocationTargetException e) {
-            notifier.fireTestFailure(
-                    new Failure(
-                            Description.createTestDescription(testClass, method.getName()),
-                            e));
+            Class f = method.getAnnotation(Test.class).expected();
+            if (!e.getTargetException().getClass().toString().equals(f.toString())) {
+                // Expected wasn't thrown
+                notifier.fireTestFailure(
+                        new Failure(
+                                Description.createTestDescription(testClass, method.getName()),
+                                e));
+            }
             notifier.fireTestFinished(Description
                     .createTestDescription(testClass, method.getName()));
             end = Instant.now();
@@ -194,6 +241,7 @@ public class IndividualClassRunner extends BlockJUnit4ClassRunner {
                 e.printStackTrace();
             }
         }
+        runSetups(afters);
         return passed;
     }
 }
