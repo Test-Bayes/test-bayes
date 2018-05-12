@@ -8,29 +8,48 @@ import org.junit.runners.model.InitializationError;
 import runner.utilTestClasses.Test1;
 
 import java.io.File;
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Authors: Steven Austin, Ethan Mayer
+ * This class tests the individual class runner
+ */
+
 public class IndividualRunnerTests {
 
+    /**
+     * Verify that individual class runner throws an exception for null class
+     * @throws InitializationError indicates runner class is null
+     */
     @Test(expected = NullPointerException.class)
     public void testConstructorThrowsNull() throws InitializationError {
         IndividualClassRunner r = new IndividualClassRunner(null);
     }
 
+    /**
+     * verify that only test classes will be run
+     * @throws InitializationError indicates invalid test class
+     */
     @Test(expected = InitializationError.class)
     public void testConstructorThrowsBadClass() throws InitializationError {
         IndividualClassRunner r = new IndividualClassRunner(IndividualClassRunner.class);
     }
 
+    /**
+     * verify a proper constructor call to individual class runner
+     * @throws InitializationError indicates invalid test class
+     */
     @Test
     public void testConstructorValid() throws InitializationError {
         IndividualClassRunner r = new IndividualClassRunner(Test1.class);
     }
 
+    /**
+     * verify that the shuffle method can find a new ordering
+     */
     @Test(timeout = 5000)
     public void testShuffle() {
         Method[] ms = this.getClass().getDeclaredMethods();
@@ -44,8 +63,10 @@ public class IndividualRunnerTests {
         }
     }
 
+    /**
+     * verify that a log file was created within 5000ms of a test run
+     */
     @Test
-    // check if a log file was created within 5000ms of a run
     public void testLogsExist() {
         JUnitCore junit = new JUnitCore();
         System.setProperty("A1_FAIL_FOR_TEST", "true");
@@ -60,6 +81,9 @@ public class IndividualRunnerTests {
         assert(timestamp - fileTimestamp < 5000 ? true : false);
     }
 
+    /**
+     * verify that failing tests have negative runtime to indicate failure
+     */
     @Test
     public void testFailedTestHasNegativeRuntime() {
         JUnitCore junit = new JUnitCore();
@@ -82,6 +106,10 @@ public class IndividualRunnerTests {
         }
     }
 
+    /**
+     * Gets the most recently created log file
+     * @return A file object representing the most recently created log file
+     */
     public File getMostRecentLog() {
         File logs = new File("log-data");
         long timestamp = new Timestamp(System.currentTimeMillis()).getTime() ;
