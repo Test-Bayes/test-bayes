@@ -6,9 +6,15 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
 
+/**
+ * Reads Logs from Test Runs and parses through the data
+ */
 public class TestLogReader {
 
     // TODO: Make this a parameter of some sort
+    /**
+     * The number of files of logs to be read
+     */
     private static final int RUNNING_AVERAGE = 5;
 
     /**
