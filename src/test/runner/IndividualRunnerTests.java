@@ -17,7 +17,6 @@ import java.util.Scanner;
  * Authors: Steven Austin, Ethan Mayer
  * This class tests the individual class runner
  */
-
 public class IndividualRunnerTests {
 
     /**
