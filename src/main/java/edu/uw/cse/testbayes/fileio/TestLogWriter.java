@@ -8,9 +8,14 @@ import java.io.PrintStream;
 import java.util.Map;
 import java.util.Scanner;
 
+/**
+ * Writes Logs from the Test Run
+ */
 public class TestLogWriter {
 
-
+    /**
+     * Filename in which the data from the current run are saved
+     */
     private static String filename;
 
     /**
@@ -57,6 +62,12 @@ public class TestLogWriter {
         return file.getAbsolutePath();
     }
 
+    /**
+     * Gets the File in which the logs are to be written
+     *
+     * @return File Object representing File in which the logs are to be written
+     * @throws IOException
+     */
     private static File getFile() throws IOException {
         String directoryName = FileNameUtils.getDirectoryName();
         File directory = new File(directoryName);
@@ -70,7 +81,5 @@ public class TestLogWriter {
         file.createNewFile();
         return file;
     }
-
-
 
 }
