@@ -1,0 +1,13 @@
+Section 1 - Goals from Past Week
+- Run algorithm for evaluation
+- Interpret the evaluation to make changes.
+
+Section 2 - This week's progress
+- Integrated the code we have in our codebase.
+- Generated first set of results that was encouraging.
+- Made more test files.
+
+Section 3 - Next Week's Goals:
+- Collect results from updated mathematical model.
+- Prepare for presentation.
+- Write the report with better language.
