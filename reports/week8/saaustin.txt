@@ -1,0 +1,3 @@
+Next week we will also be satisfying class requiremetns and doing everything required to recieve the most basic credit for the class. I     will be looking at accumulated feedback and try to reflect on how to improve both our project and our report document. 
+This week I spent most of my time revising our report for readability and to make it more concise and explicit. I also followed feedback      suggesting I should doccument more code; I fully doccumented the junit runner code.
+Next week I will continue revising our document based on feedback, and hopefully observe some exciting results from our project running on    very large test suites.
