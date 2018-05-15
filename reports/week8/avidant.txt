@@ -1,0 +1,11 @@
+Last Weeks Goals:
+- Convert the code into a dependency
+
+Current Progress:
+- We were unable to convert the code into a dependancy
+- Rewrote several parts of the report for clarity
+- Ran multiple tests and wrote scripts to test our code
+
+Goals for the week:
+- Have better evaluation
+- Convert the code into a dependency

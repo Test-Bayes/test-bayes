@@ -9,11 +9,13 @@ import java.util.Map;
 import java.util.Scanner;
 
 /**
- *
+ * Writes Logs from the Test Run
  */
 public class TestLogWriter {
 
-
+    /**
+     * Filename in which the data from the current run are saved
+     */
     private static String filename;
 
     /**
@@ -61,9 +63,9 @@ public class TestLogWriter {
     }
 
     /**
-     * Returns the file to which the given data point(s) should be added
+     * Gets the File in which the logs are to be written
      *
-     * @return File object representing the file to be edited
+     * @return File Object representing File in which the logs are to be written
      * @throws IOException
      */
     private static File getFile() throws IOException {
@@ -86,5 +88,5 @@ public class TestLogWriter {
     public static void forceNewFile() {
         filename = null;
     }
-
+  
 }
