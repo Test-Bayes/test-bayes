@@ -2,7 +2,6 @@ package edu.uw.cse.testbayes.runner;
 
 import edu.uw.cse.testbayes.fileio.TestLogReader;
 import edu.uw.cse.testbayes.model.Bayes;
-import edu.uw.cse.testbayes.model.Probability;
 import org.junit.*;
 import org.junit.runner.Description;
 import org.junit.runner.notification.Failure;
@@ -18,21 +17,27 @@ import java.lang.reflect.Method;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.*;
-import java.util.concurrent.TimeUnit;
 
 import static java.lang.System.exit;
-import static java.util.concurrent.TimeUnit.NANOSECONDS;
 
+/**
+ * Authors: Steven Austin, Ethan Mayer
+ * This class runs an individual test class in an order determined by the Bayes model
+ * by extending the Block Junit 4 Class Runner
+ */
 public class IndividualClassRunner extends BlockJUnit4ClassRunner {
-    private Class<?> testClass;
+    private Class<?> testClass; // the junit test class to be reordered
     private boolean ignore;
     private Object testObject;
-
     private int testsRun;
     private Instant startTime;
     private boolean firstFailFound;
 
-
+    /**
+     * Construct an individual class runner over the methods in klass
+     * @param klass The junit class to be tested in a custom order
+     * @throws InitializationError Indicates invalid junit test class
+     */
     public IndividualClassRunner(Class<?> klass) throws InitializationError {
         super(klass);
         this.testClass = klass;
@@ -51,27 +56,25 @@ public class IndividualClassRunner extends BlockJUnit4ClassRunner {
             exit(1);
         }
     }
-//
-//    @Override
-//    protected Statement methodInvoker(FrameworkMethod method, Object test) {
-//        System.out.println("invoking: " + method.toString());
-//        Statement result = super.methodInvoker(method, test);
-//        System.out.println(result.toString());
-//        try {
-//            result.evaluate();
-//        } catch (Throwable throwable) {
-//            throwable.printStackTrace();
-//        }
-////        System.out.println(result.);
-//        return result;*
-//    }
 
+    /**
+     * Shuffles the Method array, ms
+     * @param ms The Method array to be shuffled
+     * @return A shuffled list of Methods
+     */
     public static ArrayList<Method> shuffle(Method[] ms) {
         ArrayList<Method> methods = new ArrayList<Method>(Arrays.asList(ms));
         Collections.shuffle(methods);
         return methods;
     }
 
+    /**
+     * Returns the first method to be run out of ms according the the Bayes model
+     * @param ms The list of potential methods to be run, as strings
+     * @param b The bayes probability model
+     * @param nameMap A map from method names as Strings, to Methods
+     * @return The best method to be run out of ms, according to the model, b
+     */
     private Method getFirstMethod(List<String> ms, Bayes b, Map<String, Method> nameMap) {
         double best = 0;
         Method bestM = null;
@@ -81,11 +84,14 @@ public class IndividualClassRunner extends BlockJUnit4ClassRunner {
                 bestM = currM;
                 best = b.getTestProb(currM.toString()).doubleValue();
             }
-            System.out.println(currM.getName() + ": " + b.getTestProb(currM.toString()).doubleValue());
         }
         return bestM;
     }
 
+    /**
+     * Runs the tests contained in the test class in an order determined by the bayes model
+     * @param notifier Used to notify JUnit of progress running tests
+     */
     @Override
     public void run(RunNotifier notifier) {
         System.out.println("running the tests from MyRunner: " + testClass);
@@ -145,14 +151,6 @@ public class IndividualClassRunner extends BlockJUnit4ClassRunner {
         oldMs.removeAll(ignores);
         newMs.removeAll(ignores);
 
-        System.out.println("Olds: " + oldMs.toString());
-        System.out.println("News: " + newMs.toString());
-
-        System.out.println(beforeClasses.toString());
-        System.out.println(befores.toString());
-        System.out.println(afters.toString());
-        System.out.println(afterClasses.toString());
-
         // Start of method runs
         startTime = Instant.now();
 
@@ -189,6 +187,10 @@ public class IndividualClassRunner extends BlockJUnit4ClassRunner {
         runSetups(afterClasses);
     }
 
+    /**
+     * Runs the before class methods
+     * @param ms A list of before class Methods
+     */
     public void runSetups(List<Method> ms) {
         for (Method m : ms) {
             try {
@@ -203,6 +205,14 @@ public class IndividualClassRunner extends BlockJUnit4ClassRunner {
         }
     }
 
+    /**
+     *
+     * @param notifier Used to notify JUnit of progress running tests
+     * @param method The Method to be run
+     * @param befores Before class methods that need to be invoked before method
+     * @param afters After class methods that need to be invoked after method
+     * @return A boolean indicating if the test passed
+     */
     public boolean runMethod(RunNotifier notifier, Method method,
                              List<Method> befores, List<Method> afters) {
         testsRun++;
@@ -210,7 +220,6 @@ public class IndividualClassRunner extends BlockJUnit4ClassRunner {
         Instant end = null;
         Instant start = null;
         boolean passed = true;
-        System.out.println("Running test " + method.toString());
         try {
             notifier.fireTestStarted(Description
                     .createTestDescription(testClass, method.getName()));

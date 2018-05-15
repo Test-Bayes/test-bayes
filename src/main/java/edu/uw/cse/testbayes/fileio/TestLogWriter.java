@@ -82,4 +82,11 @@ public class TestLogWriter {
         return file;
     }
 
+    /**
+     * Forces a new file to be created for the next set of data points to be written to the file system
+     */
+    public static void forceNewFile() {
+        filename = null;
+    }
+  
 }

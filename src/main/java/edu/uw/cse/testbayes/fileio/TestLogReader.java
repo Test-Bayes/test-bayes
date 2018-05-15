@@ -15,7 +15,7 @@ public class TestLogReader {
     /**
      * The number of files of logs to be read
      */
-    private static final int RUNNING_AVERAGE = 5;
+    private static final int RUNNING_AVERAGE = 15;
 
     /**
      * Returns a map of the last @RUNNING_AVERAGE test runs and the stats of the same
