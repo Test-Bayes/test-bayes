@@ -1,6 +1,8 @@
 package runner;
 
+import edu.uw.cse.testbayes.fileio.LogWriter;
 import edu.uw.cse.testbayes.runner.IndividualClassRunner;
+import edu.uw.cse.testbayes.utils.FileNameUtils;
 import org.junit.Test;
 import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;
@@ -10,8 +12,9 @@ import runner.utilTestClasses.Test1;
 import java.io.File;
 import java.lang.reflect.Method;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.*;
+
+import static org.junit.Assert.assertTrue;
 
 /**
  * Authors: Steven Austin, Ethan Mayer
@@ -66,18 +69,21 @@ public class IndividualRunnerTest {
      * verify that a log file was created within 5000ms of a test run
      */
     @Test
-    public void testLogsExist() {
+    public void testLogsExist() throws InterruptedException {
+        LogWriter.forceNewFile();
+        long before = new Timestamp(System.currentTimeMillis()).getTime();
+        System.out.println("Time before: " + before);
         JUnitCore junit = new JUnitCore();
         System.setProperty("A1_FAIL_FOR_TEST", "true");
-        Result result = junit.run(Test1.class);
+        junit.run(Test1.class);
+        long after = new Timestamp(System.currentTimeMillis()).getTime();
+        System.out.println("Time after: " + after);
 
-        // get the minimum time difference between current time and file timestamp
         File mostRecent = getMostRecentLog();
-        long timestamp = new Timestamp(System.currentTimeMillis()).getTime();
         String name = mostRecent.getName();
         long fileTimestamp = Long.parseLong(name.split("-")[0]);
-        System.out.println(timestamp - fileTimestamp);
-        assert(timestamp - fileTimestamp < 5000 ? true : false);
+        System.out.println((fileTimestamp - before) + ", " + (after - fileTimestamp));
+        assertTrue(before <= fileTimestamp && fileTimestamp <= after);
     }
 
     /**
@@ -110,22 +116,23 @@ public class IndividualRunnerTest {
      * @return A file object representing the most recently created log file
      */
     public File getMostRecentLog() {
-        File logs = new File("log-data");
-        long timestamp = new Timestamp(System.currentTimeMillis()).getTime() ;
-        // get the minimum time difference between current time and file timestamp
-        long min = Long.MAX_VALUE;
-        File result = null;
-        for (File log: logs.listFiles()) {
-            if (log.isFile()) {
-                String name = log.getName();
-                long fileTimestamp = Long.parseLong(name.split("-")[0]);
-                long oldMin = min;
-                min = (timestamp - fileTimestamp) < min ? (timestamp - fileTimestamp) : min;
-                if (min != oldMin)
-                    result = log;
+
+        File directory = new File(FileNameUtils.getDirectoryName());
+        File[] fileArray = directory.listFiles();
+
+        Map<String, File> fileMap = new TreeMap<String, File>(Collections.reverseOrder());
+        if (fileArray == null) {
+            return null;
+        }
+        for (File file : fileArray) {
+            if (file.isFile()) {
+                fileMap.put(file.toString(), file);
             }
         }
-        System.out.println("Result: " + result);
-        return result;
+
+        for(String filename : fileMap.keySet()) {
+            return fileMap.get(filename);
+        }
+        return null;
     }
 }

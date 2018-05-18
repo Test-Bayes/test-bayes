@@ -7,8 +7,8 @@ public class FileNameUtils {
 
 
     public static String createFileName() {
-        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-        String filename = "log-data" + File.separator + timestamp.getTime() + "-" + System.getProperty("user.name") + ".txt";
+        long timestamp = System.currentTimeMillis();
+        String filename = "log-data" + File.separator + timestamp + "-" + System.getProperty("user.name") + ".txt";
         return filename;
     }
 
