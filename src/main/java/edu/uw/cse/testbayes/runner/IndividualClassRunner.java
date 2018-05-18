@@ -1,6 +1,6 @@
 package edu.uw.cse.testbayes.runner;
 
-import edu.uw.cse.testbayes.fileio.TestLogReader;
+import edu.uw.cse.testbayes.fileio.LogReader;
 import edu.uw.cse.testbayes.model.Bayes;
 import org.junit.*;
 import org.junit.runner.Description;
@@ -8,7 +8,7 @@ import org.junit.runner.notification.Failure;
 import org.junit.runner.notification.RunNotifier;
 import org.junit.runners.BlockJUnit4ClassRunner;
 import org.junit.runners.model.InitializationError;
-import edu.uw.cse.testbayes.fileio.TestLogWriter;
+import edu.uw.cse.testbayes.fileio.LogWriter;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -98,7 +98,7 @@ public class IndividualClassRunner extends BlockJUnit4ClassRunner {
         // Get the past map
         Map<String, Map<String, Double>> oldRuns = null;
         try {
-            oldRuns = TestLogReader.read();
+            oldRuns = LogReader.read();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             exit(1);
@@ -256,7 +256,7 @@ public class IndividualClassRunner extends BlockJUnit4ClassRunner {
                 System.out.println("Time taken until first failure: " + Duration.between(Instant.now(), startTime));
             }
             try {
-                TestLogWriter.write(method.toString(), (double)(passed ? Math.max(time, 0.1) : Math.min(-time, -0.1)));
+                LogWriter.write(method.toString(), (double)(passed ? Math.max(time, 0.1) : Math.min(-time, -0.1)));
             } catch (IOException e) {
                 e.printStackTrace();
             }

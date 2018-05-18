@@ -11,7 +11,7 @@ import java.util.Scanner;
 /**
  * Writes Logs from the Test Run
  */
-public class TestLogWriter {
+public class LogWriter {
 
     /**
      * Filename in which the data from the current run are saved

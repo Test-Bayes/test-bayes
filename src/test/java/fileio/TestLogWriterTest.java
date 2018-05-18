@@ -1,8 +1,7 @@
 package fileio;
 
-import edu.uw.cse.testbayes.fileio.TestLogWriter;
+import edu.uw.cse.testbayes.fileio.LogWriter;
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -46,7 +45,7 @@ public class TestLogWriterTest {
 
     @Test
     public void testSpaces() throws IOException {
-        String filename = TestLogWriter.write(multipleTestDataSpaced);
+        String filename = LogWriter.write(multipleTestDataSpaced);
         File file = new File(filename);
         files.add(file);
         Scanner scanner = new Scanner(file);
@@ -58,7 +57,7 @@ public class TestLogWriterTest {
 
     @Test
     public void testIndividualTestWriter() throws IOException {
-        String filename = TestLogWriter.write(testname, duration);
+        String filename = LogWriter.write(testname, duration);
         File file = new File(filename);
         files.add(file);
         Scanner scanner = new Scanner(file);
@@ -69,8 +68,8 @@ public class TestLogWriterTest {
 
     @Test
     public void testIndividualTestWriterMultiple() throws IOException {
-        String filename = TestLogWriter.write(testname, duration);
-        filename = TestLogWriter.write(testname, duration);
+        String filename = LogWriter.write(testname, duration);
+        filename = LogWriter.write(testname, duration);
         File file = new File(filename);
         files.add(file);
         Scanner scanner = new Scanner(file);
@@ -81,7 +80,7 @@ public class TestLogWriterTest {
 
     @Test
     public void testIndividualTestWrite() throws IOException {
-        String filename = TestLogWriter.write(individualTestData);
+        String filename = LogWriter.write(individualTestData);
         File file = new File(filename);
         files.add(file);
         Scanner scanner = new Scanner(file);
@@ -92,13 +91,13 @@ public class TestLogWriterTest {
 
     @Test
     public void testEmptyTestWrite() throws IOException {
-        String filename = TestLogWriter.write(emptyTestData);
+        String filename = LogWriter.write(emptyTestData);
         assertNull(filename);
     }
 
     @Test
     public void testMultipleTestWrite() throws IOException {
-        String filename = TestLogWriter.write(multipleTestData);
+        String filename = LogWriter.write(multipleTestData);
         File file = new File(filename);
         files.add(file);
         Scanner scanner = new Scanner(file);

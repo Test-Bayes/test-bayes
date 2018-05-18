@@ -17,7 +17,7 @@ import java.util.Scanner;
  * Authors: Steven Austin, Ethan Mayer
  * This class tests the individual class runner
  */
-public class IndividualRunnerTests {
+public class IndividualRunnerTest {
 
     /**
      * Verify that individual class runner throws an exception for null class
