@@ -9,7 +9,7 @@ import java.util.*;
 /**
  * Reads Logs from Test Runs and parses through the data
  */
-public class TestLogReader {
+public class TestLogReader extends TestLogIO {
 
     // TODO: Make this a parameter of some sort
     /**
@@ -29,9 +29,11 @@ public class TestLogReader {
         int counter = 0;
         for(String fileName : fileMap.keySet()) {
             if(counter < RUNNING_AVERAGE) {
-                Map<String, Double> data = readFile(fileMap.get(fileName));
-                allData.put(fileName, data);
-                counter++;
+                LogData logData = readFile(fileMap.get(fileName));
+                allData.put(fileName, logData.getData());
+                if(logData.isComplete()) {
+                    counter++;
+                }
             } else {
                 break;
             }
@@ -70,28 +72,64 @@ public class TestLogReader {
      * @return  A map with data of the test run associated with the file provided
      * @throws FileNotFoundException
      */
-    public static Map<String, Double> readFile(File file) throws FileNotFoundException {
-        Scanner scanner = new Scanner(file);
-        String fileData = scanner.nextLine();
+    public static LogData readFile(File file) throws FileNotFoundException {
+        String fileData = readRawLogFile(file);
         return readString(fileData);
     }
 
     /**
-     * Returns a map depicting the data of the file provided
+     * Returns a map depicting the data of the String provided
      *
      * @param fileData  A file with test data
      * @return  A map with data of the test run associated with the file provided
      */
-    public static Map<String, Double> readString(String fileData) {
+    public static LogData readString(String fileData) {
+        LogData result = new LogData();
         Map<String, Double> data = new HashMap<String, Double>();
         if(fileData.length() == 0) {
-            return data;
+            return result;
         }
         String[] tuples = fileData.split(" ");
-        for(String tuple : tuples) {
+        if(tuples[0].equals(TEST_COMPLETE_MESSAGE)) {
+            result.setComplete(true);
+        }
+        for(int i = 0; i < tuples.length; i++) {
+            String tuple = tuples[i];
+            if(tuple.equals(TEST_COMPLETE_MESSAGE)) {
+                continue;
+            }
             String[] bits = tuple.split(",");
             data.put(bits[0].replaceAll("%", " "), Double.parseDouble(bits[1]));
         }
-        return data;
+        result.setData(data);
+        return result;
+    }
+
+    /**
+     * Reads the log file in the raw format
+     *
+     * @param filename String representing the filename
+     * @return String with the raw logs
+     * @throws FileNotFoundException
+     */
+    public static String readRawLogFile(String filename) throws FileNotFoundException {
+        return readRawLogFile(new File(filename));
+    }
+
+    /**
+     * Reads the log file in the raw format
+     *
+     * @param file File object representing the file
+     * @return String with the raw logs
+     * @throws FileNotFoundException
+     */
+    public static String readRawLogFile(File file) throws FileNotFoundException {
+        Scanner scanner = new Scanner(file);
+        String result = "";
+        if(scanner.hasNextLine()) {
+            result = scanner.nextLine();
+        }
+        scanner.close();
+        return result;
     }
 }
