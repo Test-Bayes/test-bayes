@@ -12,7 +12,7 @@ import java.util.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
-public class TestLogWriterTest {
+public class LogWriterTest {
 
     private static Map<String, Double> individualTestData;
     private static Map<String, Double> emptyTestData;

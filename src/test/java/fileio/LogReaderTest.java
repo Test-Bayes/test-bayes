@@ -16,7 +16,7 @@ import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
 
-public class TestLogReaderTest {
+public class LogReaderTest {
 
     private static String filename1;
     private static String filename2;
