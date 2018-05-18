@@ -34,7 +34,7 @@ public class Bayes {
     this.tots = buildTot(testExecs, ms);
     this.passconds = buildPasscond(testExecs);
     this.failconds = buildFailcond(testExecs);
-    this.alreadyRan = new HashSet<String>();
+    this.alreadyRan = new HashSet<>();
   }
 
   /*
@@ -43,7 +43,7 @@ public class Bayes {
    * returns the map with total probability of failing.
    */
   public Map<String, Probability> getProb() {
-    return new HashMap<String, Probability>(tots);
+    return new HashMap<>(tots);
   }
 
   /*
@@ -75,7 +75,7 @@ public class Bayes {
 
   // Uses the execution map provided to produce total probability that a test will pass.
   private Map<String, Probability> buildTot(Map<String, Map<String, Double>> testExecs, List<Method> ms) {
-    Map<String, Probability> tot = new HashMap<String, Probability> ();
+    Map<String, Probability> tot = new HashMap<> ();
     Set<String> executions = testExecs.keySet();
     for (String execution : executions) {
       Map<String, Double> tests = testExecs.get(execution);
@@ -113,7 +113,7 @@ public class Bayes {
           Double time1 = tests.get(test1);
           Double time2 = tests.get(test2);
           if (!passcond.containsKey(test1)) {
-            passcond.put(test1, new HashMap<String, Probability>());
+            passcond.put(test1, new HashMap<>());
           }
           Map<String, Probability> conds1 = passcond.get(test1);
           if (!conds1.containsKey(test2)) {
@@ -136,7 +136,7 @@ public class Bayes {
 
   // Uses the execution map provided to produce Conditional probability that a test will pass based on other tests failing.
   private Map<String, Map<String, Probability>> buildFailcond(Map<String, Map<String, Double>> testExecs) {
-    Map<String, Map<String, Probability>> failcond = new HashMap<String, Map<String, Probability>>();
+    Map<String, Map<String, Probability>> failcond = new HashMap<>();
     Set<String> executions = testExecs.keySet();
     for (String execution : executions) {
       Map<String, Double> tests = testExecs.get(execution);
@@ -146,7 +146,7 @@ public class Bayes {
           Double time1 = tests.get(test1);
           Double time2 = tests.get(test2);
           if (!failcond.containsKey(test1)) {
-            failcond.put(test1, new HashMap<String, Probability>());
+            failcond.put(test1, new HashMap<>());
           }
           Map<String, Probability> conds1 = failcond.get(test1);
           if (!conds1.containsKey(test2)) {
