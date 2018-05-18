@@ -56,7 +56,8 @@ public class TestLogWriterTest {
     }
 
     @Test
-    public void testIndividualTestWriter() throws IOException {
+    public void testIndividualTestWriter() throws IOException, InterruptedException {
+        LogWriter.forceNewFile();
         String filename = LogWriter.write(testname, duration);
         File file = new File(filename);
         files.add(file);
@@ -67,7 +68,8 @@ public class TestLogWriterTest {
     }
 
     @Test
-    public void testIndividualTestWriterMultiple() throws IOException {
+    public void testIndividualTestWriterMultiple() throws IOException, InterruptedException {
+        LogWriter.forceNewFile();
         String filename = LogWriter.write(testname, duration);
         filename = LogWriter.write(testname, duration);
         File file = new File(filename);
@@ -79,7 +81,8 @@ public class TestLogWriterTest {
     }
 
     @Test
-    public void testIndividualTestWrite() throws IOException {
+    public void testIndividualTestWrite() throws IOException, InterruptedException {
+        LogWriter.forceNewFile();
         String filename = LogWriter.write(individualTestData);
         File file = new File(filename);
         files.add(file);
@@ -90,13 +93,15 @@ public class TestLogWriterTest {
     }
 
     @Test
-    public void testEmptyTestWrite() throws IOException {
+    public void testEmptyTestWrite() throws IOException, InterruptedException {
+        LogWriter.forceNewFile();
         String filename = LogWriter.write(emptyTestData);
         assertNull(filename);
     }
 
     @Test
-    public void testMultipleTestWrite() throws IOException {
+    public void testMultipleTestWrite() throws IOException, InterruptedException {
+        LogWriter.forceNewFile();
         String filename = LogWriter.write(multipleTestData);
         File file = new File(filename);
         files.add(file);
