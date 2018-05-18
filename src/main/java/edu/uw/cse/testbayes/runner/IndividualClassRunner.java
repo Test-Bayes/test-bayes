@@ -63,7 +63,7 @@ public class IndividualClassRunner extends BlockJUnit4ClassRunner {
      * @return A shuffled list of Methods
      */
     public static ArrayList<Method> shuffle(Method[] ms) {
-        ArrayList<Method> methods = new ArrayList<Method>(Arrays.asList(ms));
+        ArrayList<Method> methods = new ArrayList<>(Arrays.asList(ms));
         Collections.shuffle(methods);
         return methods;
     }
@@ -106,12 +106,12 @@ public class IndividualClassRunner extends BlockJUnit4ClassRunner {
 
 
         ArrayList<Method> methods = shuffle(testClass.getMethods());
-        ArrayList<Method> befores = new ArrayList<Method>();
-        ArrayList<Method> afters = new ArrayList<Method>();
-        ArrayList<Method> beforeClasses = new ArrayList<Method>();
-        ArrayList<Method> afterClasses = new ArrayList<Method>();
-        Set<String> ignores = new HashSet<String>();
-        Map<String, Method> nameToMethod = new HashMap<String, Method>();
+        ArrayList<Method> befores = new ArrayList<>();
+        ArrayList<Method> afters = new ArrayList<>();
+        ArrayList<Method> beforeClasses = new ArrayList<>();
+        ArrayList<Method> afterClasses = new ArrayList<>();
+        Set<String> ignores = new HashSet<>();
+        Map<String, Method> nameToMethod = new HashMap<>();
         for (int i = 0; i < methods.size(); i++) {
             if (!methods.get(i).isAnnotationPresent(Test.class)) {
                 if (methods.get(i).isAnnotationPresent(Before.class)) {
@@ -142,12 +142,12 @@ public class IndividualClassRunner extends BlockJUnit4ClassRunner {
         Bayes bay = new Bayes(oldRuns, methods);
 
         // Separate new methods from old ones
-        Set<String> temp = new HashSet<String>(nameToMethod.keySet());
+        Set<String> temp = new HashSet<>(nameToMethod.keySet());
         temp.removeAll(bay.getProb().keySet());
-        List<String> newMs = new ArrayList<String>(temp);
+        List<String> newMs = new ArrayList<>(temp);
         temp = new HashSet<String>(nameToMethod.keySet());
         temp.removeAll(newMs);
-        List<String> oldMs = new ArrayList<String>(temp);
+        List<String> oldMs = new ArrayList<>(temp);
         oldMs.removeAll(ignores);
         newMs.removeAll(ignores);
 

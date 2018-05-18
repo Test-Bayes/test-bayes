@@ -25,7 +25,7 @@ public class LogReader {
      */
     public static Map<String, Map<String, Double>> read() throws FileNotFoundException {
         Map<String, File> fileMap = getFileMap();
-        Map<String, Map<String, Double>> allData = new HashMap<String, Map<String, Double>>();
+        Map<String, Map<String, Double>> allData = new HashMap<>();
         int counter = 0;
         for(String fileName : fileMap.keySet()) {
             if(counter < RUNNING_AVERAGE) {
@@ -48,7 +48,7 @@ public class LogReader {
         File directory = new File(FileNameUtils.getDirectoryName());
         File[] fileArray = directory.listFiles();
 
-        Map<String, File> fileMap = new TreeMap<String, File>(Collections.reverseOrder());
+        Map<String, File> fileMap = new TreeMap<>(Collections.reverseOrder());
         if (fileArray != null) {
             for (File file : fileArray) {
                 if (file.isFile()) {
@@ -83,7 +83,7 @@ public class LogReader {
      * @return  A map with data of the test run associated with the file provided
      */
     public static Map<String, Double> readString(String fileData) {
-        Map<String, Double> data = new HashMap<String, Double>();
+        Map<String, Double> data = new HashMap<>();
         if(fileData.length() == 0) {
             return data;
         }
