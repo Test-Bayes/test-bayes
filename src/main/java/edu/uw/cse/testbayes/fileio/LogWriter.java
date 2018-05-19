@@ -3,6 +3,7 @@ package edu.uw.cse.testbayes.fileio;
 import edu.uw.cse.testbayes.utils.FileNameUtils;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.Map;
@@ -12,35 +13,12 @@ import java.util.concurrent.TimeUnit;
 /**
  * Writes Logs from the Test Run
  */
-public class LogWriter {
+public class LogWriter extends TestLogIO {
 
     /**
      * Filename in which the data from the current run are saved
      */
     private static String filename;
-
-    /**
-     * Returns the Absolute Path of the file where the given data from the test run is stored
-     *
-     * @param testData  a map with test names mapping to the time taken to run the test. Time taken to be negative
-     *                  if test fails
-     * @return  Absolute Path of file with log or null if @testData is empty
-     * @throws IOException
-     */
-    public static String write(Map<String, Double> testData) throws IOException {
-        if(testData.size() == 0) {
-            return null;
-        }
-
-        File file = getFile();
-        PrintStream printStream = new PrintStream(file);
-        for(String methodName : testData.keySet()) {
-            printStream.print(methodName.replaceAll(" ", "%") + "," + testData.get(methodName) + " ");
-        }
-        printStream.println();
-        printStream.close();
-        return file.getAbsolutePath();
-    }
 
     /**
      * Returns the Absolute Path of the file where the given data from the test run is stored
@@ -51,17 +29,8 @@ public class LogWriter {
      * @throws IOException
      */
     public static String write(String methodName, double num) throws IOException {
-        File file = getFile();
-        Scanner scanner = new Scanner(file);
-        String s = "";
-        if(scanner.hasNextLine()) {
-            s = scanner.nextLine();
-        }
-        PrintStream printStream = new PrintStream(file);
-        printStream.print(s + methodName.replaceAll(" ", "%") + "," + num + " ");
-        printStream.close();
-        scanner.close();
-        return file.getAbsolutePath();
+        append(methodName.replaceAll(" ", "%") + "," + num + " ");
+        return getFile().getAbsolutePath();
     }
 
     /**
@@ -85,11 +54,52 @@ public class LogWriter {
     }
 
     /**
+     * DO NOT USE. ONLY FOR TESTING
      * Forces a new file to be created for the next set of data points to be written to the file system
      */
     public static void forceNewFile() throws InterruptedException {
         filename = null;
         TimeUnit.SECONDS.sleep(1);
     }
-  
+
+    public static void completeRun() throws IOException {
+        prefix(TEST_COMPLETE_MESSAGE + " ");
+    }
+
+    /**
+     * Adds a prefix to the log file
+     *
+     * @param prefix String to add as a prefix
+     * @throws IOException
+     */
+    private static void prefix(String prefix) throws IOException {
+        File file = getFile();
+        String s = LogReader.readRawLogFile(file);
+        write(prefix + s);
+    }
+
+    /**
+     * Adds a String to the end of the log file
+     *
+     * @param data String to add to the log file
+     * @throws IOException
+     */
+    private static void append(String data) throws IOException {
+        File file = getFile();
+        String s = LogReader.readRawLogFile(file);
+        write(s + data);
+    }
+
+    /**
+     * Writes the given string to the log file, replacing all other data
+     *
+     * @param data String to be written to the file
+     * @throws IOException
+     */
+    private static void write(String data) throws IOException {
+        PrintStream printStream = new PrintStream(getFile());
+        printStream.print(data);
+        printStream.close();
+    }
+
 }

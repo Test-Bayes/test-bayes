@@ -185,6 +185,13 @@ public class IndividualClassRunner extends BlockJUnit4ClassRunner {
 
         // Run the afters
         runSetups(afterClasses);
+
+        // Mark log as complete
+        try {
+            markComplete();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -263,5 +270,9 @@ public class IndividualClassRunner extends BlockJUnit4ClassRunner {
         }
         runSetups(afters);
         return passed;
+    }
+
+    public void markComplete() throws IOException {
+        LogWriter.completeRun();
     }
 }

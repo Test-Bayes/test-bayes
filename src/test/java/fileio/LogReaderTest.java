@@ -1,5 +1,7 @@
 package fileio;
 
+import edu.uw.cse.testbayes.fileio.LogData;
+import org.junit.After;
 import edu.uw.cse.testbayes.fileio.LogReader;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -15,6 +17,7 @@ import java.util.Map;
 import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 public class LogReaderTest {
 
@@ -59,23 +62,40 @@ public class LogReaderTest {
 
     }
 
+    /**
+     * Tests that a file where the method names do not have any spaces is read correctly
+     * @throws FileNotFoundException
+     */
     @Test
     public void readFileWithoutSpaces() throws FileNotFoundException {
-        Map<String, Double> map = LogReader.readFile(new File(filename1));
-        assertEquals(map1, map);
+        LogData result = LogReader.readFile(new File(filename1));
+        assertEquals(map1, result.getData());
+        assertFalse(result.isComplete());
     }
 
+    /**
+     * Tests that a file where the method name has spaces is read correctly
+     * @throws FileNotFoundException
+     */
     @Test
     public void readFileWithSpaces() throws FileNotFoundException {
-        Map<String, Double> map = LogReader.readFile(new File(filename2));
-        assertEquals(map2, map);
+        LogData result = LogReader.readFile(new File(filename2));
+        assertFalse(result.isComplete());
+        assertEquals(map2, result.getData());
     }
 
+    /**
+     * Tests that an empty String is read correctly
+     * @throws FileNotFoundException
+     */
     @Test
     public void readEmptyString() throws FileNotFoundException {
-        assertEquals(LogReader.readString(""), new HashMap<String, Double>());
+        assertEquals(LogReader.readString(""), new LogData());
     }
 
+    /**
+     * Tests that null value throws a NullPointerException
+     */
     @Test(expected=NullPointerException.class)
     public void readNullString() {
         System.out.println(LogReader.readString(null));
