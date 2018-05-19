@@ -20,7 +20,7 @@ public class Main {
         Class<?> testRunner = Class.forName(args[1]);
 
         // save our test methods
-        Map<String, MethodInvocation> testMethods= new HashMap<String, MethodInvocation>();
+        Map<String, MethodInvocation> testMethods= new HashMap<>();
 
         // get the suite class containing all test classes
         Suite.SuiteClasses suiteClassesAnnotation =

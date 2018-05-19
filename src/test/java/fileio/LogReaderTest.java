@@ -1,8 +1,8 @@
 package fileio;
 
 import edu.uw.cse.testbayes.fileio.LogData;
-import edu.uw.cse.testbayes.fileio.TestLogReader;
 import org.junit.After;
+import edu.uw.cse.testbayes.fileio.LogReader;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -19,7 +19,7 @@ import java.util.Set;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
-public class TestLogReaderTest {
+public class LogReaderTest {
 
     private static String filename1;
     private static String filename2;
@@ -68,7 +68,7 @@ public class TestLogReaderTest {
      */
     @Test
     public void readFileWithoutSpaces() throws FileNotFoundException {
-        LogData result = TestLogReader.readFile(new File(filename1));
+        LogData result = LogReader.readFile(new File(filename1));
         assertEquals(map1, result.getData());
         assertFalse(result.isComplete());
     }
@@ -79,7 +79,7 @@ public class TestLogReaderTest {
      */
     @Test
     public void readFileWithSpaces() throws FileNotFoundException {
-        LogData result = TestLogReader.readFile(new File(filename2));
+        LogData result = LogReader.readFile(new File(filename2));
         assertFalse(result.isComplete());
         assertEquals(map2, result.getData());
     }
@@ -90,7 +90,7 @@ public class TestLogReaderTest {
      */
     @Test
     public void readEmptyString() throws FileNotFoundException {
-        assertEquals(TestLogReader.readString(""), new LogData());
+        assertEquals(LogReader.readString(""), new LogData());
     }
 
     /**
@@ -98,7 +98,7 @@ public class TestLogReaderTest {
      */
     @Test(expected=NullPointerException.class)
     public void readNullString() {
-        System.out.println(TestLogReader.readString(null));
+        System.out.println(LogReader.readString(null));
     }
 
 

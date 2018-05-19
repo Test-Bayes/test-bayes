@@ -8,11 +8,12 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Writes Logs from the Test Run
  */
-public class TestLogWriter extends TestLogIO {
+public class LogWriter extends TestLogIO {
 
     /**
      * Filename in which the data from the current run are saved
@@ -56,8 +57,9 @@ public class TestLogWriter extends TestLogIO {
      * DO NOT USE. ONLY FOR TESTING
      * Forces a new file to be created for the next set of data points to be written to the file system
      */
-    public static void forceNewFile() {
+    public static void forceNewFile() throws InterruptedException {
         filename = null;
+        TimeUnit.SECONDS.sleep(1);
     }
 
     public static void completeRun() throws IOException {
@@ -72,7 +74,7 @@ public class TestLogWriter extends TestLogIO {
      */
     private static void prefix(String prefix) throws IOException {
         File file = getFile();
-        String s = TestLogReader.readRawLogFile(file);
+        String s = LogReader.readRawLogFile(file);
         write(prefix + s);
     }
 
@@ -84,7 +86,7 @@ public class TestLogWriter extends TestLogIO {
      */
     private static void append(String data) throws IOException {
         File file = getFile();
-        String s = TestLogReader.readRawLogFile(file);
+        String s = LogReader.readRawLogFile(file);
         write(s + data);
     }
 
@@ -99,5 +101,5 @@ public class TestLogWriter extends TestLogIO {
         printStream.print(data);
         printStream.close();
     }
-  
+
 }

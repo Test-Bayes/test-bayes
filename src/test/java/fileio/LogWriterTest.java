@@ -1,8 +1,7 @@
 package fileio;
 
-import edu.uw.cse.testbayes.fileio.TestLogWriter;
+import edu.uw.cse.testbayes.fileio.LogWriter;
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -13,7 +12,7 @@ import java.util.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
-public class TestLogWriterTest {
+public class LogWriterTest {
 
     private static Set<File> files;
     private static String testname;
@@ -31,8 +30,9 @@ public class TestLogWriterTest {
      * @throws IOException
      */
     @Test
-    public void testIndividualTestWriter() throws IOException {
-        String filename = TestLogWriter.write(testname, duration);
+    public void testIndividualTestWriter() throws IOException, InterruptedException {
+        LogWriter.forceNewFile();
+        String filename = LogWriter.write(testname, duration);
         File file = new File(filename);
         files.add(file);
         Scanner scanner = new Scanner(file);
@@ -46,9 +46,10 @@ public class TestLogWriterTest {
      * @throws IOException
      */
     @Test
-    public void testIndividualTestWriterMultiple() throws IOException {
-        TestLogWriter.write(testname, duration);
-        String filename = TestLogWriter.write(testname, duration);
+    public void testIndividualTestWriterMultiple() throws IOException, InterruptedException {
+        LogWriter.forceNewFile();
+        String filename = LogWriter.write(testname, duration);
+        filename = LogWriter.write(testname, duration);
         File file = new File(filename);
         files.add(file);
         Scanner scanner = new Scanner(file);
@@ -56,6 +57,7 @@ public class TestLogWriterTest {
         scanner.close();
         assertEquals("method,100.23 method,100.23 ", nextLine);
     }
+
 
     @After
     public void cleanUp() {

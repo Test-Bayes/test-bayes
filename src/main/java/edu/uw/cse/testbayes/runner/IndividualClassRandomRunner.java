@@ -1,8 +1,7 @@
 package edu.uw.cse.testbayes.runner;
 
-import edu.uw.cse.testbayes.fileio.TestLogReader;
-import edu.uw.cse.testbayes.fileio.TestLogWriter;
-import edu.uw.cse.testbayes.model.Bayes;
+import edu.uw.cse.testbayes.fileio.LogReader;
+import edu.uw.cse.testbayes.fileio.LogWriter;
 import org.junit.*;
 import org.junit.runner.Description;
 import org.junit.runner.notification.Failure;
@@ -64,7 +63,7 @@ public class IndividualClassRandomRunner extends BlockJUnit4ClassRunner {
 //    }
 
     public static ArrayList<Method> shuffle(Method[] ms) {
-        ArrayList<Method> methods = new ArrayList<Method>(Arrays.asList(ms));
+        ArrayList<Method> methods = new ArrayList<>(Arrays.asList(ms));
         Collections.shuffle(methods);
         return methods;
     }
@@ -75,7 +74,7 @@ public class IndividualClassRandomRunner extends BlockJUnit4ClassRunner {
         // Get the past map
         Map<String, Map<String, Double>> oldRuns = null;
         try {
-            oldRuns = TestLogReader.read();
+            oldRuns = LogReader.read();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             exit(1);
@@ -83,12 +82,12 @@ public class IndividualClassRandomRunner extends BlockJUnit4ClassRunner {
 
 
         ArrayList<Method> methods = shuffle(testClass.getMethods());
-        ArrayList<Method> befores = new ArrayList<Method>();
-        ArrayList<Method> afters = new ArrayList<Method>();
-        ArrayList<Method> beforeClasses = new ArrayList<Method>();
-        ArrayList<Method> afterClasses = new ArrayList<Method>();
-        Set<String> ignores = new HashSet<String>();
-        Map<String, Method> nameToMethod = new HashMap<String, Method>();
+        ArrayList<Method> befores = new ArrayList<>();
+        ArrayList<Method> afters = new ArrayList<>();
+        ArrayList<Method> beforeClasses = new ArrayList<>();
+        ArrayList<Method> afterClasses = new ArrayList<>();
+        Set<String> ignores = new HashSet<>();
+        Map<String, Method> nameToMethod = new HashMap<>();
         for (int i = 0; i < methods.size(); i++) {
             if (!methods.get(i).isAnnotationPresent(Test.class)) {
                 if (methods.get(i).isAnnotationPresent(Before.class)) {
@@ -194,7 +193,7 @@ public class IndividualClassRandomRunner extends BlockJUnit4ClassRunner {
                 System.out.println("Time taken until first failure: " + Duration.between(Instant.now(), startTime));
             }
             try {
-                TestLogWriter.write(method.toString(), (double)(passed ? time : (0.0 - time)));
+                LogWriter.write(method.toString(), (double)(passed ? time : (0.0 - time)));
             } catch (IOException e) {
                 e.printStackTrace();
             }

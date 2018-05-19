@@ -9,7 +9,7 @@ import java.util.*;
 /**
  * Reads Logs from Test Runs and parses through the data
  */
-public class TestLogReader extends TestLogIO {
+public class LogReader extends TestLogIO {
 
     // TODO: Make this a parameter of some sort
     /**
@@ -25,7 +25,7 @@ public class TestLogReader extends TestLogIO {
      */
     public static Map<String, Map<String, Double>> read() throws FileNotFoundException {
         Map<String, File> fileMap = getFileMap();
-        Map<String, Map<String, Double>> allData = new HashMap<String, Map<String, Double>>();
+        Map<String, Map<String, Double>> allData = new HashMap<>();
         int counter = 0;
         for(String fileName : fileMap.keySet()) {
             if(counter < RUNNING_AVERAGE) {
@@ -50,7 +50,7 @@ public class TestLogReader extends TestLogIO {
         File directory = new File(FileNameUtils.getDirectoryName());
         File[] fileArray = directory.listFiles();
 
-        Map<String, File> fileMap = new TreeMap<String, File>(Collections.reverseOrder());
+        Map<String, File> fileMap = new TreeMap<>(Collections.reverseOrder());
         if (fileArray != null) {
             for (File file : fileArray) {
                 if (file.isFile()) {
@@ -78,7 +78,7 @@ public class TestLogReader extends TestLogIO {
     }
 
     /**
-     * Returns a map depicting the data of the String provided
+     * Returns a LogData object depicting the data of the String provided
      *
      * @param fileData  A file with test data
      * @return  A map with data of the test run associated with the file provided
@@ -93,8 +93,7 @@ public class TestLogReader extends TestLogIO {
         if(tuples[0].equals(TEST_COMPLETE_MESSAGE)) {
             result.setComplete(true);
         }
-        for(int i = 0; i < tuples.length; i++) {
-            String tuple = tuples[i];
+        for(String tuple : tuples) {
             if(tuple.equals(TEST_COMPLETE_MESSAGE)) {
                 continue;
             }
