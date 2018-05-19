@@ -9,7 +9,7 @@ import java.util.*;
 /**
  * Reads Logs from Test Runs and parses through the data
  */
-public class TestLogReader {
+public class LogReader {
 
     // TODO: Make this a parameter of some sort
     /**

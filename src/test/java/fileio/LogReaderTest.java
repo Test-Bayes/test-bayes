@@ -1,7 +1,6 @@
 package fileio;
 
-import edu.uw.cse.testbayes.fileio.TestLogReader;
-import org.junit.After;
+import edu.uw.cse.testbayes.fileio.LogReader;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -17,7 +16,7 @@ import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
 
-public class TestLogReaderTest {
+public class LogReaderTest {
 
     private static String filename1;
     private static String filename2;
@@ -62,24 +61,24 @@ public class TestLogReaderTest {
 
     @Test
     public void readFileWithoutSpaces() throws FileNotFoundException {
-        Map<String, Double> map = TestLogReader.readFile(new File(filename1));
+        Map<String, Double> map = LogReader.readFile(new File(filename1));
         assertEquals(map1, map);
     }
 
     @Test
     public void readFileWithSpaces() throws FileNotFoundException {
-        Map<String, Double> map = TestLogReader.readFile(new File(filename2));
+        Map<String, Double> map = LogReader.readFile(new File(filename2));
         assertEquals(map2, map);
     }
 
     @Test
     public void readEmptyString() throws FileNotFoundException {
-        assertEquals(TestLogReader.readString(""), new HashMap<String, Double>());
+        assertEquals(LogReader.readString(""), new HashMap<String, Double>());
     }
 
     @Test(expected=NullPointerException.class)
     public void readNullString() {
-        System.out.println(TestLogReader.readString(null));
+        System.out.println(LogReader.readString(null));
     }
 
 

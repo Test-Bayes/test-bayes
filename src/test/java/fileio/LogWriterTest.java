@@ -1,8 +1,7 @@
 package fileio;
 
-import edu.uw.cse.testbayes.fileio.TestLogWriter;
+import edu.uw.cse.testbayes.fileio.LogWriter;
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -13,7 +12,7 @@ import java.util.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
-public class TestLogWriterTest {
+public class LogWriterTest {
 
     private static Map<String, Double> individualTestData;
     private static Map<String, Double> emptyTestData;
@@ -46,7 +45,7 @@ public class TestLogWriterTest {
 
     @Test
     public void testSpaces() throws IOException {
-        String filename = TestLogWriter.write(multipleTestDataSpaced);
+        String filename = LogWriter.write(multipleTestDataSpaced);
         File file = new File(filename);
         files.add(file);
         Scanner scanner = new Scanner(file);
@@ -57,8 +56,9 @@ public class TestLogWriterTest {
     }
 
     @Test
-    public void testIndividualTestWriter() throws IOException {
-        String filename = TestLogWriter.write(testname, duration);
+    public void testIndividualTestWriter() throws IOException, InterruptedException {
+        LogWriter.forceNewFile();
+        String filename = LogWriter.write(testname, duration);
         File file = new File(filename);
         files.add(file);
         Scanner scanner = new Scanner(file);
@@ -68,9 +68,10 @@ public class TestLogWriterTest {
     }
 
     @Test
-    public void testIndividualTestWriterMultiple() throws IOException {
-        String filename = TestLogWriter.write(testname, duration);
-        filename = TestLogWriter.write(testname, duration);
+    public void testIndividualTestWriterMultiple() throws IOException, InterruptedException {
+        LogWriter.forceNewFile();
+        String filename = LogWriter.write(testname, duration);
+        filename = LogWriter.write(testname, duration);
         File file = new File(filename);
         files.add(file);
         Scanner scanner = new Scanner(file);
@@ -80,8 +81,9 @@ public class TestLogWriterTest {
     }
 
     @Test
-    public void testIndividualTestWrite() throws IOException {
-        String filename = TestLogWriter.write(individualTestData);
+    public void testIndividualTestWrite() throws IOException, InterruptedException {
+        LogWriter.forceNewFile();
+        String filename = LogWriter.write(individualTestData);
         File file = new File(filename);
         files.add(file);
         Scanner scanner = new Scanner(file);
@@ -91,14 +93,16 @@ public class TestLogWriterTest {
     }
 
     @Test
-    public void testEmptyTestWrite() throws IOException {
-        String filename = TestLogWriter.write(emptyTestData);
+    public void testEmptyTestWrite() throws IOException, InterruptedException {
+        LogWriter.forceNewFile();
+        String filename = LogWriter.write(emptyTestData);
         assertNull(filename);
     }
 
     @Test
-    public void testMultipleTestWrite() throws IOException {
-        String filename = TestLogWriter.write(multipleTestData);
+    public void testMultipleTestWrite() throws IOException, InterruptedException {
+        LogWriter.forceNewFile();
+        String filename = LogWriter.write(multipleTestData);
         File file = new File(filename);
         files.add(file);
         Scanner scanner = new Scanner(file);

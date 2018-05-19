@@ -7,11 +7,12 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Writes Logs from the Test Run
  */
-public class TestLogWriter {
+public class LogWriter {
 
     /**
      * Filename in which the data from the current run are saved
@@ -30,6 +31,7 @@ public class TestLogWriter {
         if(testData.size() == 0) {
             return null;
         }
+
         File file = getFile();
         PrintStream printStream = new PrintStream(file);
         for(String methodName : testData.keySet()) {
@@ -85,8 +87,9 @@ public class TestLogWriter {
     /**
      * Forces a new file to be created for the next set of data points to be written to the file system
      */
-    public static void forceNewFile() {
+    public static void forceNewFile() throws InterruptedException {
         filename = null;
+        TimeUnit.SECONDS.sleep(1);
     }
   
 }
