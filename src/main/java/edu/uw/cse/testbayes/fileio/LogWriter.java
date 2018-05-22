@@ -26,7 +26,7 @@ public class LogWriter extends TestLogIO {
      * @param methodName name of the method that was tested
      * @param num duration of the test run
      * @return Absolute Path of file with log or null if @testData is empty
-     * @throws IOException
+     * @throws IOException if an I/O error occurs when creating the file
      */
     public static String write(String methodName, double num) throws IOException {
         append(methodName.replaceAll(" ", "%") + "," + num + " ");
@@ -37,7 +37,7 @@ public class LogWriter extends TestLogIO {
      * Gets the File in which the logs are to be written
      *
      * @return File Object representing File in which the logs are to be written
-     * @throws IOException
+     * @throws IOException if an I/O error occurs when creating the file
      */
     private static File getFile() throws IOException {
         String directoryName = FileNameUtils.getDirectoryName();
@@ -56,12 +56,19 @@ public class LogWriter extends TestLogIO {
     /**
      * DO NOT USE. ONLY FOR TESTING
      * Forces a new file to be created for the next set of data points to be written to the file system
+     *
+     * @throws InterruptedException if interrupted when sleeping
      */
     public static void forceNewFile() throws InterruptedException {
         filename = null;
         TimeUnit.SECONDS.sleep(1);
     }
 
+    /**
+     * Marks a log as a completed run
+     *
+     * @throws IOException if an I/O error occurs when creating the file
+     */
     public static void completeRun() throws IOException {
         prefix(TEST_COMPLETE_MESSAGE + " ");
     }
@@ -70,7 +77,7 @@ public class LogWriter extends TestLogIO {
      * Adds a prefix to the log file
      *
      * @param prefix String to add as a prefix
-     * @throws IOException
+     * @throws IOException if an I/O error occurs when creating the file
      */
     private static void prefix(String prefix) throws IOException {
         File file = getFile();
@@ -82,7 +89,7 @@ public class LogWriter extends TestLogIO {
      * Adds a String to the end of the log file
      *
      * @param data String to add to the log file
-     * @throws IOException
+     * @throws IOException if an I/O error occurs when creating the file
      */
     private static void append(String data) throws IOException {
         File file = getFile();
@@ -94,7 +101,7 @@ public class LogWriter extends TestLogIO {
      * Writes the given string to the log file, replacing all other data
      *
      * @param data String to be written to the file
-     * @throws IOException
+     * @throws IOException if an I/O error occurs when creating the file
      */
     private static void write(String data) throws IOException {
         PrintStream printStream = new PrintStream(getFile());
