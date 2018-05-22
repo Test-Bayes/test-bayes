@@ -20,10 +20,10 @@ public class Bayes {
   // Set to store already ran tests
   private Set<String> alreadyRan;
 
-  //Numerator Parameter
+  // Numerator Parameter
   private static final int NUMERATOR = 1;
 
-  //denominator Parameter
+  // Denominator Parameter
   private static final int DENOMINATOR = 2;
 
   /*
@@ -75,7 +75,13 @@ public class Bayes {
     return new Probability(failConds.get(s1).get(s2));
   }
 
-  // Uses the execution map provided to produce total probability that a test will pass.
+  /* 
+  * Uses the execution map provided to produce total probability that a test will pass.
+  *
+  * @param: testExecs, A map with all test execution details
+  * @param: ms, A List with all methods in the class.
+  * @return: A map with the probability of each test passing. 
+  */
   private Map<String, Probability> buildTot(Map<String, Map<String, Double>> testExecs, List<Method> ms) {
     Map<String, Probability> tot = new HashMap<> ();
     Set<String> executions = testExecs.keySet();
@@ -105,7 +111,11 @@ public class Bayes {
 
 
 
-// Uses the execution map provided to produce Conditional probability that a test will pass based on other tests passing.
+/* Uses the execution map provided to produce Conditional probability that a test will pass based on other tests passing.
+  * @param: testExecs, A map with all test execution details
+  * @param: pass, A boolean to see which map we are computing.
+  * @return: A map with the probability of each test passing conditioned on other tests 
+*/
 private Map<String, Map<String, Probability>> buildCond(Map<String, Map<String, Double>> testExecs, boolean pass) {
     Map<String, Map<String, Probability>> cond = new HashMap<String, Map<String, Probability>>();
     Set<String> executions = testExecs.keySet();
