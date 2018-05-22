@@ -59,6 +59,14 @@ public class LogData {
         this.complete = complete;
     }
 
+    /**
+     * Verifies if the LogData is equal to the given/other Object
+     *
+     * @param o Other Object against which equality is verified
+     * @return
+     *          true if the given Object represents a LogData equivalent to this LogData;
+     *          false otherwise
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -68,11 +76,20 @@ public class LogData {
                 Objects.equal(data, logData.data);
     }
 
+    /**
+     * Calculates the Hash Code for the given LogData
+     *
+     * @return Returns the calculated Hash Code
+     */
     @Override
     public int hashCode() {
         return Objects.hashCode(data, complete);
     }
 
+    /**
+     * Returns a String representation of the object
+     * @return String showing the data and the completiton state of the log
+     */
     @Override
     public String toString() {
         return MoreObjects.toStringHelper(this)

@@ -155,7 +155,7 @@ public class Probability implements Comparable<Probability> {
      * @return
      *          0 if both Probabilities are equal;
      *          -1 if this Probability is less than the other Probability;
- *              1 if this Probabiliy is greater than the other Probability
+ *              1 if this Probability is greater than the other Probability
      */
     @Override
     public int compareTo(Probability o) {

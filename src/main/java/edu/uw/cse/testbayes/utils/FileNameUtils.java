@@ -3,6 +3,9 @@ package edu.uw.cse.testbayes.utils;
 import java.io.File;
 import java.sql.Timestamp;
 
+/**
+ * Provides static methods for file and directory names
+ */
 public class FileNameUtils {
 
     /**
@@ -17,7 +20,7 @@ public class FileNameUtils {
 
     /**
      * Gets the name of the directory in which log files are stored
-     * @return Strign with the name of the directory
+     * @return String with the name of the directory
      */
     public static String getDirectoryName() {
         return "log-data" + File.separator;
