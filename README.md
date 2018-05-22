@@ -28,7 +28,9 @@ To reorder tests, do the following:
 
 1. Copy the file `test-bayes.jar` from the root of Test Bayes to the root of your project
 
-2. Create a Suite class as follows:
+2. Add `test-bayes.jar` to your project classpath
+
+3. Create a Suite class as follows:
 
     ```
     @RunWith(IndividualClassRunner.class)
@@ -44,7 +46,7 @@ To reorder tests, do the following:
     ```
     Add all the classes you want to reorder to the list in the `@Reorder.SmartOrder({...})` annotation replacing `Test1.class, Test2.class, Test3.class, Test4.class`
 
-3. Run your tests as you would normally
+4. Run your tests as you would normally
 
 ## Side Effects
 Using Test Bayes will result in the following:
