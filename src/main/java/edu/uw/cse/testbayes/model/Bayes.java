@@ -1,28 +1,30 @@
 package edu.uw.cse.testbayes.model;
-
-import edu.uw.cse.testbayes.model.Probability;
-
 import java.lang.reflect.Method;
 import java.util.*;
 
+/*
+* This class calculates and maintains the probabilities on which the reordering of tests is based.
+* It has methods to return the next test to be run based on the pass or failure of other tests.
+*
+*/
 public class Bayes {
   // Map to store total probabilty
   private Map<String, Probability> tots;
 
   // Map to store Conditional probabilty of passing based on the fact that previous test passed
-  private Map<String, Map<String, Probability>> passconds;
+  private Map<String, Map<String, Probability>> passConds;
 
   // Map to store Conditional probabilty of passing based on the fact that previous test failed
-  private Map<String, Map<String, Probability>> failconds;
+  private Map<String, Map<String, Probability>> failConds;
 
   // Set to store already ran tests
   private Set<String> alreadyRan;
 
-  //Numerator Parameter
-  public static final int NUMERATOR = 1;
+  // Numerator Parameter
+  private static final int NUMERATOR = 1;
 
-  //denominator Parameter
-  public static final int DENOMINATOR = 2;
+  // Denominator Parameter
+  private static final int DENOMINATOR = 2;
 
   /*
    *@param testExecs : A map with all the execution strings mapping to a map that has test information like failing and passing times.
@@ -32,8 +34,8 @@ public class Bayes {
    */
   public Bayes(Map<String, Map<String, Double>> testExecs, List<Method> ms) {
     this.tots = buildTot(testExecs, ms);
-    this.passconds = buildPasscond(testExecs);
-    this.failconds = buildFailcond(testExecs);
+    this.passConds = buildCond(testExecs, true);
+    this.failConds = buildCond(testExecs, false);
     this.alreadyRan = new HashSet<>();
   }
 
@@ -61,7 +63,7 @@ public class Bayes {
    * @return : probability s2 passes given s1 passed.
    */
   public Probability getPassCondProb(String s1, String s2) {
-    return new Probability(passconds.get(s1).get(s2));
+    return new Probability(passConds.get(s1).get(s2));
   }
 
   /*
@@ -70,10 +72,16 @@ public class Bayes {
    * @return : probability s2 passes given s1 failed.
    */
   public Probability getFailCondProb(String s1, String s2) {
-    return new Probability(failconds.get(s1).get(s2));
+    return new Probability(failConds.get(s1).get(s2));
   }
 
-  // Uses the execution map provided to produce total probability that a test will pass.
+  /* 
+  * Uses the execution map provided to produce total probability that a test will pass.
+  *
+  * @param: testExecs, A map with all test execution details
+  * @param: ms, A List with all methods in the class.
+  * @return: A map with the probability of each test passing. 
+  */
   private Map<String, Probability> buildTot(Map<String, Map<String, Double>> testExecs, List<Method> ms) {
     Map<String, Probability> tot = new HashMap<> ();
     Set<String> executions = testExecs.keySet();
@@ -101,42 +109,15 @@ public class Bayes {
     return tot;
   }
 
-  // Uses the execution map provided to produce Conditional probability that a test will pass based on other tests passing.
-  private Map<String, Map<String, Probability>> buildPasscond(Map<String, Map<String, Double>> testExecs) {
-    Map<String, Map<String, Probability>> passcond = new HashMap<String, Map<String, Probability>>();
-    Set<String> executions = testExecs.keySet();
-    for (String execution : executions) {
-      Map<String, Double> tests = testExecs.get(execution);
-      Set<String> thisexec = tests.keySet();
-      for (String test1 : thisexec) {
-        for (String test2 : thisexec) {
-          Double time1 = tests.get(test1);
-          Double time2 = tests.get(test2);
-          if (!passcond.containsKey(test1)) {
-            passcond.put(test1, new HashMap<>());
-          }
-          Map<String, Probability> conds1 = passcond.get(test1);
-          if (!conds1.containsKey(test2)) {
-            conds1.put(test2, new Probability(NUMERATOR, DENOMINATOR));
-          }
-          Probability prob = conds1.get(test2);
-          if (time1 > 0) {
-            if (time2 > 0) {
-              prob.addNumerator(1);
-            }
-            prob.addDenominator(1);
-            conds1.put(test2, prob);
-            passcond.put(test1, conds1);
-          }
-        }
-      }
-    }
-    return passcond;
-  }
 
-  // Uses the execution map provided to produce Conditional probability that a test will pass based on other tests failing.
-  private Map<String, Map<String, Probability>> buildFailcond(Map<String, Map<String, Double>> testExecs) {
-    Map<String, Map<String, Probability>> failcond = new HashMap<>();
+
+/* Uses the execution map provided to produce Conditional probability that a test will pass based on other tests passing.
+  * @param: testExecs, A map with all test execution details
+  * @param: pass, A boolean to see which map we are computing.
+  * @return: A map with the probability of each test passing conditioned on other tests 
+*/
+private Map<String, Map<String, Probability>> buildCond(Map<String, Map<String, Double>> testExecs, boolean pass) {
+    Map<String, Map<String, Probability>> cond = new HashMap<String, Map<String, Probability>>();
     Set<String> executions = testExecs.keySet();
     for (String execution : executions) {
       Map<String, Double> tests = testExecs.get(execution);
@@ -145,26 +126,26 @@ public class Bayes {
         for (String test2 : thisexec) {
           Double time1 = tests.get(test1);
           Double time2 = tests.get(test2);
-          if (!failcond.containsKey(test1)) {
-            failcond.put(test1, new HashMap<>());
+          if (!cond.containsKey(test1)) {
+            cond.put(test1, new HashMap<>());
           }
-          Map<String, Probability> conds1 = failcond.get(test1);
+          Map<String, Probability> conds1 = cond.get(test1);
           if (!conds1.containsKey(test2)) {
             conds1.put(test2, new Probability(NUMERATOR, DENOMINATOR));
           }
           Probability prob = conds1.get(test2);
-          if (time1 < 0) {
+          if (time1 > 0 && pass || time1 < 0 && !pass) {
             if (time2 > 0) {
               prob.addNumerator(1);
             }
             prob.addDenominator(1);
             conds1.put(test2, prob);
-            failcond.put(test1, conds1);
+            cond.put(test1, conds1);
           }
         }
       }
     }
-    return failcond;
+    return cond;
   }
 
   /*
@@ -175,7 +156,7 @@ public class Bayes {
   public String nextTest(String s, boolean pass, Set<String> ignores) {
     alreadyRan.add(s);
     if (pass) {
-      Map<String, Probability> cond = passconds.get(s);
+      Map<String, Probability> cond = passConds.get(s);
       Set<String> tests = cond.keySet();
       Probability min = new Probability(1, 1);
       String minTest = "";
@@ -193,7 +174,7 @@ public class Bayes {
       }
       return minTest;
     } else {
-      Map<String, Probability> cond = failconds.get(s);
+      Map<String, Probability> cond = failConds.get(s);
       Set<String> tests = cond.keySet();
       Probability min = new Probability(1, 1);
       String minTest = "";
