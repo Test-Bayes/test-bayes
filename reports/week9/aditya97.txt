@@ -1,0 +1,12 @@
+For this week, my goals were as follows:
+
+    -   Further test our code on other repositories.
+   
+Section 2 - This week's progress
+
+    -   This week, I mostly worked on polishing our Project Plan. Testing on other repositories has to be postponed to the future.
+
+
+Section 3 - Next Week's Goals
+
+    -   Change our application from a Maven Dependency to a Maven Plugin.
