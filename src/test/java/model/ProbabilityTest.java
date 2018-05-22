@@ -15,6 +15,7 @@ public class ProbabilityTest {
         Probability oneTwo2 = new Probability(1, 2);
         oneTwo1.addNumerator(0);
         assertEquals(oneTwo1, oneTwo2);
+        assertEquals(oneTwo1.hashCode(), oneTwo2.hashCode());
     }
 
     @Test
@@ -23,6 +24,7 @@ public class ProbabilityTest {
         Probability oneTwo2 = new Probability(1, 2);
         oneTwo1.addDenominator(0);
         assertEquals(oneTwo1, oneTwo2);
+        assertEquals(oneTwo1.hashCode(), oneTwo2.hashCode());
     }
 
     @Test
@@ -31,6 +33,7 @@ public class ProbabilityTest {
         Probability twoTwo = new Probability(2, 2);
         oneTwo.addNumerator(1);
         assertEquals(oneTwo, twoTwo);
+        assertEquals(oneTwo.hashCode(), twoTwo.hashCode());
     }
 
     @Test
@@ -39,6 +42,7 @@ public class ProbabilityTest {
         Probability oneThree = new Probability(1, 3);
         oneTwo.addDenominator(1);
         assertEquals(oneTwo, oneThree);
+        assertEquals(oneTwo.hashCode(), oneThree.hashCode());
     }
 
     @Test
@@ -47,6 +51,7 @@ public class ProbabilityTest {
         Probability zeroSix = new Probability(0, 6);
         oneTwo.multiply(0, 3);
         assertEquals(oneTwo, zeroSix);
+        assertEquals(oneTwo.hashCode(), zeroSix.hashCode());
     }
 
     @Test
@@ -55,6 +60,7 @@ public class ProbabilityTest {
         Probability fourSix = new Probability(4, 6);
         oneTwo.multiply(4, 3);
         assertEquals(oneTwo, fourSix);
+        assertEquals(oneTwo.hashCode(), fourSix.hashCode());
     }
 
     @Test
@@ -64,6 +70,7 @@ public class ProbabilityTest {
         Probability zeroThree = new Probability(0, 3);
         oneTwo.multiply(zeroThree);
         assertEquals(oneTwo, zeroSix);
+        assertEquals(oneTwo.hashCode(), zeroSix.hashCode());
     }
 
     @Test
@@ -73,6 +80,7 @@ public class ProbabilityTest {
         Probability fourThree = new Probability(4, 3);
         oneTwo.multiply(fourThree);
         assertEquals(oneTwo, fourSix);
+        assertEquals(oneTwo.hashCode(), fourSix.hashCode());
     }
 
     @Test
@@ -80,6 +88,7 @@ public class ProbabilityTest {
         Probability zeroOne = new Probability(0, 1);
         Probability zeroTwo = new Probability(0, 2);
         assertEquals(zeroOne, zeroTwo);
+        assertEquals(zeroOne.hashCode(), zeroTwo.hashCode());
     }
 
     @Test
@@ -94,6 +103,7 @@ public class ProbabilityTest {
         Probability oneTwo1 = new Probability(1, 2);
         Probability oneTwo2 = new Probability(1, 2);
         assertEquals(oneTwo1, oneTwo2);
+        assertEquals(oneTwo1.hashCode(), oneTwo2.hashCode());
     }
 
     @Test
