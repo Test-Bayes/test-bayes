@@ -48,10 +48,7 @@ public class IndividualClassRunner extends BlockJUnit4ClassRunner {
         this.firstFailFound = false;
         try {
             this.testObject = testClass.newInstance();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-            exit(1);
-        } catch (InstantiationException e) {
+        } catch (IllegalAccessException | InstantiationException e) {
             e.printStackTrace();
             exit(1);
         }
@@ -202,10 +199,7 @@ public class IndividualClassRunner extends BlockJUnit4ClassRunner {
         for (Method m : ms) {
             try {
                 m.invoke(testObject);
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-                exit(1);
-            } catch (InvocationTargetException e) {
+            } catch (IllegalAccessException | InvocationTargetException e) {
                 e.printStackTrace();
                 exit(1);
             }
