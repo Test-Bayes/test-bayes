@@ -1,6 +1,7 @@
 package edu.uw.cse.testbayes;
 
 import edu.uw.cse.testbayes.runner.MethodInvocation;
+import edu.uw.cse.testbayes.utils.LoggerUtils;
 import org.junit.runners.Suite;
 
 import java.lang.reflect.InvocationTargetException;
@@ -52,9 +53,9 @@ public class Main {
             try {
                 testMethods.get(s).invoke();
             } catch (InvocationTargetException e) {
-                System.out.println("\tTest " + testMethods.get(s).method.toString() + " failed");
+                LoggerUtils.error("\tTest " + testMethods.get(s).method.toString() + " failed");
             } finally {
-                System.out.println("\tTest " + testMethods.get(s).method.toString() + " succeeded");
+                LoggerUtils.info("\tTest " + testMethods.get(s).method.toString() + " succeeded");
             }
         }
 

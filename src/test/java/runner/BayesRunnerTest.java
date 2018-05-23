@@ -3,6 +3,7 @@ package runner;
 import edu.uw.cse.testbayes.fileio.LogWriter;
 import edu.uw.cse.testbayes.runner.TestBayesIndividualClassRunner;
 import edu.uw.cse.testbayes.utils.FileNameUtils;
+import edu.uw.cse.testbayes.utils.LoggerUtils;
 import org.junit.Test;
 import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;
@@ -71,17 +72,17 @@ public class BayesRunnerTest {
     public void testLogsExist() throws InterruptedException {
         LogWriter.forceNewFile();
         long before = new Timestamp(System.currentTimeMillis()).getTime();
-        System.out.println("Time before: " + before);
+        LoggerUtils.info("Time before: " + before);
         JUnitCore junit = new JUnitCore();
         System.setProperty("A1_FAIL_FOR_TEST", "true");
         junit.run(Test1.class);
         long after = new Timestamp(System.currentTimeMillis()).getTime();
-        System.out.println("Time after: " + after);
+        LoggerUtils.info("Time after: " + after);
 
         File mostRecent = getMostRecentLog();
         String name = mostRecent.getName();
         long fileTimestamp = Long.parseLong(name.split("-")[0]);
-        System.out.println((fileTimestamp - before) + ", " + (after - fileTimestamp));
+        LoggerUtils.info((fileTimestamp - before) + ", " + (after - fileTimestamp));
         assertTrue(before <= fileTimestamp && fileTimestamp <= after);
     }
 
@@ -97,6 +98,7 @@ public class BayesRunnerTest {
         try {
             s = new Scanner(getMostRecentLog());
         } catch (Exception e) {
+            s.close();
             e.printStackTrace();
             assert(false);
         }
@@ -108,6 +110,7 @@ public class BayesRunnerTest {
                 assert (Double.parseDouble(results[1]) < 0.0) ? true : false;
             }
         }
+        s.close();
     }
 
     /**
