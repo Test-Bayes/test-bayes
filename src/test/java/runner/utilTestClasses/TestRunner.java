@@ -6,7 +6,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.*;
 
 @Ignore
-@RunWith(IndividualClassRunner.class)
+@RunWith(Suite.class)
 @Suite.SuiteClasses({
     Test1.class,
     Test2.class,
