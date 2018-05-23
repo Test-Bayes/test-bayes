@@ -59,7 +59,7 @@ public class LogReader extends TestLogIO {
             }
         } else {
             if (!directory.mkdir()) {
-                System.err.println("Could not create log-data directory");
+                throw new IllegalStateException("Could not create log-data directory");
             }
         }
         return fileMap;

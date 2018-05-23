@@ -1,17 +1,17 @@
 package fileio;
 
 import edu.uw.cse.testbayes.fileio.LogWriter;
+import edu.uw.cse.testbayes.utils.LoggerUtils;
 import org.junit.After;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.HashSet;
-import java.util.Scanner;
-import java.util.Set;
+import java.util.*;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 public class LogWriterTest {
 
@@ -64,7 +64,7 @@ public class LogWriterTest {
     public void cleanUp() {
         for(File file: files) {
             if (!file.delete()) {
-//                System.err.println("File " + file.getAbsolutePath() + " not deleted");
+                LoggerUtils.error("File " + file.getAbsolutePath() + " not deleted");
             }
         }
     }

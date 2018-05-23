@@ -1,4 +1,6 @@
 package edu.uw.cse.testbayes.model;
+import edu.uw.cse.testbayes.utils.LoggerUtils;
+
 import java.lang.reflect.Method;
 import java.util.*;
 
@@ -180,7 +182,7 @@ public class Bayes {
                 }
             }
             if (minTest.equals("")) {
-                System.out.println("Bad test");
+                LoggerUtils.LOGGER.warn("Bad test");
             }
             return minTest;
         } else {

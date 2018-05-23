@@ -2,6 +2,7 @@ package fileio;
 
 import edu.uw.cse.testbayes.fileio.LogData;
 import edu.uw.cse.testbayes.fileio.LogReader;
+import edu.uw.cse.testbayes.utils.LoggerUtils;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -109,7 +110,7 @@ public class LogReaderTest {
      */
     @Test(expected=NullPointerException.class)
     public void readNullString() {
-        System.out.println(LogReader.readString(null));
+        LogReader.readString(null);
     }
 
 
@@ -117,7 +118,7 @@ public class LogReaderTest {
     public static void cleanUp() {
         for(File file: files) {
             if (!file.delete()) {
-                System.err.println("File " + file.getAbsolutePath() + " not deleted");
+                LoggerUtils.error("File " + file.getAbsolutePath() + " not deleted");
             }
         }
     }
