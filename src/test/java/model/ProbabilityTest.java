@@ -167,7 +167,7 @@ public class ProbabilityTest {
     }
 
     /**
-     * Tests equality of two Probability value half in different states
+     * Tests equality of two Probability value half in different states using compareTo
      */
     @Test
     public void compareHalves() {
@@ -177,7 +177,7 @@ public class ProbabilityTest {
     }
 
     /**
-     * Tests inequality of two Probability with different values
+     * Tests compareTo method with two Probability with different values
      */
     @Test
     public void compareHalfZero() {
