@@ -1,12 +1,11 @@
 package runner.utilTestClasses;
 
-import edu.uw.cse.testbayes.runner.IndividualClassRunner;
-import org.junit.Before;
+import edu.uw.cse.testbayes.runner.TestBayesIndividualClassRunner;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-@RunWith(IndividualClassRunner.class)
+@RunWith(TestBayesIndividualClassRunner.class)
 public class Test1 {
     private boolean a1Fail =
             System.getProperty("A1_FAIL_FOR_TEST") != null ?
