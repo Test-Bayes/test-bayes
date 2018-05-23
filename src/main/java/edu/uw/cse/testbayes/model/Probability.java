@@ -149,6 +149,16 @@ public class Probability implements Comparable<Probability> {
     }
 
     /**
+     * Returns a new Probability object in simplified form
+     *
+     * @return new Probability object in simplified form
+     */
+    private Probability simplify() {
+        int gcd = gcd();
+        return new Probability(numerator / gcd, denominator / gcd);
+    }
+
+    /**
      * Compares the Probability to the other/given Probability
      *
      * @param o other Probability Object
@@ -159,16 +169,20 @@ public class Probability implements Comparable<Probability> {
      */
     @Override
     public int compareTo(Probability o) {
-        //TODO: Remove the doubleValue() calls. Make it more certain
-        double thisValue = doubleValue();
-        double otherValue = o.doubleValue();
-        if (thisValue < otherValue) {
-            return -1;
-        } else if (thisValue > otherValue) {
-            return 1;
-        } else {
-            return 0;
+        Probability p1 = this.simplify();
+        Probability p2 = o.simplify();
+
+        int multiplier1 = p2.denominator;
+        int multiplier2 = p1.denominator;
+
+        p1.multiply(multiplier1, multiplier1);
+        p2.multiply(multiplier2, multiplier2);
+
+        if(p1.denominator != p2.denominator) {
+            throw new IllegalStateException();
         }
+
+        return p1.numerator - p2.numerator;
     }
 
     /**

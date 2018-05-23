@@ -3,11 +3,8 @@ package edu.uw.cse.testbayes.fileio;
 import edu.uw.cse.testbayes.utils.FileNameUtils;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintStream;
-import java.util.Map;
-import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
 /**

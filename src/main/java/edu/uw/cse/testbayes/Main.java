@@ -1,5 +1,6 @@
-package edu.uw.cse.testbayes.runner;
+package edu.uw.cse.testbayes;
 
+import edu.uw.cse.testbayes.runner.MethodInvocation;
 import org.junit.runners.Suite;
 
 import java.lang.reflect.InvocationTargetException;

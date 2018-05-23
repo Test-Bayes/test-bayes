@@ -22,6 +22,24 @@ public class LogData {
     private boolean complete;
 
     /**
+     * Creates a new LogData object with no data
+     */
+    public LogData() {
+        this(null, false);
+    }
+
+    /**
+     * Creates a new LogData object with the given data and completeness state
+     *
+     * @param data data from the log file
+     * @param complete completeness of the test run that this log corresponds to
+     */
+    public LogData(Map<String, Double> data, boolean complete) {
+        this.data = data;
+        this.complete = complete;
+    }
+
+    /**
      * Gets the data of the log file
      *
      * @return Map with each test's method signature being the key and it's runtime being the double. The sign of
@@ -77,7 +95,7 @@ public class LogData {
     }
 
     /**
-     * Calculates the Hash Code for the given LogData
+     * Calculates the Hash Code for the given LogData\
      *
      * @return Returns the calculated Hash Code
      */

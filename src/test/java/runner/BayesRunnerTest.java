@@ -1,7 +1,7 @@
 package runner;
 
 import edu.uw.cse.testbayes.fileio.LogWriter;
-import edu.uw.cse.testbayes.runner.IndividualClassRunner;
+import edu.uw.cse.testbayes.runner.TestBayesIndividualClassRunner;
 import edu.uw.cse.testbayes.utils.FileNameUtils;
 import org.junit.Test;
 import org.junit.runner.JUnitCore;
@@ -17,10 +17,9 @@ import java.util.*;
 import static org.junit.Assert.assertTrue;
 
 /**
- * Authors: Steven Austin, Ethan Mayer
- * This class tests the individual class runner
+ * This class tests the Test Bayes individual class runner
  */
-public class IndividualRunnerTest {
+public class BayesRunnerTest {
 
     /**
      * Verify that individual class runner throws an exception for null class
@@ -28,7 +27,7 @@ public class IndividualRunnerTest {
      */
     @Test(expected = NullPointerException.class)
     public void testConstructorThrowsNull() throws InitializationError {
-        IndividualClassRunner r = new IndividualClassRunner(null);
+        TestBayesIndividualClassRunner r = new TestBayesIndividualClassRunner(null);
     }
 
     /**
@@ -37,7 +36,7 @@ public class IndividualRunnerTest {
      */
     @Test(expected = InitializationError.class)
     public void testConstructorThrowsBadClass() throws InitializationError {
-        IndividualClassRunner r = new IndividualClassRunner(IndividualClassRunner.class);
+        TestBayesIndividualClassRunner r = new TestBayesIndividualClassRunner(TestBayesIndividualClassRunner.class);
     }
 
     /**
@@ -46,7 +45,7 @@ public class IndividualRunnerTest {
      */
     @Test
     public void testConstructorValid() throws InitializationError {
-        IndividualClassRunner r = new IndividualClassRunner(Test1.class);
+        TestBayesIndividualClassRunner r = new TestBayesIndividualClassRunner(Test1.class);
     }
 
     /**
@@ -56,7 +55,7 @@ public class IndividualRunnerTest {
     public void testShuffle() {
         Method[] ms = this.getClass().getDeclaredMethods();
         while (true) {
-            ArrayList<Method> shuffleMs = IndividualClassRunner.shuffle(ms);
+            ArrayList<Method> shuffleMs = TestBayesIndividualClassRunner.shuffle(ms);
             for (int i = 0; i < ms.length; i++) {
                 if (!ms[i].equals(shuffleMs.get(i))) {
                     return;  // Found good shuffle

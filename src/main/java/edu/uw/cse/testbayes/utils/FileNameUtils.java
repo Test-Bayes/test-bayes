@@ -1,7 +1,6 @@
 package edu.uw.cse.testbayes.utils;
 
 import java.io.File;
-import java.sql.Timestamp;
 
 /**
  * Provides static methods for file and directory names

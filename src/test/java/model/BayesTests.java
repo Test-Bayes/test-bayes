@@ -1,13 +1,15 @@
 package model;
 
-import java.util.*;
-
-import static org.junit.Assert.assertEquals;
-
 import edu.uw.cse.testbayes.model.Bayes;
 import edu.uw.cse.testbayes.model.Probability;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
+import static org.junit.Assert.assertEquals;
 
 public class BayesTests {
 
@@ -80,5 +82,18 @@ public class BayesTests {
         assertEquals(new Probability(2,5), n.getPassCondProb("test2", "test1"));
         assertEquals(new Probability(2,5), n.getPassCondProb("test2", "test3"));
         assertEquals(new Probability(4,5), n.getPassCondProb("test2", "test4"));
+    }
+
+    /**
+     * Tests the getFailCondProb method
+     */
+    @Test(timeout = TIMEOUT)
+    public void testGetFailCondProb(){
+        assertEquals(new Probability(3,4), n.getFailCondProb("test1", "test2"));
+        assertEquals(new Probability(1,4), n.getFailCondProb("test1", "test3"));
+        assertEquals(new Probability(3,4), n.getFailCondProb("test1", "test4"));
+        assertEquals(new Probability(2,3), n.getFailCondProb("test2", "test1"));
+        assertEquals(new Probability(2,3), n.getFailCondProb("test2", "test3"));
+        assertEquals(new Probability(1,3), n.getFailCondProb("test2", "test4"));
     }
 }
