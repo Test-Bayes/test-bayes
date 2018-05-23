@@ -1,0 +1,24 @@
+Team Name: TestBayes
+
+
+Team Weekly Report:
+
+1. Goals
+- Find more repositories for data collection.
+- Continue collaborating more closely for major deliverables.
+- Use new data for updates to mathematical model.
+- Update the fileIO system to deal with partially written logs.
+- Review code for assigned team.
+
+2. Progress we've made:
+- Cleaned up a lot of code, typos, comments and general structure of our project.
+- Made the user manual and report more consistent with current code.
+- Interpreted the problems raised by our reviewers and addresed them.
+- Found a way to produce more accurate dummy data to test various aspects of our project.
+
+3. Goals for next week:
+- Find more epositories for data collection.
+- Work to change team report to a more formal style.
+- Fix issues with the runner.
+- Prepare for the final presentation.
+- Write the evaluation and goals achieved.
