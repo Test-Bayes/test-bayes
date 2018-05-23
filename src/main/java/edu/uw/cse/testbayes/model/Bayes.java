@@ -45,7 +45,8 @@ public class Bayes {
      * Builds the Bayes used to compute the next test to be run
      *
      * @param testExecs A map with all the execution strings mapping to a map that has test information like failing
-     *                  and passing times
+     *                  and passing tests
+     * @param ms A list with all the methods in the class
      */
     public Bayes(Map<String, Map<String, Double>> testExecs, List<Method> ms) {
         this.tots = buildTot(testExecs, ms);
@@ -67,7 +68,7 @@ public class Bayes {
      * Gets the probability of a test passing
      *
      * @param s The name of the test
-     * @returns total probability of test passing
+     * @return total probability of test passing
      */
     public Probability getTestProb(String s) {
         return new Probability(tots.get(s));
@@ -162,8 +163,11 @@ public class Bayes {
     }
 
     /**
+     * Returns the name of the next test to be executed
+     *
      * @param s Name of last test executed
      * @param pass Whether the last test passed or failed
+     * @param ignores Set of tests to ignore
      * @return Name of the next test to be executed
      */
     public String nextTest(String s, boolean pass, Set<String> ignores) {
