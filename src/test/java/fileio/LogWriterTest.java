@@ -22,12 +22,12 @@ public class LogWriterTest {
     public static void initialize() {
         testname = "method";
         duration = 100.23;
-        files = new HashSet<File>();
+        files = new HashSet<>();
     }
 
     /**
      * Tests that a single test is written correctly
-     * @throws IOException
+     * @throws IOException in case of any IO issues
      */
     @Test
     public void testIndividualTestWriter() throws IOException, InterruptedException {
@@ -43,7 +43,7 @@ public class LogWriterTest {
 
     /**
      * Tests that tests are written correctly when multiple tests are written in sequence
-     * @throws IOException
+     * @throws IOException in case of any IO issues
      */
     @Test
     public void testIndividualTestWriterMultiple() throws IOException, InterruptedException {
