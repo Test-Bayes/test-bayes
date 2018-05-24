@@ -1,7 +1,6 @@
 package edu.uw.cse.testbayes.runner;
 
 import edu.uw.cse.testbayes.fileio.LogReader;
-import edu.uw.cse.testbayes.fileio.LogWriter;
 import edu.uw.cse.testbayes.model.Bayes;
 import edu.uw.cse.testbayes.utils.LoggerUtils;
 import org.junit.runner.Description;
@@ -155,6 +154,6 @@ public class TestBayesIndividualClassRunner extends IndividualClassRunner {
      * @throws IOException in case of any IO issues
      */
     private void markComplete() throws IOException {
-        LogWriter.completeRun();
+        logWriter.completeRun();
     }
 }

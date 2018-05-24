@@ -1,6 +1,5 @@
 package runner;
 
-import edu.uw.cse.testbayes.fileio.LogWriter;
 import edu.uw.cse.testbayes.runner.TestBayesIndividualClassRunner;
 import edu.uw.cse.testbayes.utils.FileNameUtils;
 import edu.uw.cse.testbayes.utils.LoggerUtils;
@@ -70,7 +69,6 @@ public class BayesRunnerTest {
      */
     @Test
     public void testLogsExist() throws InterruptedException {
-        LogWriter.forceNewFile();
         long before = new Timestamp(System.currentTimeMillis()).getTime();
         LoggerUtils.info("Time before: " + before);
         JUnitCore junit = new JUnitCore();

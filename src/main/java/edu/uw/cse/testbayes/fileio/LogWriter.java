@@ -15,7 +15,11 @@ public class LogWriter extends TestLogIO {
     /**
      * Filename in which the data from the current run are saved
      */
-    private static String filename;
+    private String filename;
+
+    public LogWriter() {
+        this.filename = FileNameUtils.createFileName();
+    }
 
     /**
      * Returns the Absolute Path of the file where the given data from the test run is stored
@@ -25,7 +29,7 @@ public class LogWriter extends TestLogIO {
      * @return Absolute Path of file with log or null if @testData is empty
      * @throws IOException if an I/O error occurs when creating the file
      */
-    public static String write(String methodName, double num) throws IOException {
+    public String write(String methodName, double num) throws IOException {
         append(methodName.replaceAll(" ", "%") + "," + num + " ");
         return getFile().getAbsolutePath();
     }
@@ -36,7 +40,7 @@ public class LogWriter extends TestLogIO {
      * @return File Object representing File in which the logs are to be written
      * @throws IOException if an I/O error occurs when creating the file
      */
-    private static File getFile() throws IOException {
+    private File getFile() throws IOException {
         String directoryName = FileNameUtils.getDirectoryName();
         File directory = new File(directoryName);
         if(!directory.exists()) {
@@ -56,7 +60,7 @@ public class LogWriter extends TestLogIO {
      *
      * @throws InterruptedException if interrupted when sleeping
      */
-    public static void forceNewFile() throws InterruptedException {
+    public void forceNewFile() throws InterruptedException {
         filename = null;
         TimeUnit.SECONDS.sleep(1);
     }
@@ -66,7 +70,7 @@ public class LogWriter extends TestLogIO {
      *
      * @throws IOException if an I/O error occurs when creating the file
      */
-    public static void completeRun() throws IOException {
+    public void completeRun() throws IOException {
         prefix(TEST_COMPLETE_MESSAGE + " ");
     }
 
@@ -76,7 +80,7 @@ public class LogWriter extends TestLogIO {
      * @param prefix String to add as a prefix
      * @throws IOException if an I/O error occurs when creating the file
      */
-    private static void prefix(String prefix) throws IOException {
+    private void prefix(String prefix) throws IOException {
         File file = getFile();
         String s = LogReader.readRawLogFile(file);
         write(prefix + s);
@@ -88,7 +92,7 @@ public class LogWriter extends TestLogIO {
      * @param data String to add to the log file
      * @throws IOException if an I/O error occurs when creating the file
      */
-    private static void append(String data) throws IOException {
+    private void append(String data) throws IOException {
         File file = getFile();
         String s = LogReader.readRawLogFile(file);
         write(s + data);
@@ -100,7 +104,7 @@ public class LogWriter extends TestLogIO {
      * @param data String to be written to the file
      * @throws IOException if an I/O error occurs when creating the file
      */
-    private static void write(String data) throws IOException {
+    private void write(String data) throws IOException {
         PrintStream printStream = new PrintStream(getFile());
         printStream.print(data);
         printStream.close();
