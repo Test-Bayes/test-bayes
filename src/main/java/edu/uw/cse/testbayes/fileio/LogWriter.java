@@ -3,6 +3,7 @@ package edu.uw.cse.testbayes.fileio;
 import edu.uw.cse.testbayes.utils.FileNameUtils;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.concurrent.TimeUnit;
@@ -52,17 +53,6 @@ public class LogWriter extends TestLogIO {
     }
 
     /**
-     * DO NOT USE. ONLY FOR TESTING
-     * Forces a new file to be created for the next set of data points to be written to the file system
-     *
-     * @throws InterruptedException if interrupted when sleeping
-     */
-    public void forceNewFile() throws InterruptedException {
-        filename = null;
-        TimeUnit.SECONDS.sleep(1);
-    }
-
-    /**
      * Marks a log as a completed run
      *
      * @throws IOException if an I/O error occurs when creating the file
@@ -79,7 +69,7 @@ public class LogWriter extends TestLogIO {
      */
     private void prefix(String prefix) throws IOException {
         File file = getFile();
-        String s = LogReader.readRawLogFile(file);
+        String s = readFile(file);
         write(prefix + s);
     }
 
@@ -91,7 +81,7 @@ public class LogWriter extends TestLogIO {
      */
     private void append(String data) throws IOException {
         File file = getFile();
-        String s = LogReader.readRawLogFile(file);
+        String s = readFile(file);
         write(s + data);
     }
 
@@ -105,6 +95,10 @@ public class LogWriter extends TestLogIO {
         PrintStream printStream = new PrintStream(getFile());
         printStream.print(data);
         printStream.close();
+    }
+
+    private String readFile(File file) throws FileNotFoundException {
+        return LogReader.readRawLogFile(file);
     }
 
 }

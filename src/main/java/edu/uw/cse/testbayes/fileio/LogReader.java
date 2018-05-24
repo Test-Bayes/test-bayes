@@ -15,7 +15,13 @@ public class LogReader extends TestLogIO {
     /**
      * The number of files of logs to be read
      */
-    private static final int RUNNING_AVERAGE = 15;
+    private final int RUNNING_AVERAGE = 15;
+
+    private String className;
+
+    public LogReader(String className) {
+        this.className = className;
+    }
 
     /**
      * Returns a map of the last @RUNNING_AVERAGE test runs and the stats of the same
@@ -23,7 +29,7 @@ public class LogReader extends TestLogIO {
      * @return  a map with the details of the last @RUNNING_AVERAGE test runs and the stats of the same
      * @throws FileNotFoundException if a file is not found
      */
-    public static Map<String, Map<String, Double>> read() throws FileNotFoundException {
+    public Map<String, Map<String, Double>> read() throws FileNotFoundException {
         Map<String, File> fileMap = getFileMap();
         Map<String, Map<String, Double>> allData = new HashMap<>();
         int counter = 0;
@@ -46,14 +52,14 @@ public class LogReader extends TestLogIO {
      *
      * @return  a map of @RUNNING_AVERAGE files with test data
      */
-    private static Map<String, File> getFileMap() {
+    private Map<String, File> getFileMap() {
         File directory = new File(FileNameUtils.getDirectoryName());
         File[] fileArray = directory.listFiles();
 
         Map<String, File> fileMap = new TreeMap<>(Collections.reverseOrder());
         if (fileArray != null) {
             for (File file : fileArray) {
-                if (file.isFile()) {
+                if (file.isFile() && file.toString().split("-")[2].equals(className)) {
                     fileMap.put(file.toString(), file);
                 }
             }

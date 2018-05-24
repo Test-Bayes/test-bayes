@@ -78,7 +78,7 @@ public class TestBayesIndividualClassRunner extends IndividualClassRunner {
         // Get the past map
         Map<String, Map<String, Double>> oldRuns = null;
         try {
-            oldRuns = LogReader.read();
+            oldRuns = logReader.read();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             exit(1);

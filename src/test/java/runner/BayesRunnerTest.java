@@ -120,7 +120,7 @@ public class BayesRunnerTest {
         File directory = new File(FileNameUtils.getDirectoryName());
         File[] fileArray = directory.listFiles();
 
-        Map<String, File> fileMap = new TreeMap<String, File>(Collections.reverseOrder());
+        Map<String, File> fileMap = new TreeMap<>(Collections.reverseOrder());
         if (fileArray == null) {
             return null;
         }
@@ -131,6 +131,7 @@ public class BayesRunnerTest {
         }
 
         for(String filename : fileMap.keySet()) {
+            System.out.println(filename);
             return fileMap.get(filename);
         }
         return null;
