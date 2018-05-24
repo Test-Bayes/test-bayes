@@ -2,10 +2,12 @@ package fileio;
 
 import edu.uw.cse.testbayes.fileio.LogData;
 import edu.uw.cse.testbayes.fileio.LogReader;
+import edu.uw.cse.testbayes.runner.TestBayesIndividualClassRunner;
 import edu.uw.cse.testbayes.utils.LoggerUtils;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import java.io.File;
 import java.io.FileNotFoundException;

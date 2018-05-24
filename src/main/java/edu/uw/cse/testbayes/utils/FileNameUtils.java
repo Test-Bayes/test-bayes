@@ -9,11 +9,13 @@ public class FileNameUtils {
 
     /**
      * Generates the name of the log file
+     * @param className name of the test class
      * @return String with the name of the log file
      */
-    public static String createFileName() {
+    public static String createFileName(String className) {
         long timestamp = System.currentTimeMillis();
-        String filename = "log-data" + File.separator + timestamp + "-" + System.getProperty("user.name") + ".txt";
+        String filename = "log-data" + File.separator + timestamp + "-" + className + "-" +
+                System.getProperty("user.name") + ".txt";
         return filename;
     }
 

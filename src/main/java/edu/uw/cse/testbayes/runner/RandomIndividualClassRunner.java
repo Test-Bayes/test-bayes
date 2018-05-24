@@ -5,6 +5,7 @@ import org.junit.runner.Description;
 import org.junit.runner.notification.RunNotifier;
 import org.junit.runners.model.InitializationError;
 
+import java.io.IOException;
 import java.lang.reflect.Method;
 import java.time.Instant;
 import java.util.*;
@@ -16,7 +17,7 @@ import java.util.*;
  */
 public class RandomIndividualClassRunner extends IndividualClassRunner {
 
-    public RandomIndividualClassRunner(Class<?> klass) throws InitializationError {
+    public RandomIndividualClassRunner(Class<?> klass) throws InitializationError, IOException {
         super(klass);
         this.testClass = klass;
         this.ignore = true;

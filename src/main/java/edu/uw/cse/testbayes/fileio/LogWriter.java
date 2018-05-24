@@ -15,19 +15,22 @@ public class LogWriter extends TestLogIO {
     /**
      * Filename in which the data from the current run are saved
      */
-    private static String filename;
+    private String filename;
+
+    public LogWriter(String classname) throws IOException {
+        filename = FileNameUtils.createFileName(classname);
+        makeFile();
+    }
 
     /**
-     * Returns the Absolute Path of the file where the given data from the test run is stored
+     * Writes the given data to the file
      *
      * @param methodName name of the method that was tested
      * @param num duration of the test run
-     * @return Absolute Path of file with log or null if @testData is empty
      * @throws IOException if an I/O error occurs when creating the file
      */
-    public static String write(String methodName, double num) throws IOException {
+    public void write(String methodName, double num) throws IOException {
         append(methodName.replaceAll(" ", "%") + "," + num + " ");
-        return getFile().getAbsolutePath();
     }
 
     /**
@@ -36,37 +39,37 @@ public class LogWriter extends TestLogIO {
      * @return File Object representing File in which the logs are to be written
      * @throws IOException if an I/O error occurs when creating the file
      */
-    private static File getFile() throws IOException {
+    private void makeFile() throws IOException {
         String directoryName = FileNameUtils.getDirectoryName();
         File directory = new File(directoryName);
         if(!directory.exists()) {
             directory.mkdir();
         }
-        if(filename == null) {
-            filename = FileNameUtils.createFileName();
-        }
         File file = new File(filename);
         file.createNewFile();
-        return file;
     }
 
-    /**
-     * DO NOT USE. ONLY FOR TESTING
-     * Forces a new file to be created for the next set of data points to be written to the file system
-     *
-     * @throws InterruptedException if interrupted when sleeping
-     */
-    public static void forceNewFile() throws InterruptedException {
-        filename = null;
-        TimeUnit.SECONDS.sleep(1);
+    public File getFile() {
+        return new File(filename);
     }
+
+//    /**
+//     * DO NOT USE. ONLY FOR TESTING
+//     * Forces a new file to be created for the next set of data points to be written to the file system
+//     *
+//     * @throws InterruptedException if interrupted when sleeping
+//     */
+//    public void forceNewFile() throws InterruptedException {
+//        filename = null;
+//        TimeUnit.SECONDS.sleep(1);
+//    }
 
     /**
      * Marks a log as a completed run
      *
      * @throws IOException if an I/O error occurs when creating the file
      */
-    public static void completeRun() throws IOException {
+    public void completeRun() throws IOException {
         prefix(TEST_COMPLETE_MESSAGE + " ");
     }
 
@@ -76,9 +79,8 @@ public class LogWriter extends TestLogIO {
      * @param prefix String to add as a prefix
      * @throws IOException if an I/O error occurs when creating the file
      */
-    private static void prefix(String prefix) throws IOException {
-        File file = getFile();
-        String s = LogReader.readRawLogFile(file);
+    private void prefix(String prefix) throws IOException {
+        String s = LogReader.readRawLogFile(filename);
         write(prefix + s);
     }
 
@@ -88,9 +90,8 @@ public class LogWriter extends TestLogIO {
      * @param data String to add to the log file
      * @throws IOException if an I/O error occurs when creating the file
      */
-    private static void append(String data) throws IOException {
-        File file = getFile();
-        String s = LogReader.readRawLogFile(file);
+    private void append(String data) throws IOException {
+        String s = LogReader.readRawLogFile(filename);
         write(s + data);
     }
 
@@ -100,10 +101,10 @@ public class LogWriter extends TestLogIO {
      * @param data String to be written to the file
      * @throws IOException if an I/O error occurs when creating the file
      */
-    private static void write(String data) throws IOException {
-        PrintStream printStream = new PrintStream(getFile());
+    private void write(String data) throws IOException {
+        PrintStream printStream = new PrintStream(filename);
         printStream.print(data);
         printStream.close();
-    }
+   }
 
 }

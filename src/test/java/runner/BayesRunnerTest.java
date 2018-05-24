@@ -11,6 +11,7 @@ import org.junit.runners.model.InitializationError;
 import runner.utilTestClasses.Test1;
 
 import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.Method;
 import java.sql.Timestamp;
 import java.util.*;
@@ -27,7 +28,7 @@ public class BayesRunnerTest {
      * @throws InitializationError indicates runner class is null
      */
     @Test(expected = NullPointerException.class)
-    public void testConstructorThrowsNull() throws InitializationError {
+    public void testConstructorThrowsNull() throws InitializationError, IOException {
         TestBayesIndividualClassRunner r = new TestBayesIndividualClassRunner(null);
     }
 
@@ -36,7 +37,7 @@ public class BayesRunnerTest {
      * @throws InitializationError indicates invalid test class
      */
     @Test(expected = InitializationError.class)
-    public void testConstructorThrowsBadClass() throws InitializationError {
+    public void testConstructorThrowsBadClass() throws InitializationError, IOException {
         TestBayesIndividualClassRunner r = new TestBayesIndividualClassRunner(TestBayesIndividualClassRunner.class);
     }
 
@@ -45,7 +46,7 @@ public class BayesRunnerTest {
      * @throws InitializationError indicates invalid test class
      */
     @Test
-    public void testConstructorValid() throws InitializationError {
+    public void testConstructorValid() throws InitializationError, IOException {
         TestBayesIndividualClassRunner r = new TestBayesIndividualClassRunner(Test1.class);
     }
 
@@ -70,7 +71,6 @@ public class BayesRunnerTest {
      */
     @Test
     public void testLogsExist() throws InterruptedException {
-        LogWriter.forceNewFile();
         long before = new Timestamp(System.currentTimeMillis()).getTime();
         LoggerUtils.info("Time before: " + before);
         JUnitCore junit = new JUnitCore();

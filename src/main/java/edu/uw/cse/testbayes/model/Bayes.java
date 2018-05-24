@@ -186,7 +186,7 @@ public class Bayes {
                 }
             }
             if (minTest.equals("")) {
-                LoggerUtils.LOGGER.warn("Bad test");
+                LoggerUtils.warn("Bad test");
             }
             return minTest;
         } else {

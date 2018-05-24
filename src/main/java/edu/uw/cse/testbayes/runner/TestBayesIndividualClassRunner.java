@@ -1,7 +1,6 @@
 package edu.uw.cse.testbayes.runner;
 
 import edu.uw.cse.testbayes.fileio.LogReader;
-import edu.uw.cse.testbayes.fileio.LogWriter;
 import edu.uw.cse.testbayes.model.Bayes;
 import edu.uw.cse.testbayes.utils.LoggerUtils;
 import org.junit.runner.Description;
@@ -28,7 +27,7 @@ public class TestBayesIndividualClassRunner extends IndividualClassRunner {
      * @param klass The junit class to be tested in a custom order
      * @throws InitializationError Indicates invalid junit test class
      */
-    public TestBayesIndividualClassRunner(Class<?> klass) throws InitializationError {
+    public TestBayesIndividualClassRunner(Class<?> klass) throws InitializationError, IOException {
         super(klass);
         this.testClass = klass;
         this.ignore = true;
@@ -45,6 +44,7 @@ public class TestBayesIndividualClassRunner extends IndividualClassRunner {
             e.printStackTrace();
             exit(1);
         }
+        System.out.println("Constructed with " + klass.getName());
     }
 
     /**
@@ -94,8 +94,12 @@ public class TestBayesIndividualClassRunner extends IndividualClassRunner {
         Map<String, Method> nameToMethod = new HashMap<>();
         sortMethods(methods, befores, afters, beforeClasses, afterClasses, ignores, nameToMethod);
 
+        System.out.println("Methods sorted");
+
         // Create the bayes module
         Bayes bayes = new Bayes(oldRuns, methods);
+
+        System.out.println("Bayes created");
 
         // Separate new methods from old ones
         Set<String> temp = new HashSet<>(nameToMethod.keySet());
@@ -112,6 +116,8 @@ public class TestBayesIndividualClassRunner extends IndividualClassRunner {
 
         // Run the beforeClasses
         runSetups(beforeClasses);
+
+        System.out.println("Before Classes run");
 
         // Notify ignored tests
         for (String i : ignores) {
@@ -142,6 +148,8 @@ public class TestBayesIndividualClassRunner extends IndividualClassRunner {
         // Run the afters
         runSetups(afterClasses);
 
+        System.out.println("Marking log as complete");
+
         // Mark log as complete
         try {
             markComplete();
@@ -155,6 +163,6 @@ public class TestBayesIndividualClassRunner extends IndividualClassRunner {
      * @throws IOException in case of any IO issues
      */
     private void markComplete() throws IOException {
-        LogWriter.completeRun();
+        logWriter.completeRun();
     }
 }

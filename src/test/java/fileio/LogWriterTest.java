@@ -1,10 +1,12 @@
 package fileio;
 
 import edu.uw.cse.testbayes.fileio.LogWriter;
+import edu.uw.cse.testbayes.runner.TestBayesIndividualClassRunner;
 import edu.uw.cse.testbayes.utils.LoggerUtils;
 import org.junit.After;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import java.io.File;
 import java.io.IOException;
@@ -32,9 +34,9 @@ public class LogWriterTest {
      */
     @Test
     public void testIndividualTestWriter() throws IOException, InterruptedException {
-        LogWriter.forceNewFile();
-        String filename = LogWriter.write(testname, duration);
-        File file = new File(filename);
+        LogWriter logWriter = new LogWriter("test");
+        logWriter.write(testname, duration);
+        File file = logWriter.getFile();
         files.add(file);
         Scanner scanner = new Scanner(file);
         String nextLine = scanner.nextLine();
@@ -48,10 +50,10 @@ public class LogWriterTest {
      */
     @Test
     public void testIndividualTestWriterMultiple() throws IOException, InterruptedException {
-        LogWriter.forceNewFile();
-        String filename = LogWriter.write(testname, duration);
-        filename = LogWriter.write(testname, duration);
-        File file = new File(filename);
+        LogWriter logWriter = new LogWriter("test");
+        logWriter.write(testname, duration);
+        logWriter.write(testname, duration);
+        File file = logWriter.getFile();
         files.add(file);
         Scanner scanner = new Scanner(file);
         String nextLine = scanner.nextLine();

@@ -6,6 +6,7 @@ import org.junit.Test;
 import org.junit.runners.model.InitializationError;
 import runner.utilTestClasses.Test1;
 
+import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 
@@ -19,7 +20,7 @@ public class RandomRunnerTest {
      * @throws InitializationError indicates runner class is null
      */
     @Test(expected = NullPointerException.class)
-    public void testConstructorThrowsNull() throws InitializationError {
+    public void testConstructorThrowsNull() throws InitializationError, IOException {
         RandomIndividualClassRunner r = new RandomIndividualClassRunner(null);
     }
 
@@ -28,7 +29,7 @@ public class RandomRunnerTest {
      * @throws InitializationError indicates invalid test class
      */
     @Test(expected = InitializationError.class)
-    public void testConstructorThrowsBadClass() throws InitializationError {
+    public void testConstructorThrowsBadClass() throws InitializationError, IOException {
         RandomIndividualClassRunner r = new RandomIndividualClassRunner(TestBayesIndividualClassRunner.class);
     }
 
@@ -37,7 +38,7 @@ public class RandomRunnerTest {
      * @throws InitializationError indicates invalid test class
      */
     @Test
-    public void testConstructorValid() throws InitializationError {
+    public void testConstructorValid() throws InitializationError, IOException {
         RandomIndividualClassRunner r = new RandomIndividualClassRunner(Test1.class);
     }
 
