@@ -37,7 +37,7 @@ abstract public class IndividualClassRunner extends BlockJUnit4ClassRunner {
      */
     public IndividualClassRunner(Class<?> klass) throws InitializationError {
         super(klass);
-        logWriter = new LogWriter();
+        logWriter = new LogWriter(klass.getName());
     }
 
     /**

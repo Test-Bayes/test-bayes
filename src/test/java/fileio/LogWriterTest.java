@@ -33,7 +33,7 @@ public class LogWriterTest {
      */
     @Test
     public void testIndividualTestWriter() throws IOException, InterruptedException {
-        LogWriter logWriter = new LogWriter();
+        LogWriter logWriter = new LogWriter("test");
         String filename = logWriter.write(testname, duration);
         File file = new File(filename);
         files.add(file);
@@ -49,7 +49,7 @@ public class LogWriterTest {
      */
     @Test
     public void testIndividualTestWriterMultiple() throws IOException, InterruptedException {
-        LogWriter logWriter = new LogWriter();
+        LogWriter logWriter = new LogWriter("test");
         String filename = logWriter.write(testname, duration);
         filename = logWriter.write(testname, duration);
         File file = new File(filename);

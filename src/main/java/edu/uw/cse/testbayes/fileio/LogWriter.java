@@ -17,8 +17,8 @@ public class LogWriter extends TestLogIO {
      */
     private String filename;
 
-    public LogWriter() {
-        this.filename = FileNameUtils.createFileName();
+    public LogWriter(String className) {
+        this.filename = FileNameUtils.createFileName(className);
     }
 
     /**
@@ -45,9 +45,6 @@ public class LogWriter extends TestLogIO {
         File directory = new File(directoryName);
         if(!directory.exists()) {
             directory.mkdir();
-        }
-        if(filename == null) {
-            filename = FileNameUtils.createFileName();
         }
         File file = new File(filename);
         file.createNewFile();
