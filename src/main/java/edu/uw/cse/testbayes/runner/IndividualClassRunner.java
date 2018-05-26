@@ -100,7 +100,8 @@ abstract public class IndividualClassRunner extends BlockJUnit4ClassRunner {
 
     // TODO: Add this documentation
     /**
-     *
+     * Runs the specified method, notifying the runnotifier of its start, end,
+     * failure, and success.
      * @param notifier Used to notify JUnit of progress running tests
      * @param method The Method to be run
      * @param befores Before class methods that need to be invoked before method
@@ -112,14 +113,13 @@ abstract public class IndividualClassRunner extends BlockJUnit4ClassRunner {
         testsRun++;
         runSetups(befores);
         Instant end = null;
-        Instant start = null;
+        Instant start = Instant.now();
         boolean passed = true;
         try {
             notifier.fireTestStarted(Description
                     .createTestDescription(testClass, method.getName()));
-            start = Instant.now();
             method.invoke(testObject);
-            end = Instant.now();
+
             notifier.fireTestFinished(Description
                     .createTestDescription(testClass, method.getName()));
         } catch (InvocationTargetException e) {
@@ -136,13 +136,12 @@ abstract public class IndividualClassRunner extends BlockJUnit4ClassRunner {
             }
             notifier.fireTestFinished(Description
                     .createTestDescription(testClass, method.getName()));
-            end = Instant.now();
         } catch (IllegalAccessException e) {
-            end = Instant.now();
             passed = false;
             System.out.println("Illegal test");
             e.printStackTrace();
         } finally {
+            end = Instant.now();
             long time = Duration.between(start, end).toMillis();
             if (!passed && !firstFailFound) {
                 firstFailFound = true;
