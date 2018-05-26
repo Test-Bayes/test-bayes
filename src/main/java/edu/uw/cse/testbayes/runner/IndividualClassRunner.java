@@ -1,6 +1,7 @@
 package edu.uw.cse.testbayes.runner;
 
 import edu.uw.cse.testbayes.fileio.LogWriter;
+import edu.uw.cse.testbayes.utils.LoggerUtils;
 import org.junit.*;
 import org.junit.runner.Description;
 import org.junit.runner.notification.Failure;
@@ -14,8 +15,6 @@ import java.lang.reflect.Method;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.*;
-
-import static java.lang.System.exit;
 
 /**
  * This class is an abstract class for a Runner for an Individual Class that extends the BlockJUnit4ClassRunner
@@ -50,10 +49,10 @@ abstract public class IndividualClassRunner extends BlockJUnit4ClassRunner {
                 m.invoke(testObject);
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
-                exit(1);
+                System.exit(1);
             } catch (InvocationTargetException e) {
                 e.printStackTrace();
-                exit(1);
+                System.exit(1);
             }
         }
     }
@@ -138,19 +137,20 @@ abstract public class IndividualClassRunner extends BlockJUnit4ClassRunner {
                     .createTestDescription(testClass, method.getName()));
         } catch (IllegalAccessException e) {
             passed = false;
-            System.out.println("Illegal test");
+            LoggerUtils.error("Bad test");
             e.printStackTrace();
         } finally {
             end = Instant.now();
             long time = Duration.between(start, end).toMillis();
             if (!passed && !firstFailFound) {
                 firstFailFound = true;
-                System.out.println("Test taken until first failure: " + testsRun);
-                System.out.println("Time taken until first failure: " + Duration.between(Instant.now(), startTime));
+                LoggerUtils.info("Test taken until first failure: " + testsRun);
+                LoggerUtils.info("Time taken until first failure: " + Duration.between(Instant.now(), startTime));
             }
             try {
                 LogWriter.write(method.toString(), (double)(passed ? Math.max(time, 0.1) : Math.min(-time, -0.1)));
             } catch (IOException e) {
+                LoggerUtils.error(e);
                 e.printStackTrace();
             }
         }
