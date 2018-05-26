@@ -1,6 +1,6 @@
 package edu.uw.cse.testbayes.fileio;
 
-import edu.uw.cse.testbayes.utils.FileNameUtils;
+import edu.uw.cse.testbayes.utils.BayesFileNameUtils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -11,11 +11,10 @@ import java.util.*;
  */
 public class LogReader extends TestLogIO {
 
-    // TODO: Make this a parameter of some sort
     /**
      * The number of files of logs to be read
      */
-    private static final int RUNNING_AVERAGE = 15;
+    private static int RUNNING_AVERAGE = 15;
 
     /**
      * Returns a map of the last @RUNNING_AVERAGE test runs and the stats of the same
@@ -47,7 +46,7 @@ public class LogReader extends TestLogIO {
      * @return  a map of @RUNNING_AVERAGE files with test data
      */
     private static Map<String, File> getFileMap() {
-        File directory = new File(FileNameUtils.getDirectoryName());
+        File directory = new File(BayesFileNameUtils.getDirectoryName());
         File[] fileArray = directory.listFiles();
 
         Map<String, File> fileMap = new TreeMap<>(Collections.reverseOrder());

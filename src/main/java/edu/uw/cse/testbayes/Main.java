@@ -1,63 +1,135 @@
 package edu.uw.cse.testbayes;
 
-import edu.uw.cse.testbayes.runner.MethodInvocation;
 import edu.uw.cse.testbayes.utils.LoggerUtils;
-import org.junit.runners.Suite;
+import edu.uw.cse.testbayes.utils.VariableUtils;
+import org.apache.commons.io.FilenameUtils;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.HashMap;
-import java.util.Map;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class Main {
-    public static void main(String[] args) throws InvocationTargetException, IllegalAccessException,
-                                                  ClassNotFoundException, NoSuchMethodException,
-                                                  InstantiationException {
-        // TODO: Make TestRunner not be hardcoded in,
-        // and instead be generic for any test suite set
-        if (args.length < 2) {
-            return;
-        }
 
-        Class<?> testRunner = Class.forName(args[1]);
+    private static String directoryName = "src/main";
 
-        // save our test methods
-        Map<String, MethodInvocation> testMethods= new HashMap<>();
-
-        // get the suite class containing all test classes
-        Suite.SuiteClasses suiteClassesAnnotation =
-                testRunner.getAnnotation(Suite.SuiteClasses.class);
-
-        // ensure the class is annotated
-        if (suiteClassesAnnotation == null) {
-            throw new NullPointerException("This class isn't annotated with @SuiteClasses");
-        }
-        Class<?>[] classesInSuite = suiteClassesAnnotation.value();
-
-        // save each method
-        for (int i = 0; i < classesInSuite.length; i++) {
-            Method[] methods = classesInSuite[i].getDeclaredMethods();
-            // get the name of the ith class
-            String[] temp = classesInSuite[i].toString().split(" ");
-            String className = temp[temp.length - 1];
-            for (int j = 0; j < methods.length; j++) {
-                Class c = Class.forName(className);
-                Object o = c.getDeclaredConstructor().newInstance();
-
-                testMethods.put(methods[j].getName(), new MethodInvocation(methods[j], o));
-            }
-        }
-
-        // run our test methods
-        for (String s: testMethods.keySet()) {
-            try {
-                testMethods.get(s).invoke();
-            } catch (InvocationTargetException e) {
-                LoggerUtils.error("\tTest " + testMethods.get(s).method.toString() + " failed");
-            } finally {
-                LoggerUtils.info("\tTest " + testMethods.get(s).method.toString() + " succeeded");
-            }
-        }
-
+    public static void main(String[] args) throws ClassNotFoundException {
+//        initialize(args);
+        File directory = getDirectory();
+        List<File> files = getFiles();
+        runTests(files);
     }
+
+    private static void runTests(List<File> files) throws ClassNotFoundException {
+        Set<Class<?>> testRunners = new HashSet<>();
+        for(File file : files) {
+            Class<?> testRunner = Class.forName(file.getName().split("[.]")[0] + ".class");
+            testRunners.add(testRunner);
+        }
+    }
+
+    /**
+     * Finds all the files in the directory and subdirectories
+     *
+     * @return List of File objects for each file in the directory and subdirectories
+     */
+    private static List<File> getFiles() {
+        List<File> files = new ArrayList<>();
+        listFiles(directoryName, files);
+        System.out.println(files);
+        return files;
+    }
+
+    /**
+     * Finds all the files in the directory and subdirectories. Provided List of File objects is edited to include files
+     * fount
+     *
+     * @param directoryName Name of the directory
+     * @param files List which will include all files in the directories and subdirectories
+     */
+    private static void listFiles(String directoryName, List<File> files) {
+        File directory = new File(directoryName);
+
+        // get all the files from a directory
+        File[] fList = directory.listFiles();
+        for (File file : fList) {
+            if (file.isFile() && FilenameUtils.getExtension(file.getAbsolutePath()).equalsIgnoreCase("java")) {
+                files.add(file);
+            } else if (file.isDirectory()) {
+                listFiles(file.getAbsolutePath(), files);
+            }
+        }
+    }
+
+    /**
+     * Gets the directory's File Object
+     *
+     * @return File object representing the directory
+     */
+    private static File getDirectory() {
+        File file = new File(directoryName);
+        if(file.isDirectory()) {
+            return file;
+        }
+        throw new IllegalArgumentException("Provided filepath does not lead to a directory");
+    }
+
+    /**
+     * Reads the provided arguments, sets the directory name, running average and epsilon value. Exists in case the
+     * arguments are not provided as expected
+     *
+     * @param args Java arguments provided by the user. Expected to be of the format: [directory, running-average,
+     *             epsilon]
+     */
+    public static void initialize(String[] args) {
+        if(args.length < 3) {
+            printUsage();
+            System.exit(1);
+        }
+        directoryName = args[0];
+        int runningAverage = 0;
+        double epsilon = 0.;
+        try {
+            runningAverage = Integer.parseInt(args[1]);
+        }
+        catch(NumberFormatException e) {
+            printError(args[1] + " cannot be read as an integer value");
+        }
+        try {
+            epsilon = Double.parseDouble(args[2]);
+        }
+        catch(NumberFormatException e) {
+            printError(args[2] + " cannot be read as an double value");
+        }
+        if(runningAverage > 0) {
+            VariableUtils.RUNNING_AVERAGE = runningAverage;
+        }
+        if(Double.compare(epsilon, 0) > 0) {
+            VariableUtils.EPSILON = epsilon;
+        }
+    }
+
+    /**
+     * Prints the usage for the given file onto the Log. Exits once the usage is printed
+     */
+    private static void printUsage() {
+        LoggerUtils.info("usage: java -jar testbayes.jar test-directory running-average epsilon");
+        LoggerUtils.info("\ttest-directory: path to directory with the tests");
+        LoggerUtils.info("\trunning-average: running average to be used to reorder the tests");
+        LoggerUtils.info("\tepsilon: epsilon value to be used when comparing probabilities");
+        System.exit(1);
+    }
+
+    /**
+     * Prints the provided error onto the Log. Exits once the error is printed.
+     *
+     * @param error Error text to be printed
+     */
+    private static void printError(String error) {
+        LoggerUtils.error(error);
+        System.exit(1);
+    }
+
+
 }

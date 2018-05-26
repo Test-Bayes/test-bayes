@@ -5,7 +5,7 @@ import java.io.File;
 /**
  * Provides static methods for file and directory names
  */
-public class FileNameUtils {
+public class BayesFileNameUtils {
 
     /**
      * Generates the name of the log file
