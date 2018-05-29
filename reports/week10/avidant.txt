@@ -1,0 +1,12 @@
+Last Weeks Goals:
+- Make changes to the Project Report to take in all feedback provided
+- Start working on slides for final presentation
+- Help convert the code into a plugin
+
+Current Progress:
+- No longer make it a plugin
+- Started analysis on the tool
+
+Goals for the week:
+- Keep working on final presentation slides
+- Keep working on evaluation
