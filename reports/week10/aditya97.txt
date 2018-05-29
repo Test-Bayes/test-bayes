@@ -1,0 +1,16 @@
+Section 1 - This week's Goals
+
+For this week, my goals were as follows:
+
+    -   Change our application from a Maven Dependency to a Maven Plugin.
+
+Section 2 - This week's progress
+
+    -   This week, I extensively worked on turning our project into a Maven Plugin. We, as a team, had strongly believed that our code would
+        be best suited as a plugin but since our plugin was not able to run tests that belong to different packages, we had to drop the idea of
+        creating a Maven Plugin.
+
+Section 3 - Next Week's Goals
+
+    -   Conduct further evaluation of our tool with larger repositories.
+    -   Work on the final submissions that are due in the coming week.
