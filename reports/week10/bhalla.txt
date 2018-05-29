@@ -1,0 +1,14 @@
+Section 1 - Goals from Past Week
+- Collect evaluation results and report in a good manner.
+- Fix more issues brought up in code review.
+- Be more collabarative in our work
+
+Section 2 - This week's progress
+- Made the report much better and readable.
+- Added evaluation data.
+- Worked on the presentation.
+
+Section 3 - Next Week's Goals:
+- Make the related works part better.
+- Use the feedback to address issues.
+- Add more evaluation data.
