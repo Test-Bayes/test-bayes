@@ -1,0 +1,15 @@
+Section 1 - Goals from Past Week
+- Collect results from updated mathematical model.
+- Prepare for presentation.
+- Write the report with better language.
+
+Section 2 - This week's progress
+- Found more repositories to run code.
+- Fixed a bunch of issues brought up in code review.
+- Prepared for presentation.
+- Revised the report and user manual to read better.
+
+Section 3 - Next Week's Goals:
+- Collect evaluation results and report in a good manner.
+- Fix more issues brought up in code review.
+- Be more collabarative in our work.

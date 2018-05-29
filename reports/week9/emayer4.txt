@@ -1,0 +1,10 @@
+Last Weeks Goals:
+- Have better evaluation
+- Merge code from individual class runner, to main runner
+
+Current Progress:
+- Still integrating code, making code process cmd args properly
+
+Goals for the week:
+- Make changes to the Project Report to take in all feedback provided
+- Finish integration, and run testing on actual larger repos

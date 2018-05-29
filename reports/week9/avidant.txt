@@ -1,0 +1,12 @@
+Last Weeks Goals:
+- Have better evaluation
+- Convert the code into a dependency
+
+Current Progress:
+- Our plan required us to change paths to go back to being a plugin
+- Fixed several logical issues with file reading and analysis of the code
+
+Goals for the week:
+- Make changes to the Project Report to take in all feedback provided
+- Start working on slides for final presentation
+- Help convert the code into a plugin

@@ -1,8 +1,8 @@
 package fileio;
 
 import edu.uw.cse.testbayes.fileio.LogData;
-import org.junit.After;
 import edu.uw.cse.testbayes.fileio.LogReader;
+import edu.uw.cse.testbayes.utils.LoggerUtils;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -25,6 +25,8 @@ public class LogReaderTest {
     private static String filename2;
     private static Map<String, Double> map1;
     private static Map<String, Double> map2;
+    private static LogData logData1;
+    private static LogData logData2;
     public static Set<File> files;
 
     @BeforeClass
@@ -34,7 +36,7 @@ public class LogReaderTest {
         String data2 = "public%void%package.Class.method1(String%s)%throws%IOException,100.23 " +
                 "public%void%package.Class.method2(String%s)%throws%IOException,-100.23 ";
 
-        files = new HashSet<File>();
+        files = new HashSet<>();
 
         filename1 = "temp-file-for-test1";
         File file1 = new File(filename1);
@@ -44,9 +46,11 @@ public class LogReaderTest {
         printStream1.println(data1);
         printStream1.close();
 
-        map1 = new HashMap<String, Double>();
+        map1 = new HashMap<>();
         map1.put("method1", 100.23);
         map1.put("method2", -100.23);
+
+        logData1 = new LogData(map1, false);
 
         filename2 = "temp-file-for-test2";
         File file2 = new File(filename2);
@@ -56,10 +60,11 @@ public class LogReaderTest {
         printStream2.println(data2);
         printStream2.close();
 
-        map2 = new HashMap<String, Double>();
+        map2 = new HashMap<>();
         map2.put("public void package.Class.method1(String s) throws IOException", 100.23);
         map2.put("public void package.Class.method2(String s) throws IOException", -100.23);
 
+        logData2 = new LogData(map2, false);
     }
 
     /**
@@ -69,28 +74,35 @@ public class LogReaderTest {
     @Test
     public void readFileWithoutSpaces() throws FileNotFoundException {
         LogData result = LogReader.readFile(new File(filename1));
+        assertEquals(logData1, result);
+        assertEquals(logData1.hashCode(), result.hashCode());
         assertEquals(map1, result.getData());
         assertFalse(result.isComplete());
     }
 
     /**
      * Tests that a file where the method name has spaces is read correctly
-     * @throws FileNotFoundException
+     * @throws FileNotFoundException if the File is not found
      */
     @Test
     public void readFileWithSpaces() throws FileNotFoundException {
         LogData result = LogReader.readFile(new File(filename2));
+        assertEquals(logData2, result);
+        assertEquals(logData2.hashCode(), result.hashCode());
         assertFalse(result.isComplete());
         assertEquals(map2, result.getData());
     }
 
     /**
      * Tests that an empty String is read correctly
-     * @throws FileNotFoundException
+     * @throws FileNotFoundException if the File is not found
      */
     @Test
-    public void readEmptyString() throws FileNotFoundException {
-        assertEquals(LogReader.readString(""), new LogData());
+    public void readEmptyString() {
+        LogData result = LogReader.readString("");
+        LogData expected = new LogData();
+        assertEquals(expected, result);
+        assertEquals(expected.hashCode(), result.hashCode());
     }
 
     /**
@@ -98,7 +110,7 @@ public class LogReaderTest {
      */
     @Test(expected=NullPointerException.class)
     public void readNullString() {
-        System.out.println(LogReader.readString(null));
+        LogReader.readString(null);
     }
 
 
@@ -106,7 +118,7 @@ public class LogReaderTest {
     public static void cleanUp() {
         for(File file: files) {
             if (!file.delete()) {
-                System.err.println("File " + file.getAbsolutePath() + " not deleted");
+                LoggerUtils.error("File " + file.getAbsolutePath() + " not deleted");
             }
         }
     }
