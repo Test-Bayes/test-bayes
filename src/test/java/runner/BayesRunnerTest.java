@@ -1,6 +1,5 @@
 package runner;
 
-import edu.uw.cse.testbayes.fileio.LogWriter;
 import edu.uw.cse.testbayes.runner.TestBayesIndividualClassRunner;
 import edu.uw.cse.testbayes.utils.FileNameUtils;
 import edu.uw.cse.testbayes.utils.LoggerUtils;
@@ -70,7 +69,6 @@ public class BayesRunnerTest {
      */
     @Test
     public void testLogsExist() throws InterruptedException {
-        LogWriter.forceNewFile();
         long before = new Timestamp(System.currentTimeMillis()).getTime();
         LoggerUtils.info("Time before: " + before);
         JUnitCore junit = new JUnitCore();
@@ -122,7 +120,7 @@ public class BayesRunnerTest {
         File directory = new File(FileNameUtils.getDirectoryName());
         File[] fileArray = directory.listFiles();
 
-        Map<String, File> fileMap = new TreeMap<String, File>(Collections.reverseOrder());
+        Map<String, File> fileMap = new TreeMap<>(Collections.reverseOrder());
         if (fileArray == null) {
             return null;
         }
@@ -133,6 +131,7 @@ public class BayesRunnerTest {
         }
 
         for(String filename : fileMap.keySet()) {
+            System.out.println(filename);
             return fileMap.get(filename);
         }
         return null;

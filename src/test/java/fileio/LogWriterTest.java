@@ -8,10 +8,11 @@ import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.*;
+import java.util.HashSet;
+import java.util.Scanner;
+import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
 
 public class LogWriterTest {
 
@@ -32,8 +33,8 @@ public class LogWriterTest {
      */
     @Test
     public void testIndividualTestWriter() throws IOException, InterruptedException {
-        LogWriter.forceNewFile();
-        String filename = LogWriter.write(testname, duration);
+        LogWriter logWriter = new LogWriter("test");
+        String filename = logWriter.write(testname, duration);
         File file = new File(filename);
         files.add(file);
         Scanner scanner = new Scanner(file);
@@ -48,9 +49,9 @@ public class LogWriterTest {
      */
     @Test
     public void testIndividualTestWriterMultiple() throws IOException, InterruptedException {
-        LogWriter.forceNewFile();
-        String filename = LogWriter.write(testname, duration);
-        filename = LogWriter.write(testname, duration);
+        LogWriter logWriter = new LogWriter("test");
+        String filename = logWriter.write(testname, duration);
+        filename = logWriter.write(testname, duration);
         File file = new File(filename);
         files.add(file);
         Scanner scanner = new Scanner(file);

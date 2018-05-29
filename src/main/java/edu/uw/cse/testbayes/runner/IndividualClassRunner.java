@@ -1,5 +1,6 @@
 package edu.uw.cse.testbayes.runner;
 
+import edu.uw.cse.testbayes.fileio.LogReader;
 import edu.uw.cse.testbayes.fileio.LogWriter;
 import edu.uw.cse.testbayes.utils.LoggerUtils;
 import org.junit.*;
@@ -27,6 +28,8 @@ abstract public class IndividualClassRunner extends BlockJUnit4ClassRunner {
     protected int testsRun;
     protected Instant startTime;
     protected boolean firstFailFound;
+    protected LogWriter logWriter;
+    protected LogReader logReader;
 
     /**
      * Constructs an individual class runner over the methods in klass
@@ -36,6 +39,8 @@ abstract public class IndividualClassRunner extends BlockJUnit4ClassRunner {
      */
     public IndividualClassRunner(Class<?> klass) throws InitializationError {
         super(klass);
+        logWriter = new LogWriter(klass.getName());
+        logReader = new LogReader(klass.getName());
     }
 
     /**
@@ -149,7 +154,7 @@ abstract public class IndividualClassRunner extends BlockJUnit4ClassRunner {
                 LoggerUtils.info("Time taken until first failure: " + Duration.between(Instant.now(), startTime));
             }
             try {
-                LogWriter.write(method.toString(), (double)(passed ? Math.max(time, 0.1) : Math.min(-time, -0.1)));
+                logWriter.write(method.toString(), (double)(passed ? Math.max(time, 0.1) : Math.min(-time, -0.1)));
             } catch (IOException e) {
                 LoggerUtils.error(e);
                 e.printStackTrace();
