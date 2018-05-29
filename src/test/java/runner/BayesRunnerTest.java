@@ -2,7 +2,7 @@ package runner;
 
 import edu.uw.cse.testbayes.fileio.LogWriter;
 import edu.uw.cse.testbayes.runner.TestBayesIndividualClassRunner;
-import edu.uw.cse.testbayes.utils.FileNameUtils;
+import edu.uw.cse.testbayes.utils.BayesFileNameUtils;
 import edu.uw.cse.testbayes.utils.LoggerUtils;
 import org.junit.Test;
 import org.junit.runner.JUnitCore;
@@ -119,7 +119,7 @@ public class BayesRunnerTest {
      */
     public File getMostRecentLog() {
 
-        File directory = new File(FileNameUtils.getDirectoryName());
+        File directory = new File(BayesFileNameUtils.getDirectoryName());
         File[] fileArray = directory.listFiles();
 
         Map<String, File> fileMap = new TreeMap<String, File>(Collections.reverseOrder());

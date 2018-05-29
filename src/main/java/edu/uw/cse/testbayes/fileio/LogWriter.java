@@ -1,6 +1,6 @@
 package edu.uw.cse.testbayes.fileio;
 
-import edu.uw.cse.testbayes.utils.FileNameUtils;
+import edu.uw.cse.testbayes.utils.BayesFileNameUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -37,13 +37,13 @@ public class LogWriter extends TestLogIO {
      * @throws IOException if an I/O error occurs when creating the file
      */
     private static File getFile() throws IOException {
-        String directoryName = FileNameUtils.getDirectoryName();
+        String directoryName = BayesFileNameUtils.getDirectoryName();
         File directory = new File(directoryName);
         if(!directory.exists()) {
             directory.mkdir();
         }
         if(filename == null) {
-            filename = FileNameUtils.createFileName();
+            filename = BayesFileNameUtils.createFileName();
         }
         File file = new File(filename);
         file.createNewFile();
