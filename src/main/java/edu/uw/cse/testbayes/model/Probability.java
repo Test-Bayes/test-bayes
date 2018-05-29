@@ -173,8 +173,8 @@ public class Probability implements Comparable<Probability> {
 
     /**
      * Returns the String representation of the Probability in Simplest Form in the following format:
-     * "Probability{numerator=<num>, denominator=<denom>}"
-     *      , where gcd(<num>, <denom>) == 1
+     * "Probability{numerator=_num_, denominator=_denom_}"
+     *      , where gcd(_num_, _denom_) == 1
      *
      * If the current Probability is 2 / 4, the String returned would be:
      * "Probability{numerator=1, denominator=2}"
