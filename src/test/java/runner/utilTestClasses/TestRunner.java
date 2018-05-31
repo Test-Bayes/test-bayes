@@ -1,12 +1,12 @@
 package runner.utilTestClasses;
 
-import edu.uw.cse.testbayes.runner.IndividualClassRunner;
+import edu.uw.cse.testbayes.runner.TestBayesIndividualClassRunner;
 import org.junit.Ignore;
 import org.junit.runner.RunWith;
-import org.junit.runners.*;
+import org.junit.runners.Suite;
 
 @Ignore
-@RunWith(IndividualClassRunner.class)
+@RunWith(TestBayesIndividualClassRunner.class)
 @Suite.SuiteClasses({
     Test1.class,
     Test2.class,

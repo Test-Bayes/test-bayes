@@ -12,7 +12,6 @@ public class MethodInvocation {
         this.constructor = constructor;
     }
 
-
     public void invoke() throws InvocationTargetException,
                                 IllegalAccessException {
         this.method.invoke(this.constructor);

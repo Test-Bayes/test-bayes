@@ -1,8 +1,9 @@
 package runner;
 
 import edu.uw.cse.testbayes.fileio.LogWriter;
-import edu.uw.cse.testbayes.runner.IndividualClassRunner;
+import edu.uw.cse.testbayes.runner.TestBayesIndividualClassRunner;
 import edu.uw.cse.testbayes.utils.FileNameUtils;
+import edu.uw.cse.testbayes.utils.LoggerUtils;
 import org.junit.Test;
 import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;
@@ -17,10 +18,9 @@ import java.util.*;
 import static org.junit.Assert.assertTrue;
 
 /**
- * Authors: Steven Austin, Ethan Mayer
- * This class tests the individual class runner
+ * This class tests the Test Bayes individual class runner
  */
-public class IndividualRunnerTest {
+public class BayesRunnerTest {
 
     /**
      * Verify that individual class runner throws an exception for null class
@@ -28,7 +28,7 @@ public class IndividualRunnerTest {
      */
     @Test(expected = NullPointerException.class)
     public void testConstructorThrowsNull() throws InitializationError {
-        IndividualClassRunner r = new IndividualClassRunner(null);
+        TestBayesIndividualClassRunner r = new TestBayesIndividualClassRunner(null);
     }
 
     /**
@@ -37,7 +37,7 @@ public class IndividualRunnerTest {
      */
     @Test(expected = InitializationError.class)
     public void testConstructorThrowsBadClass() throws InitializationError {
-        IndividualClassRunner r = new IndividualClassRunner(IndividualClassRunner.class);
+        TestBayesIndividualClassRunner r = new TestBayesIndividualClassRunner(TestBayesIndividualClassRunner.class);
     }
 
     /**
@@ -46,7 +46,7 @@ public class IndividualRunnerTest {
      */
     @Test
     public void testConstructorValid() throws InitializationError {
-        IndividualClassRunner r = new IndividualClassRunner(Test1.class);
+        TestBayesIndividualClassRunner r = new TestBayesIndividualClassRunner(Test1.class);
     }
 
     /**
@@ -56,7 +56,7 @@ public class IndividualRunnerTest {
     public void testShuffle() {
         Method[] ms = this.getClass().getDeclaredMethods();
         while (true) {
-            ArrayList<Method> shuffleMs = IndividualClassRunner.shuffle(ms);
+            ArrayList<Method> shuffleMs = TestBayesIndividualClassRunner.shuffle(ms);
             for (int i = 0; i < ms.length; i++) {
                 if (!ms[i].equals(shuffleMs.get(i))) {
                     return;  // Found good shuffle
@@ -72,17 +72,17 @@ public class IndividualRunnerTest {
     public void testLogsExist() throws InterruptedException {
         LogWriter.forceNewFile();
         long before = new Timestamp(System.currentTimeMillis()).getTime();
-        System.out.println("Time before: " + before);
+        LoggerUtils.info("Time before: " + before);
         JUnitCore junit = new JUnitCore();
         System.setProperty("A1_FAIL_FOR_TEST", "true");
         junit.run(Test1.class);
         long after = new Timestamp(System.currentTimeMillis()).getTime();
-        System.out.println("Time after: " + after);
+        LoggerUtils.info("Time after: " + after);
 
         File mostRecent = getMostRecentLog();
         String name = mostRecent.getName();
         long fileTimestamp = Long.parseLong(name.split("-")[0]);
-        System.out.println((fileTimestamp - before) + ", " + (after - fileTimestamp));
+        LoggerUtils.info((fileTimestamp - before) + ", " + (after - fileTimestamp));
         assertTrue(before <= fileTimestamp && fileTimestamp <= after);
     }
 
@@ -98,6 +98,7 @@ public class IndividualRunnerTest {
         try {
             s = new Scanner(getMostRecentLog());
         } catch (Exception e) {
+            s.close();
             e.printStackTrace();
             assert(false);
         }
@@ -109,6 +110,7 @@ public class IndividualRunnerTest {
                 assert (Double.parseDouble(results[1]) < 0.0) ? true : false;
             }
         }
+        s.close();
     }
 
     /**

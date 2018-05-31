@@ -21,7 +21,7 @@ public class LogReader extends TestLogIO {
      * Returns a map of the last @RUNNING_AVERAGE test runs and the stats of the same
      *
      * @return  a map with the details of the last @RUNNING_AVERAGE test runs and the stats of the same
-     * @throws FileNotFoundException
+     * @throws FileNotFoundException if a file is not found
      */
     public static Map<String, Map<String, Double>> read() throws FileNotFoundException {
         Map<String, File> fileMap = getFileMap();
@@ -59,7 +59,7 @@ public class LogReader extends TestLogIO {
             }
         } else {
             if (!directory.mkdir()) {
-                System.err.println("Could not create log-data directory");
+                throw new IllegalStateException("Could not create log-data directory");
             }
         }
         return fileMap;
@@ -70,7 +70,7 @@ public class LogReader extends TestLogIO {
      *
      * @param file  A file with test data
      * @return  A map with data of the test run associated with the file provided
-     * @throws FileNotFoundException
+     * @throws FileNotFoundException if file is not found
      */
     public static LogData readFile(File file) throws FileNotFoundException {
         String fileData = readRawLogFile(file);
@@ -109,7 +109,7 @@ public class LogReader extends TestLogIO {
      *
      * @param filename String representing the filename
      * @return String with the raw logs
-     * @throws FileNotFoundException
+     * @throws FileNotFoundException if file is not found
      */
     public static String readRawLogFile(String filename) throws FileNotFoundException {
         return readRawLogFile(new File(filename));
@@ -120,7 +120,7 @@ public class LogReader extends TestLogIO {
      *
      * @param file File object representing the file
      * @return String with the raw logs
-     * @throws FileNotFoundException
+     * @throws FileNotFoundException if file is not found
      */
     public static String readRawLogFile(File file) throws FileNotFoundException {
         Scanner scanner = new Scanner(file);
