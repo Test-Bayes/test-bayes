@@ -23,7 +23,7 @@ public class RandomIndividualClassRunner extends IndividualClassRunner {
         this.testObject = null;
         this.testsRun = 0;
         this.startTime = null;
-        this.firstFailFound = true;
+        this.firstFailFound = false;
         try {
             this.testObject = testClass.newInstance();
         } catch (IllegalAccessException e) {
