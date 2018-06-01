@@ -9,6 +9,7 @@ public class FileNameUtils {
 
     /**
      * Generates the name of the log file
+     *
      * @return String with the name of the log file
      */
     public static String createFileName() {
@@ -19,6 +20,7 @@ public class FileNameUtils {
 
     /**
      * Gets the name of the directory in which log files are stored
+     *
      * @return String with the name of the directory
      */
     public static String getDirectoryName() {
