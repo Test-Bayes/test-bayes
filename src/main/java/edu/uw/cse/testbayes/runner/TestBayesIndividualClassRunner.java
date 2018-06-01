@@ -3,7 +3,7 @@ package edu.uw.cse.testbayes.runner;
 import edu.uw.cse.testbayes.fileio.LogReader;
 import edu.uw.cse.testbayes.fileio.LogWriter;
 import edu.uw.cse.testbayes.model.Bayes;
-import edu.uw.cse.testbayes.utils.LoggerUtils;
+import org.apache.log4j.Logger;
 import org.junit.runner.Description;
 import org.junit.runner.notification.RunNotifier;
 import org.junit.runners.model.InitializationError;
@@ -22,6 +22,8 @@ import static java.lang.System.exit;
  */
 public class TestBayesIndividualClassRunner extends IndividualClassRunner {
 
+    final static Logger LOGGER = Logger.getLogger(TestBayesIndividualClassRunner.class);
+
     /**
      * Constructs an individual class runner over the methods in klass
      *
@@ -30,6 +32,7 @@ public class TestBayesIndividualClassRunner extends IndividualClassRunner {
      */
     public TestBayesIndividualClassRunner(Class<?> klass) throws InitializationError {
         super(klass);
+
         this.testClass = klass;
         this.ignore = true;
         this.testObject = null;
@@ -75,7 +78,7 @@ public class TestBayesIndividualClassRunner extends IndividualClassRunner {
      */
     @Override
     public void run(RunNotifier notifier) {
-        LoggerUtils.info("running the tests from MyRunner: " + testClass);
+        LOGGER.info("running the tests from MyRunner: " + testClass);
         // Get the past map
         Map<String, Map<String, Double>> oldRuns = null;
         try {

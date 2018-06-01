@@ -1,7 +1,6 @@
 package runner.utilTestClasses;
 
 import edu.uw.cse.testbayes.runner.TestBayesIndividualClassRunner;
-import edu.uw.cse.testbayes.utils.LoggerUtils;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,7 +16,7 @@ public class Test1 {
     @Test
     public void a1() throws InterruptedException {
         wasteTime();
-        LoggerUtils.info(a1Fail);
+        System.out.println(a1Fail);
         if (a1Fail) {
             System.getProperties().remove("A1_FAIL_FOR_TEST");
             assert (false);

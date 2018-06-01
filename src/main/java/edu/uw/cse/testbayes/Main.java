@@ -1,7 +1,7 @@
 package edu.uw.cse.testbayes;
 
 import edu.uw.cse.testbayes.runner.MethodInvocation;
-import edu.uw.cse.testbayes.utils.LoggerUtils;
+import org.apache.log4j.Logger;
 import org.junit.runners.Suite;
 
 import java.lang.reflect.InvocationTargetException;
@@ -10,6 +10,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Main {
+
+    final static Logger LOGGER = Logger.getLogger(Main.class);
+
     public static void main(String[] args) throws InvocationTargetException, IllegalAccessException,
                                                   ClassNotFoundException, NoSuchMethodException,
                                                   InstantiationException {
@@ -53,9 +56,9 @@ public class Main {
             try {
                 testMethods.get(s).invoke();
             } catch (InvocationTargetException e) {
-                LoggerUtils.error("\tTest " + testMethods.get(s).method.toString() + " failed");
+                LOGGER.error("\tTest " + testMethods.get(s).method.toString() + " failed");
             } finally {
-                LoggerUtils.info("\tTest " + testMethods.get(s).method.toString() + " succeeded");
+                LOGGER.info("\tTest " + testMethods.get(s).method.toString() + " succeeded");
             }
         }
 
