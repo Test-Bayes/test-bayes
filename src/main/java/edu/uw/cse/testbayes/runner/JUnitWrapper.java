@@ -11,12 +11,12 @@ import java.util.*;
 
 
 /**
- * This class runs an individual test class in an order determined by the Bayes model by extending
+ * This class runs an individual test class in an order determined randomly by extending
  * the IndividualClassRunner
  */
-public class RandomIndividualClassRunner extends IndividualClassRunner {
+public class JUnitWrapper extends IndividualClassRunner {
 
-    public RandomIndividualClassRunner(Class<?> klass) throws InitializationError {
+    public JUnitWrapper(Class<?> klass) throws InitializationError {
         super(klass);
         this.testClass = klass;
         this.ignore = true;
@@ -44,7 +44,7 @@ public class RandomIndividualClassRunner extends IndividualClassRunner {
     public void run(RunNotifier notifier) {
         LoggerUtils.info("running the tests from MyRunner: " + testClass);
 
-        ArrayList<Method> methods = shuffle(testClass.getMethods());
+        ArrayList<Method> methods = new ArrayList<>(Arrays.asList(testClass.getMethods()));
         ArrayList<Method> befores = new ArrayList<>();
         ArrayList<Method> afters = new ArrayList<>();
         ArrayList<Method> beforeClasses = new ArrayList<>();
