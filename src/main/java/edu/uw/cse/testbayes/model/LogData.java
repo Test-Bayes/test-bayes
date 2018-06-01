@@ -1,4 +1,4 @@
-package edu.uw.cse.testbayes.fileio;
+package edu.uw.cse.testbayes.model;
 
 import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
