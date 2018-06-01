@@ -76,6 +76,7 @@ public class Bayes {
 
     /**
      * Returns the probability of s2 passing given s1 passed
+     *
      * @param s1 The name of the test that already passed
      * @param s2 The name of the test whose probability of passing you need to know based on previous tests
      * @return probability s2 passes given s1 passed
@@ -126,6 +127,7 @@ public class Bayes {
 
     /**
      * Uses the execution map provided to produce Conditional probability that a test will pass based on other tests passing
+     *
      * @param testExecs A map with all test execution details
      * @param pass A boolean to see which map we are computing
      * @return A map with the probability of each test passing conditioned on other tests
