@@ -97,7 +97,6 @@ abstract public class IndividualClassRunner extends BlockJUnit4ClassRunner {
         }
     }
 
-    // TODO: Add this documentation
     /**
      *
      * @param notifier Used to notify JUnit of progress running tests
