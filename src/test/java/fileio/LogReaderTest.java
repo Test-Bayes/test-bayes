@@ -69,7 +69,7 @@ public class LogReaderTest {
 
     /**
      * Tests that a file where the method names do not have any spaces is read correctly
-     * @throws FileNotFoundException
+     * @throws FileNotFoundException This exception is thrown when no file with that name exists.
      */
     @Test
     public void readFileWithoutSpaces() throws FileNotFoundException {
