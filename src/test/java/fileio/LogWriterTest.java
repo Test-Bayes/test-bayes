@@ -1,7 +1,6 @@
 package fileio;
 
 import edu.uw.cse.testbayes.fileio.LogWriter;
-import edu.uw.cse.testbayes.utils.LoggerUtils;
 import org.junit.After;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -64,7 +63,7 @@ public class LogWriterTest {
     public void cleanUp() {
         for(File file: files) {
             if (!file.delete()) {
-                LoggerUtils.error("File " + file.getAbsolutePath() + " not deleted");
+                System.err.println("File " + file.getAbsolutePath() + " not deleted");
             }
         }
     }
