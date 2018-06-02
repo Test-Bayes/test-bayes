@@ -16,6 +16,7 @@ public class RandomRunnerTest {
 
     /**
      * Verify that individual class runner throws an exception for null class
+     *
      * @throws InitializationError indicates runner class is null
      */
     @Test(expected = NullPointerException.class)
@@ -25,6 +26,7 @@ public class RandomRunnerTest {
 
     /**
      * verify that only test classes will be run
+     *
      * @throws InitializationError indicates invalid test class
      */
     @Test(expected = InitializationError.class)
@@ -34,6 +36,7 @@ public class RandomRunnerTest {
 
     /**
      * verify a proper constructor call to individual class runner
+     *
      * @throws InitializationError indicates invalid test class
      */
     @Test

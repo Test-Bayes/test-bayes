@@ -61,6 +61,7 @@ abstract public class IndividualClassRunner extends BlockJUnit4ClassRunner {
 
     /**
      * Sorts the methods in the methods list based on annotations
+     *
      * @param methods List of methods to be sorted
      * @param befores List for methods with annotation @Before
      * @param afters List for methods with annotation @After
