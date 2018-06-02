@@ -2,7 +2,7 @@ package edu.uw.cse.testbayes.runner;
 
 import edu.uw.cse.testbayes.fileio.LogReader;
 import edu.uw.cse.testbayes.fileio.LogWriter;
-import edu.uw.cse.testbayes.model.Bayes;
+import edu.uw.cse.testbayes.math.Bayes;
 import org.apache.log4j.Logger;
 import org.junit.runner.Description;
 import org.junit.runner.notification.RunNotifier;
@@ -32,7 +32,6 @@ public class TestBayesIndividualClassRunner extends IndividualClassRunner {
      */
     public TestBayesIndividualClassRunner(Class<?> klass) throws InitializationError {
         super(klass);
-
         this.testClass = klass;
         this.ignore = true;
         this.testObject = null;

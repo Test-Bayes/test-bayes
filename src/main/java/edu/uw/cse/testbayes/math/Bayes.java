@@ -1,9 +1,11 @@
-package edu.uw.cse.testbayes.model;
+package edu.uw.cse.testbayes.math;
 
+import edu.uw.cse.testbayes.model.Probability;
 import org.apache.log4j.Logger;
 
 import java.lang.reflect.Method;
 import java.util.*;
+import java.lang.Math;
 
 /**
  * This class calculates and maintains the probabilities on which the reordering of tests is based.
@@ -35,6 +37,11 @@ public class Bayes {
     private Set<String> alreadyRan;
 
     /**
+     * Map to store test run data
+     */
+    private Map<String, Map<String, Double>> testExecs;
+
+    /**
      * Numerator Parameter
      */
     private static final int NUMERATOR = 1;
@@ -43,6 +50,12 @@ public class Bayes {
      * Denominator Parameter
      */
     private static final int DENOMINATOR = 2;
+
+    /**
+     * Epsilon Parameter
+     */
+    private static final double EPSILON = System.getProperty("eps") == null ?
+            0.01 : Integer.valueOf(System.getProperty("eps"));
 
     /**
      * Builds the Bayes used to compute the next test to be run
@@ -56,6 +69,7 @@ public class Bayes {
         this.passConds = buildCond(testExecs, true);
         this.failConds = buildCond(testExecs, false);
         this.alreadyRan = new HashSet<>();
+        this.testExecs = new HashMap<>(testExecs);
     }
 
     /**
@@ -112,7 +126,7 @@ public class Bayes {
             Map<String, Double> tests = testExecs.get(execution);
             Set<String> thisexec = tests.keySet();
             for (String test : thisexec) {
-                Double time = tests.get(test);
+                double time = tests.get(test);
                 if (!tot.containsKey(test)) {
                     tot.put(test, new Probability(NUMERATOR, DENOMINATOR));
                 }
@@ -141,8 +155,8 @@ public class Bayes {
             Set<String> thisexec = tests.keySet();
             for (String test1 : thisexec) {
                 for (String test2 : thisexec) {
-                    Double time1 = tests.get(test1);
-                    Double time2 = tests.get(test2);
+                    double time1 = tests.get(test1);
+                    double time2 = tests.get(test2);
                     if (!cond.containsKey(test1)) {
                         cond.put(test1, new HashMap<>());
                     }
@@ -179,15 +193,7 @@ public class Bayes {
             Map<String, Probability> cond = passConds.get(s);
             Set<String> tests = cond.keySet();
             Probability min = new Probability(1, 1);
-            String minTest = "";
-            for (String test : tests) {
-                if(!alreadyRan.contains(test) && !ignores.contains(test)) {
-                    if (cond.get(test).compareTo(min) < 0) {
-                        min = cond.get(test);
-                        minTest = test;
-                    }
-                }
-            }
+            String minTest = manageTests(tests, min, cond, ignores);
             if (minTest.equals("")) {
                 LOGGER.warn("Bad test");
             }
@@ -196,16 +202,38 @@ public class Bayes {
             Map<String, Probability> cond = failConds.get(s);
             Set<String> tests = cond.keySet();
             Probability min = new Probability(1, 1);
-            String minTest = "";
-            for (String test : tests) {
-                if(!alreadyRan.contains(test) && !ignores.contains(test)) {
+            return manageTests(tests, min, cond, ignores);
+        }
+    }
+
+    private String manageTests(Set<String> tests, Probability min, Map<String, Probability> cond, Set<String> ignores) {
+        String minTest = "";
+        for (String test : tests) {
+            if(!alreadyRan.contains(test) && !ignores.contains(test)) {
+                if((cond.get(test).compareTo(min) < EPSILON && cond.get(test).compareTo(min) > 0) || (cond.get(test).compareTo(min) > EPSILON && cond.get(test).compareTo(min) <0)){
+                    double total_timemin = 0.0;
+                    double total_timetest = 0.0;
+                    for(String key : testExecs.keySet()){
+                        Map<String, Double> exec = testExecs.get(key);
+                        if(exec.get(test) != null){
+                            total_timetest += Math.abs(exec.get(test));
+                        }
+                        if(exec.get(min) != null){
+                            total_timemin += Math.abs(exec.get(min));
+                        }
+                    }
+                    if(total_timetest < total_timemin){
+                        minTest = test;
+                        min = cond.get(test);
+                    }
+                } else {
                     if (cond.get(test).compareTo(min) < 0) {
                         min = cond.get(test);
                         minTest = test;
                     }
                 }
             }
-            return minTest;
         }
+        return minTest;
     }
 }

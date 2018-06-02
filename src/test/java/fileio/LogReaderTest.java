@@ -1,6 +1,6 @@
 package fileio;
 
-import edu.uw.cse.testbayes.fileio.LogData;
+import edu.uw.cse.testbayes.model.LogData;
 import edu.uw.cse.testbayes.fileio.LogReader;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
