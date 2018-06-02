@@ -1,6 +1,6 @@
 package edu.uw.cse.testbayes.runner;
 
-import edu.uw.cse.testbayes.utils.LoggerUtils;
+import org.apache.log4j.Logger;
 import org.junit.runner.Description;
 import org.junit.runner.notification.RunNotifier;
 import org.junit.runners.model.InitializationError;
@@ -15,6 +15,8 @@ import java.util.*;
  * the IndividualClassRunner
  */
 public class JUnitWrapper extends IndividualClassRunner {
+
+    final static Logger LOGGER = Logger.getLogger(JUnitWrapper.class);
 
     public JUnitWrapper(Class<?> klass) throws InitializationError {
         super(klass);
@@ -42,7 +44,7 @@ public class JUnitWrapper extends IndividualClassRunner {
      */
     @Override
     public void run(RunNotifier notifier) {
-        LoggerUtils.info("running the tests from MyRunner: " + testClass);
+        LOGGER.info("running the tests from MyRunner: " + testClass);
 
         ArrayList<Method> methods = new ArrayList<>(Arrays.asList(testClass.getMethods()));
         ArrayList<Method> befores = new ArrayList<>();

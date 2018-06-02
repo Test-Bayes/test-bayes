@@ -1,6 +1,7 @@
 package edu.uw.cse.testbayes.math;
+
 import edu.uw.cse.testbayes.model.Probability;
-import edu.uw.cse.testbayes.utils.LoggerUtils;
+import org.apache.log4j.Logger;
 
 import java.lang.reflect.Method;
 import java.util.*;
@@ -12,6 +13,8 @@ import java.lang.Math;
  *
  */
 public class Bayes {
+
+    final static Logger LOGGER = Logger.getLogger(Bayes.class);
 
     /**
      * Map to store total probability
@@ -192,7 +195,7 @@ public class Bayes {
             Probability min = new Probability(1, 1);
             String minTest = manageTests(tests, min, cond, ignores);
             if (minTest.equals("")) {
-                LoggerUtils.LOGGER.warn("Bad test");
+                LOGGER.warn("Bad test");
             }
             return minTest;
         } else {

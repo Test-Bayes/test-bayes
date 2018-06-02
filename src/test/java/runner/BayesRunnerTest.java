@@ -3,7 +3,6 @@ package runner;
 import edu.uw.cse.testbayes.fileio.LogWriter;
 import edu.uw.cse.testbayes.runner.TestBayesIndividualClassRunner;
 import edu.uw.cse.testbayes.utils.FileNameUtils;
-import edu.uw.cse.testbayes.utils.LoggerUtils;
 import org.junit.Test;
 import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;
@@ -72,17 +71,14 @@ public class BayesRunnerTest {
     public void testLogsExist() throws InterruptedException {
         LogWriter.forceNewFile();
         long before = new Timestamp(System.currentTimeMillis()).getTime();
-        LoggerUtils.info("Time before: " + before);
         JUnitCore junit = new JUnitCore();
         System.setProperty("A1_FAIL_FOR_TEST", "true");
         junit.run(Test1.class);
         long after = new Timestamp(System.currentTimeMillis()).getTime();
-        LoggerUtils.info("Time after: " + after);
 
         File mostRecent = getMostRecentLog();
         String name = mostRecent.getName();
         long fileTimestamp = Long.parseLong(name.split("-")[0]);
-        LoggerUtils.info((fileTimestamp - before) + ", " + (after - fileTimestamp));
         assertTrue(before <= fileTimestamp && fileTimestamp <= after);
     }
 

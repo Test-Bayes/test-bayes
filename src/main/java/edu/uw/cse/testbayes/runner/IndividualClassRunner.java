@@ -1,7 +1,7 @@
 package edu.uw.cse.testbayes.runner;
 
 import edu.uw.cse.testbayes.fileio.LogWriter;
-import edu.uw.cse.testbayes.utils.LoggerUtils;
+import org.apache.log4j.Logger;
 import org.junit.*;
 import org.junit.runner.Description;
 import org.junit.runner.notification.Failure;
@@ -20,6 +20,8 @@ import java.util.*;
  * This class is an abstract class for a Runner for an Individual Class that extends the BlockJUnit4ClassRunner
  */
 abstract public class IndividualClassRunner extends BlockJUnit4ClassRunner {
+
+    final static Logger LOGGER = Logger.getLogger(IndividualClassRunner.class);
 
     protected Class<?> testClass;
     protected boolean ignore;
@@ -139,19 +141,19 @@ abstract public class IndividualClassRunner extends BlockJUnit4ClassRunner {
         } catch (IllegalAccessException e) {
             end = Instant.now();
             passed = false;
-            LoggerUtils.error("Bad test");
+            LOGGER.error("Bad test");
             e.printStackTrace();
         } finally {
             long time = Duration.between(start, end).toMillis();
             if (!passed && !firstFailFound) {
                 firstFailFound = true;
-                LoggerUtils.info("Test taken until first failure: " + testsRun);
-                LoggerUtils.info("Time taken until first failure: " + Duration.between(Instant.now(), startTime));
+                LOGGER.info("Test taken until first failure: " + testsRun);
+                LOGGER.info("Time taken until first failure: " + Duration.between(Instant.now(), startTime));
             }
             try {
                 LogWriter.write(method.toString(), (double)(passed ? Math.max(time, 0.1) : Math.min(-time, -0.1)));
             } catch (IOException e) {
-                LoggerUtils.error(e);
+                LOGGER.error(e);
                 e.printStackTrace();
             }
         }
