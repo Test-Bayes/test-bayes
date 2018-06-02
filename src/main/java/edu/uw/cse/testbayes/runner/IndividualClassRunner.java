@@ -99,8 +99,11 @@ abstract public class IndividualClassRunner extends BlockJUnit4ClassRunner {
         }
     }
 
-    // TODO: Add this documentation
     /**
+     * This methos goes through and runs the test inputted.
+     * It notifies the user if a problem occurs and returns a boolean indicating whether the test passed.
+     * Runs the passed method, running the passed befores and afters methods,
+     * notifying the passed notifier of success or failure.
      *
      * @param notifier Used to notify JUnit of progress running tests
      * @param method The Method to be run
