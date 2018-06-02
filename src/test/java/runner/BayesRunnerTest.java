@@ -23,6 +23,7 @@ public class BayesRunnerTest {
 
     /**
      * Verify that individual class runner throws an exception for null class
+     *
      * @throws InitializationError indicates runner class is null
      */
     @Test(expected = NullPointerException.class)
@@ -32,6 +33,7 @@ public class BayesRunnerTest {
 
     /**
      * verify that only test classes will be run
+     *
      * @throws InitializationError indicates invalid test class
      */
     @Test(expected = InitializationError.class)
@@ -41,6 +43,7 @@ public class BayesRunnerTest {
 
     /**
      * verify a proper constructor call to individual class runner
+     *
      * @throws InitializationError indicates invalid test class
      */
     @Test
@@ -111,6 +114,7 @@ public class BayesRunnerTest {
 
     /**
      * Gets the most recently created log file
+     *
      * @return A file object representing the most recently created log file
      */
     public File getMostRecentLog() {

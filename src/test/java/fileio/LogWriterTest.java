@@ -27,6 +27,7 @@ public class LogWriterTest {
 
     /**
      * Tests that a single test is written correctly
+     *
      * @throws IOException in case of any IO issues
      */
     @Test
@@ -43,6 +44,7 @@ public class LogWriterTest {
 
     /**
      * Tests that tests are written correctly when multiple tests are written in sequence
+     *
      * @throws IOException in case of any IO issues
      */
     @Test

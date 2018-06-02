@@ -1,8 +1,7 @@
 # Test Bayes
 
-[![Build Status](https://travis-ci.org/Test-Bayes/test-bayes.svg?branch=master)](https://travis-ci.org/Test-Bayes/test-bayes/)
-[![Coverage Status](https://coveralls.io/repos/github/Test-Bayes/test-bayes/badge.svg?branch=master)](https://coveralls.io/github/Test-Bayes/test-bayes?branch=master)
-
+-[![Build Status](https://travis-ci.org/Test-Bayes/test-bayes.svg?branch=master)](https://travis-ci.org/Test-Bayes/test-bayes/)
+-
 ## Project Info 
 Test Bayes is an automatic test reordering tool developed in CSE 403 at the University of Washington. It is written in Java and is built using Maven. Currently under active development, it is maintained by:
  - Adavya Bhalla (@adavya)
