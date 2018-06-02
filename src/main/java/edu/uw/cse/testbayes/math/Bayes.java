@@ -211,18 +211,18 @@ public class Bayes {
         for (String test : tests) {
             if(!alreadyRan.contains(test) && !ignores.contains(test)) {
                 if((cond.get(test).compareTo(min) < EPSILON && cond.get(test).compareTo(min) > 0) || (cond.get(test).compareTo(min) > EPSILON && cond.get(test).compareTo(min) <0)){
-                    double total_timemin = 0.0;
-                    double total_timetest = 0.0;
+                    double totalTimemin = 0.0;
+                    double totalTimetest = 0.0;
                     for(String key : testExecs.keySet()){
                         Map<String, Double> exec = testExecs.get(key);
                         if(exec.get(test) != null){
-                            total_timetest += Math.abs(exec.get(test));
+                            totalTimetest += Math.abs(exec.get(test));
                         }
                         if(exec.get(min) != null){
-                            total_timemin += Math.abs(exec.get(min));
+                            totalTimemin += Math.abs(exec.get(min));
                         }
                     }
-                    if(total_timetest < total_timemin){
+                    if(totalTimetest < totalTimemin){
                         minTest = test;
                         min = cond.get(test);
                     }
