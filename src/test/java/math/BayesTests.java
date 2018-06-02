@@ -63,7 +63,7 @@ public class BayesTests {
      */
     @Test
     public void testGetProb(){
-        Map<String, Probability> total = new HashMap<String, Probability>();
+        Map<String, Probability> total = new HashMap<>();
         total.put("test1", new Probability(1,2));
         total.put("test2", new Probability(4,6));
         total.put("test3", new Probability(1,2));
