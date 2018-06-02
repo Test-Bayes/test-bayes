@@ -1,6 +1,6 @@
-package model;
+package math;
 
-import edu.uw.cse.testbayes.model.Bayes;
+import edu.uw.cse.testbayes.math.Bayes;
 import edu.uw.cse.testbayes.model.Probability;
 import org.junit.Before;
 import org.junit.Test;

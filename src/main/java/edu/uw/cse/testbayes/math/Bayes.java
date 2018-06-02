@@ -1,4 +1,5 @@
-package edu.uw.cse.testbayes.model;
+package edu.uw.cse.testbayes.math;
+import edu.uw.cse.testbayes.model.Probability;
 import edu.uw.cse.testbayes.utils.LoggerUtils;
 
 import java.lang.reflect.Method;
