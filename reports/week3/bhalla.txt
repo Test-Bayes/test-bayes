@@ -1,0 +1,19 @@
+Section 1 - Goals from Past Week
+
+(Empty)
+
+Section 2 - This week's progress
+We talked about what data we wanted to store and how we could go about storing it. We also discussed the criteria for ordering the tests.
+This week, we as a team, discussed how we would go about this project. We divided responsibilities- Me and Aditya will work on the mathematical model
+and the methods that produce probabilities using the stored data we have.
+We think that storing the data in a log file is a good idea and the following criteria should play a role in ordering the tests:The number of passes/fails, The recent history of passes/fails and The time it takes to execute a test
+
+Note that these are all under discussion and can change in the coming week.
+
+Section 3 - Next Week's Goals
+
+For next week, my goals are as follows:
+
+    -   Finalise the Mathematical Model with Aditya
+    -   Make a prototype of methods that produce probability
+    -   Collaborate with others to ensure consistency

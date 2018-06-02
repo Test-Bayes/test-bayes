@@ -1,0 +1,19 @@
+Team Name: TestBayes
+
+
+Team Weekly Report:
+
+1. Goals:
+- Find more epositories for data collection.
+- Fix issues with the runner.
+- Prepare for the final presentation.
+- Write the evaluation and goals achieved.
+
+2. Progress:
+- Significant cleanup of our team report for both readability and style; it is much more formal as well
+- Huge overhual of code style and doccumentation
+
+3. Goals for next week:
+- Finalize our report
+- Finalize our code and doccumentation
+- Finalize and deliver our presentation

@@ -1,0 +1,20 @@
+Section 1 - Goals from Past Week
+
+For this week, my goals were as follows:
+
+    -   Complete the Fraction class so that we can use it on the backend
+    -   Work with Adavya to have a basic Math Model ready
+    -   Coordinate with other team members to ensure consistency overall
+    
+   
+Section 2 - This week's progress
+
+    -   This week, I wrapped up my work on the Fraction class. Additionally, the Math Model is ready.
+
+
+Section 3 - Next Week's Goals
+
+For next week, my goals are as follows:
+
+    -   Find repositories to use for evaluation
+    -   Start the process of Evaluation

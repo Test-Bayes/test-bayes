@@ -1,0 +1,21 @@
+Team Name: TestBayes
+
+
+Team Weekly Report:
+
+1. Goals
+- Run our project on repositories with many test cases and start to gather
+  data for the performance of random ordering vs. bayes ordering - everyone
+- Continue collaborating more closely for major deliverables - everyone
+
+2. Progress we've made:
+- Found data sets to test
+- Began actual generation of data set results
+- Fixed logical errors and missed cases in our code (bug fixes)
+- Added new features to improve the mathematical model
+- Worked on reports more closely, physically together
+
+3. Goals for next week:
+- Run our project on repositories with many test cases and gather solid
+  data for the performance of random ordering vs. bayes ordering.
+- Continue collaborating more closely for major deliverables

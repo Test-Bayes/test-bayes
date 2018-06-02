@@ -1,0 +1,24 @@
+Team Name: TestBayes
+
+
+Team Weekly Report:
+
+1. Goals
+- Run our project on repositories with many test cases and gather solid
+  data for the performance of random ordering vs. bayes ordering.
+- Continue collaborating more closely for major deliverables
+
+2. Progress we've made:
+- Added more testing
+- Made changes to the mathematical model based on initial results.
+- Ruled ut overhead as a possible issue for the project.
+- Revamped the report.
+- Made changes to our presentation based on previous feedback.
+- Found more repositories to work with.
+
+3. Goals for next week:
+- Find more repositories for data collection.
+- Continue collaborating more closely for major deliverables.
+- Use new data for updates to mathematical model.
+- Update the fileIO system to deal with partially written logs.
+- Review code for assigned team.

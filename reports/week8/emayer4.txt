@@ -1,0 +1,15 @@
+Goal from last week: 
+- Finish intergration, and run some results
+
+Goal for this week:
+- Get runner code integrated into full runner, that runs
+  tests irrelevant of class
+- Get presentation made
+- Run runner on bigger data sets, from other repos than before
+
+Progress:
+- Currently still migrating code changes to full-runner
+
+Goals for next week:
+- Have lots of generated data
+

@@ -1,0 +1,13 @@
+Section 1 - Goals from Past Week
+
+- Find repositories to build the results to fit mathematical model
+- Make changes to the mathematical model
+
+Section 2 - This week's progress
+- Found more repositories to work with.
+- Made additions to mathematical code for better functionality.
+- Added more test code.
+
+Section 3 - Next Week's Goals:
+- Run algorithm for evaluation
+- Interpret the evaluation to make changes.

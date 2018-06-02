@@ -1,0 +1,18 @@
+Ethan Mayer
+
+Goals from last week: Last week we began to start creating
+a custom junit runner. I was able to create a runner
+that can invoke all tests from all test classes,
+with out caveat. A super test class with all test classes
+had to be made, and had to be hardcoded in.
+
+Goal for this week: Create a test runner that
+not only is able to find all test classes in general
+(not in hardcode), but is also able to invoke
+junit native methods, instead of the rough-draft
+way we were doing it, which was by hand.
+
+Goal for next week: Get the runner finalized,
+and integrate it into our file processor/math model.
+We will then begin testing our design, and seeing how
+it reorders tests.

@@ -1,0 +1,21 @@
+Team Name: TestBayes
+
+Team Weekly Report:
+
+1. N/A
+
+2. Progress we've made:
+- Discussed and created an overview of how the system would run. We have decided that we want to create a log file for all test runs 
+  on previous commits. From this log we will be able to extract useful information like a total probability of failing for each test,
+  a moving average over the last 20 (might change later) runs and conditional probability.
+- Discussed what data would be stored, how users would interact with the system, and what all functionality the user can control. 
+  This includes possibly creating a UI for users to clear test logs due to changes to test code and scripts to change test logs 
+  according to the users wishes.
+- One of the problems we have is how we want to store the logs. Most of us agree that it should be done in binary strings for each test
+  with a 1 signifying a pass and a 0 signifying a fail. Other options include just storing a raw probability and another was to use JSON
+  files to store variables we might use.
+
+3. Goals for next week:
+- Find out how to extend JUnit - Steven, Ethan, Aditya
+- Finalize how data will be stored - Avidant
+- Create a draft of the method used to order the tests - Adavya and Satvik
