@@ -76,6 +76,21 @@ To reorder tests, do the following:
 Using Test Bayes will result in the following:
  - A directory `log-data/` will be created in your repository with data from the test runs. This data is used in future runs to reorder your tests
  - Git commits will include files in `log-data/` to allow tests to be reordered using the data of all contributers
+ 
+## Evaluation
+| Repository name | Number of log files used | Time taken to first failure Junit(ms) | Random(ms) | TestBayes(ms) | Number of tests to first failure JUnit | Random | TestBayes |
+|-----------------|--------------------------|---------------------------------------|------------|---------------|----------------------------------------|--------|-----------|
+| Test Bayes      | 0                        | 38                                    | 7          | 30            | 4                                      | 1      | 2         |
+| Test Bayes      | 3                        | 65                                    | 38         | 17            | 12                                     | 8      | 9         |
+| Test Bayes      | 5                        | 43                                    | 32         | 21            | 8                                      | 2      | 3         |
+| Test Bayes      | 10                       | N/A All tests pass                    | N/A        | N/A           | N/A                                    | N/A    | N/A       |
+| Atomix          | 0                        | 130                                   | 549        | 576           | 2                                      | 54     | 64        |
+| Atomix          | 3                        | 130                                   | 419        | 100           | 2                                      | 43     | 1         |
+| Atomix          | 5                        | 110                                   | 630        | 100           | 2                                      | 59     | 1         |
+| Atomix          | 10                       | 128                                   | 403        | 100           | 2                                      | 40     | 1         |
+
+Link to our evaluation repository to recreate results of our evaluation- https://github.com/Test-Bayes/evals
+
 
 ## Contribute to project
  If you would like to contribute to this project, contact testbayes@googlegroups.com for permissions.
