@@ -26,27 +26,51 @@ The minimum requirements to develop Test Bayes is:
 ## Usage
 To reorder tests, do the following:
 
-1. Copy the file `test-bayes.jar` from the root of Test Bayes to the root of your project
-
-2. Add `test-bayes.jar` to your project classpath
-
-3. Create a Suite class as follows:
-
+1. Add the following dependency to your `pom.xml`
     ```
-    @RunWith(IndividualClassRunner.class)
-    @Reorder.SmartOrder({
-        Test1.class,
-        Test2.class,
-        Test3.class,
-        Test4.class
-    })
-    public class TestRunner {
-    
-    }
+    <dependency>
+        <groupId>edu.uw.cse.testbayes</groupId>
+        <artifactId>test-bayes</artifactId>
+        <version>1.0</version>
+    </dependency>
     ```
-    Add all the classes you want to reorder to the list in the `@Reorder.SmartOrder({...})` annotation replacing `Test1.class, Test2.class, Test3.class, Test4.class`
 
-4. Run your tests as you would normally
+2. Add the following plugin to your `pom.xml`
+    ```
+    <plugin>
+        <artifactId>maven-dependency-plugin</artifactId>
+        <executions>
+            <execution>
+                <phase>compile</phase>
+                <goals>
+                    <goal>copy-dependencies</goal>
+                </goals>
+                <configuration>
+                    <outputDirectory>${project.build.directory}/mylib</outputDirectory>
+                </configuration>
+            </execution>
+        </executions>
+    </plugin>
+    ```
+
+3. Add the following repository to your `pom.xml`
+    ```
+    <repository>
+        <id>ProjectRepo</id>
+        <name>ProjectRepo</name>
+        <url>file://${project.basedir}/mylibs</url>
+    </repository>
+    ```
+
+4. Run `mvn clean package` on Test Bayes
+
+5. Make directory `mylibs/edu/uw/cse/testbayes` in the root of your project.
+
+6. Copy the file `testbayes-1.0.jar` from the `target/` directory into the directory you crated in your project.
+
+7. Add the following annotation to the Test Classes you would like reordered: `@RunWith(TestBayesIndividualClassRunner.class)`
+
+8. Run your tests as you would normally
 
 ## Side Effects
 Using Test Bayes will result in the following:
