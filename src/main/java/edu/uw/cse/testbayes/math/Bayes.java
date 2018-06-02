@@ -212,7 +212,7 @@ public class Bayes {
         String minTest = "";
         for (String test : tests) {
             if(!alreadyRan.contains(test) && !ignores.contains(test)) {
-                if((cond.get(test).compareTo(min) < EPSILON && cond.get(test).compareTo(min) > 0) || (cond.get(test).compareTo(min) > EPSILON && cond.get(test).compareTo(min) <0)){
+                if((cond.get(test).compareTo(min) < EPSILON && cond.get(test).compareTo(min) > 0) || (cond.get(test).compareTo(min) > ((-1) *EPSILON) && cond.get(test).compareTo(min) <0)){
                     double totalTimemin = 0.0;
                     double totalTimetest = 0.0;
                     for(String key : testExecs.keySet()){
