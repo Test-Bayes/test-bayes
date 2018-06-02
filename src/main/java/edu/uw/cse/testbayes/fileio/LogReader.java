@@ -1,5 +1,6 @@
 package edu.uw.cse.testbayes.fileio;
 
+import edu.uw.cse.testbayes.model.LogData;
 import edu.uw.cse.testbayes.utils.FileNameUtils;
 
 import java.io.File;
