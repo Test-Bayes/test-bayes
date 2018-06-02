@@ -15,7 +15,8 @@ public class LogReader extends TestLogIO {
     /**
      * The number of files of logs to be read
      */
-    private static final int RUNNING_AVERAGE = System.getProperty("avg") == null ?
+    private static final int RUNNING_AVERAGE =
+            System.getProperty("avg") == null || Integer.valueOf(System.getProperty("avg")) <= 0 ?
                                                15 : Integer.valueOf(System.getProperty("avg"));
 
     /**
